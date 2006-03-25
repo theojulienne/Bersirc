@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<textblocks language="en_us" title="English (US)">
+<opt_cat_colour text="Color Settings" />
+<opt_gen_min_to_systray text="Minimize Bersirc to systray" />
+<menu_fav_add text="&amp;Add to Favorites..." />
+<menu_fav_manage text="&amp;Manage Favorites..." />
+</textblocks>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+<Bersirc>
+	<identities>
+		<identity name="Default" username="" realname="">
+			<nicks />
+			<favorites>
+				<directory name="Bersirc">
+					<bookmark name="Official #bersirc channel" server="irc.free2code.net" port="6667" place="#bersirc" />
+				</directory>
+			</favorites>
+		</identity>
+	</identities>
+</Bersirc>

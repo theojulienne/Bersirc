@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+<Bersirc>
+	<menu name="application" title="">
+		<menu title="lang:menu_irc">
+			<menu title="lang:menu_file_new_server_win" icon="status_window" command="/newstatus" />
+			<menu title="lang:menu_file_connect_to_srv" icon="connect_inp" command="/connectwin" />
+			<menu title="lang:menu_file_connect_to_net" icon="connect" command="/connectwin -network" />
+			<menu title="-" />
+			<menu title="lang:menu_file_disconnect_active" icon="disconnect" command="/quit" />
+			<menu title="-" />
+			<menu title="lang:menu_autoconnect" command="/autowin" />
+			<menu title="lang:menu_file_network_browser" icon="network_browser" command="/netbrowse" enabled="false" />
+			<menu title="-" />
+			<menu title="lang:menu_file_join_channel" icon="channel_window" command="/joinwin" />
+			<menu title="-" />
+			<menu title="lang:menu_file_exit" command="/exit" />
+		</menu>
+		<menu title="lang:menu_favorites" init="menu_setup_favorites">
+			<menu title="lang:menu_fav_add" command="/addfav" enabled="false" />
+			<menu title="lang:menu_fav_manage" command="/managefav" enabled="false" />
+			<menu title="-" />
+		</menu>
+		<menu title="lang:menu_tools">
+			<menu title="lang:menu_url_list" icon="url_catcher" command="/urlwin" />
+			<menu title="-" />
+			<menu title="lang:menu_profile_man" icon="profile_man" command="/profile" />
+			<menu title="-" />
+			<menu title="lang:menu_options" icon="options" command="/options" />
+		</menu>
+		<menu title="lang:menu_window">
+			<menu title="lang:menu_save_text" command="/savetext" />
+			<menu title="-" />
+			<menu title="lang:menu_tile_horiz" icon="tile_windows" command="/tile" />
+			<menu title="lang:menu_tile_vert" icon="tile_vertical" command="/tile -v" />
+			<menu title="lang:menu_cascade_windows" icon="casc_windows" command="/casc" />
+		</menu>
+		<menu title="lang:menu_help">
+			<menu title="lang:menu_help_docs" icon="help" command="/gourl http://help.bersirc.org/" />
+			<menu title="-" />
+			<menu title="lang:menu_help_visitbers" icon="website" command="/gourl http://www.bersirc.org/" />
+			<menu title="lang:menu_help_bugpost" icon="bug_report" command="/gourl http://bugs.bersirc.org/" />
+			<menu title="-" />
+			<menu title="lang:menu_about" icon="bersirc" command="/about" />
+		</menu>
+	</menu>
+	<menu name="toolbar">
+		<menu title="lang:menu_file_connect_to_srv" icon="connect_inp" command="/connectwin" />
+		<menu title="lang:menu_file_connect_to_net" icon="connect" command="/connectwin -network" />
+		<menu title="lang:menu_file_disconnect_active" icon="disconnect" command="/quit" />
+		<menu title="-" />
+		<menu title="lang:menu_options" icon="options" command="/options" />
+		<menu title="lang:menu_profile_man" icon="profile_man" command="/profile" />
+		<menu title="-" />
+		<menu title="lang:menu_url_list" icon="url_catcher" command="/urlwin" />
+		<menu title="-" />
+		<menu title="lang:menu_tile_horiz" icon="tile_windows" command="/tile" />
+		<menu title="lang:menu_tile_vert" icon="tile_vertical" command="/tile -v" />
+		<menu title="lang:menu_cascade_windows" icon="casc_windows" command="/casc" />
+	</menu>
+	<menu name="context-status">
+		<menu title="lang:menu_file_join_channel" icon="channel_window" command="/joinwin" />
+		<menu title="lang:menu_channels" icon="channels" command="/list" />
+		<menu title="-" />
+		<menu title="lang:menu_motd" command="/motd" />
+		<menu title="lang:menu_srv_time" icon="time" command="/time" />
+		<menu title="-" />
+		<menu title="lang:menu_clear_buffer" command="/clear" />
+		<menu title="lang:menu_save_text" command="/savetext" />
+		<menu title="-" />
+		<menu title="lang:menu_quit_server" icon="quitirc" command="/quit" />
+		<menu title="-" />
+		<menu title="lang:menu_close_window" icon="closewin" command="/close" />
+	</menu>
+	<menu name="context-channel">
+		<menu title="lang:menu_chan_props" icon="channel_props" command="/channel" enabled="false" />
+		<menu title="-" />
+		<menu title="lang:menu_add_favorites" icon="add_fav" command="/addfav" enabled="false" />
+		<menu title="-" />
+		<menu title="lang:menu_clear_buffer" command="/clear" />
+		<menu title="lang:menu_save_text" command="/savetext" />
+		<menu title="-" />
+		<menu title="lang:menu_show_stats" command="/chanstats" />
+		<menu title="lang:menu_leave_rejoin" icon="cycle" command="/cycle" />
+		<menu title="-" />
+		<menu title="lang:menu_quit_server" icon="quitirc" command="/quit" />
+		<menu title="-" />
+		<menu title="lang:menu_close_window" icon="closewin" command="/close" />
+	</menu>
+	<menu name="context-query">
+		<menu title="lang:menu_clear_buffer" command="/clear" />
+		<menu title="lang:menu_save_text" command="/savetext" />
+		<menu title="-" />
+		<menu title="lang:menu_quit_server" icon="quitirc" command="/quit" />
+		<menu title="-" />
+		<menu title="lang:menu_close_window" icon="closewin" command="/close" />
+	</menu>
+	<menu name="context-systray">
+		<menu title="lang:menu_bring_to_fg" command="/comefg" />
+		<menu title="-" />
+		<menu title="lang:menu_file_exit" command="/exit" />
+	</menu>
+</Bersirc>

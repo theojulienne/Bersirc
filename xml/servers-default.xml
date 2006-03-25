@@ -1,0 +1,1154 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+<Bersirc>
+	<networklist>
+		<network name="23-net" description="">
+			<server name="irc.23-net.org" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="4-irc" description="">
+			<server name="4-irc.com" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="AbleNET" description="">
+
+			<server name="irc.ablenet.org" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="ABlinux" description="">
+			<server name="irc.ablinux.net" description="Random server" ports="6667-6669" password="" />
+		</network>
+		<network name="Accessirc" description="">
+			<server name="irc.accessirc.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="AddictIRC" description="">
+
+			<server name="irc.addictirc.net" description="Random server" ports="6666-6669,7000" password="" />
+		</network>
+		<network name="AfterNET" description="">
+			<server name="irc.afternet.org" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="AfterX" description="">
+			<server name="irc.afterx.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="AllNetwork" description="">
+
+			<server name="irc.allnetwork.org" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="AllXtremenet" description="">
+			<server name="irc.allxtremenet.net" description="Random server" ports="6660-6669" password="" />
+		</network>
+		<network name="AmCool" description="">
+			<server name="irc.amcool.net" description="Random server" ports="6660-6669,7000" password="" />
+		</network>
+		<network name="AngelEyez" description="">
+
+			<server name="irc.angeleyez.net" description="Random server" ports="6661-6669,7000" password="" />
+		</network>
+		<network name="AnimeIRCnet" description="">
+			<server name="irc.animeirc.de" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="Aniverse" description="">
+			<server name="irc.aniverse.com" description="Random server" ports="6661-6670" password="" />
+		</network>
+		<network name="Ascends" description="">
+
+			<server name="irc.ascends.net" description="Random server" ports="6666-6669,7000" password="" />
+		</network>
+		<network name="AshNet" description="">
+			<server name="irc.ashnet.org" description="Random server" ports="6660-6669,7000" password="" />
+		</network>
+		<network name="AstroLink" description="">
+			<server name="irc.astrolink.org" description="Random server" ports="6660-6667" password="" />
+		</network>
+		<network name="Asylo" description="">
+
+			<server name="irc.asylo.com" description="Random server" ports="6660-6669" password="" />
+		</network>
+		<network name="Asylumnet" description="">
+			<server name="irc.asylum-net.org" description="Random server" ports="6661-6669,7000,7777" password="" />
+		</network>
+		<network name="AthemeNet" description="">
+			<server name="irc.atheme.org" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="Aurosoniq" description="">
+			<server name="irc.aurosoniq.net" description="Random server" ports="6667-6669,7000" password="" />
+		</network>
+		<network name="AussieNet" description="">
+
+			<server name="irc.aussienet.org" description="Random server" ports="6660-6669,7000" password="" />
+		</network>
+		<network name="AustNet" description="">
+			<server name="au.austnet.org" description="Random AU server" ports="6667" password="" />
+			<server name="nz.austnet.org" description="Random NZ server" ports="6667" password="" />
+			<server name="sg.austnet.org" description="Random SG server" ports="6667" password="" />
+		</network>
+		<network name="AwesomeChat" description="">
+			<server name="irc.awesomechat.net" description="Random server" ports="6661-6670,7001" password="" />
+
+		</network>
+		<network name="Axenet" description="">
+			<server name="irc.axenet.org" description="Random server" ports="6660-6667,7000" password="" />
+		</network>
+		<network name="Azzurra" description="">
+			<server name="irc.eu.azzurra.org" description="Random server" ports="6666-6669" password="" />
+		</network>
+		<network name="Baysanal" description="">
+			<server name="irc.baysanal.net" description="Random server" ports="6667" password="" />
+
+		</network>
+		<network name="BDSMnet" description="">
+			<server name="irc.bdsm-net.com" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="Beatmix" description="">
+			<server name="chat.beatmix.net" description="Random server" ports="6660-6669" password="" />
+		</network>
+		<network name="Beer-Powered" description="">
+			<server name="irc.beer-powered.com" description="Random server" ports="6667" password="" />
+
+		</network>
+		<network name="Beyondirc" description="">
+			<server name="irc2.beyondirc.net" description="Random server" ports="6660-6669" password="" />
+		</network>
+		<network name="BigPond" description="">
+			<server name="irc.bigpond.com" description="Random server" ports="6667-6669" password="" />
+		</network>
+		<network name="BittahIRC" description="">
+			<server name="irc.bittah.com" description="Random server" ports="6667" password="" />
+
+		</network>
+		<network name="BlabberNet" description="">
+			<server name="irc.blabber.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="Blitzed" description="">
+			<server name="irc.blitzed.org" description="Random server" ports="6667,7000" password="" />
+		</network>
+		<network name="BolChat" description="">
+			<server name="irc.bolchat.org" description="Random server" ports="6667" password="" />
+
+		</network>
+		<network name="BoLSoHBeT-Tukey" description="">
+			<server name="irc.bolsohbet.com" description="BoLSoHBeT: Random server" ports="6660-6669" password="" />
+		</network>
+		<network name="bonGster" description="">
+			<server name="irc.bongster.org" description="Random server" ports="6665-6669,7000" password="" />
+		</network>
+		<network name="Brasnet" description="">
+			<server name="eu.brasnet.org" description="Random European server" ports="6665-6669" password="" />
+
+			<server name="us.brasnet.org" description="Random US server" ports="6665-6669" password="" />
+		</network>
+		<network name="Brokenirc" description="">
+			<server name="irc.brokenirc.net" description="Random server" ports="6667-6669,7000" password="" />
+		</network>
+		<network name="Chat4all" description="">
+			<server name="irc.chat4all.org" description="Random server" ports="6666-6669" password="" />
+		</network>
+		<network name="ChatAus" description="">
+
+			<server name="irc.chataus.com" description="Random server" ports="6664-6669,7000" password="" />
+		</network>
+		<network name="Chatcafe" description="">
+			<server name="irc.chatcafe.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="Chatchannel" description="">
+			<server name="irc.chatchannel.org" description="Random server" ports="6666-6669,7000" password="" />
+		</network>
+		<network name="ChatCircuit" description="">
+
+			<server name="irc.chatcircuit.com" description="Random server" ports="6668" password="" />
+		</network>
+		<network name="Chatlands" description="">
+			<server name="irc.chatlands.org" description="Random server" ports="6667-6669" password="" />
+		</network>
+		<network name="Chatnet" description="">
+			<server name="irc.chatnet.org" description="Random server" ports="6660-6669" password="" />
+		</network>
+		<network name="ChatNPlay" description="">
+
+			<server name="irc.chatnplay.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="ChatNut" description="">
+			<server name="irc.chatnut.net" description="Random server" ports="6667,7000" password="" />
+		</network>
+		<network name="Chatpolis" description="">
+			<server name="irc.chatpolis.com" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="Chatsociety" description="">
+
+			<server name="irc.chatsociety.net" description="Random server" ports="6667-6669" password="" />
+		</network>
+		<network name="ChatSpike" description="">
+			<server name="irc.chatspike.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="Chatster" description="">
+			<server name="irc.chatster.org" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="Chattitudes" description="">
+
+			<server name="irc.chattitudes.net" description="Random server" ports="6667-6669,7000" password="" />
+		</network>
+		<network name="ChatUniverse" description="">
+			<server name="irc.chatuniverse.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="Chikahan" description="">
+			<server name="irc.chikahan.com" description="Random server" ports="6666-6669,7000" password="" />
+		</network>
+		<network name="China263" description="">
+
+			<server name="irc.263.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="Christian-IRC" description="">
+			<server name="irc.christian-irc.net" description="Random server" ports="6666-6669,7000" password="" />
+		</network>
+		<network name="Chung.li" description="">
+			<server name="irc.chung.li" description="Random server" ports="6664-6669" password="" />
+		</network>
+		<network name="Coolchat" description="">
+
+			<server name="irc.coolchat.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="CrazedNet" description="">
+			<server name="irc.crazednet.co.uk" description="Random server" ports="6660-6669,7000" password="" />
+		</network>
+		<network name="Criten" description="">
+			<server name="irc.criten.net" description="Random server" ports="6666-6669" password="" />
+		</network>
+		<network name="cyberarmy" description="">
+
+			<server name="irc.cyberarmy.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="DALnet" description="">
+			<server name="irc.dal.net" description="Random server" ports="6660-6667" password="" />
+			<server name="mesra.kl.my.dal.net" description="AS, MY, Mesra" ports="6665-6668,7000" password="" />
+			<server name="hotspeed.sg.as.dal.net" description="AS, SG, Hotspeed" ports="6665-6668,7000" password="" />
+			<server name="powertech.no.eu.dal.net" description="EU, NO, Powertech" ports="6665-6668,7000" password="" />
+			<server name="dragons.ca.us.dal.net" description="US, CA, Dragons" ports="6665-6668,7000" password="" />
+			<server name="broadway.ny.us.dal.net" description="US, NY, Broadway" ports="6665-6668,7000" password="" />
+
+			<server name="jade.va.us.dal.net" description="US, VA, Jade" ports="6665-6668,7000" password="" />
+		</network>
+		<network name="Dark-Storm" description="">
+			<server name="irc.dark-storm.net" description="Random server" ports="6667-6669,7000" password="" />
+		</network>
+		<network name="Dark-Tou-Net" description="">
+			<server name="irc.d-t-net.de" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="Darkfire" description="">
+
+			<server name="irc.darkfire.net" description="Random server" ports="6667,7000,8000" password="" />
+		</network>
+		<network name="DarkMyst" description="">
+			<server name="irc.darkmyst.org" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="Darktree" description="">
+			<server name="irc.darktree.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="DataChat" description="">
+
+			<server name="irc.datachat.net" description="Random server" ports="6666-6669" password="" />
+		</network>
+		<network name="DeepIRC" description="">
+			<server name="irc.deepirc.net" description="Random server" ports="6660,66690" password="" />
+		</network>
+		<network name="Deepspace" description="">
+			<server name="irc.deepspace.org" description="Disability network" ports="6667" password="" />
+		</network>
+		<network name="Delinked" description="">
+
+			<server name="irc.delinked.us" description="Random server" ports="6660-6669,7000" password="" />
+		</network>
+		<network name="DeviantART" description="">
+			<server name="irc.deviantart.com" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="Different" description="">
+			<server name="irc.different.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="Digitalirc" description="">
+
+			<server name="irc.digitalirc.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="Discussioni" description="">
+			<server name="irc.discussioni.org" description="Random server" ports="6665-6669" password="" />
+		</network>
+		<network name="DorukNet" description="">
+			<server name="irc.doruk.net.tr" description="TR, Istanbul" ports="6660-6669,7000,8888" password="" />
+		</network>
+		<network name="DreamIRC" description="">
+
+			<server name="irc.dreamirc.com" description="Random server" ports="6660-6669" password="" />
+		</network>
+		<network name="Dwarfstar" description="">
+			<server name="irc.dwarfstar.net" description="Random server" ports="6667-6669" password="" />
+		</network>
+		<network name="Dynastynet" description="">
+			<server name="irc.dynastynet.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="EFnet" description="">
+
+			<server name="irc.efnet.net" description="Random server" ports="6667" password="" />
+			<server name="irc.ca.efnet.info" description="Random CA server" ports="6667" password="" />
+			<server name="irc.eu.efnet.info" description="Random EU server" ports="6667" password="" />
+			<server name="irc.us.efnet.info" description="Random US server" ports="6667" password="" />
+			<server name="irc.inter.net.il" description="AS, Israel" ports="6667" password="" />
+			<server name="irc.arcti.ca" description="CA, AB, Calgary" ports="6665-6670,7000" password="" />
+			<server name="irc.avalonworks.ca" description="CA, ON, Toronto" ports="6660-6669,7000" password="" />
+			<server name="irc.dkom.at" description="EU, AT, Vienna" ports="6667-6669,7000" password="" />
+			<server name="irc.inet.tele.dk" description="EU, DK, Aarhus" ports="6661-6669" password="" />
+
+			<server name="efnet.cs.hut.fi" description="EU, FI, Helsinki" ports="6667" password="" />
+			<server name="efnet.xs4all.nl" description="EU, NL, Amsterdam" ports="6661-6669" password="" />
+			<server name="irc.efnet.nl" description="EU, NL, Ede" ports="6660-6669" password="" />
+			<server name="irc.homelien.no" description="EU, NO, Homelien" ports="6666,6667,7000" password="" />
+			<server name="irc.daxnet.no" description="EU, NO, Oslo" ports="6666-6669,7000" password="" />
+			<server name="irc.efnet.pl" description="EU, PL, Warszawa" ports="6667" password="" />
+			<server name="irc.du.se" description="EU, SE, Borlange" ports="6666-6669,7000" password="" />
+			<server name="irc.efnet.se" description="EU, SE, Gothenberg" ports="6665-6669,7000" password="" />
+			<server name="efnet.demon.co.uk" description="EU, UK, London" ports="6665-6669" password="" />
+
+			<server name="irc.blackened.com" description="US, AZ, Phoenix (Blackened)" ports="6665-6669" password="" />
+			<server name="irc.easynews.com" description="US, AZ, Phoenix (Easynews)" ports="6660,6665-6667,7000" password="" />
+			<server name="irc.limelight.us" description="US, AZ, Phoenix (Limelight)" ports="6665-6669" password="" />
+			<server name="irc.blessed.net" description="US, CA, San Jose (Blessed)" ports="6665-6669" password="" />
+			<server name="irc.he.net" description="US, CA, San Jose (He)" ports="6665-6669,7000" password="" />
+			<server name="irc.prison.net" description="US, CA, San Luis Obispo" ports="6666-6667" password="" />
+			<server name="irc.wh.verio.net" description="US, FL, Boca Raton" ports="6665-6669" password="" />
+			<server name="irc.colosolutions.net" description="US, FL, Orlando" ports="6665-6669,7000" password="" />
+			<server name="irc.mindspring.com" description="US, GA, Atlanta" ports="6660-6669,7000" password="" />
+
+			<server name="irc.servercentral.net" description="US, IL, Chicago" ports="6660-6669,7000" password="" />
+			<server name="irc.umich.edu" description="US, MI, Ann Arbor" ports="6664-6667" password="" />
+			<server name="irc.umn.edu" description="US, MN, Twin Cities" ports="6665-6669" password="" />
+			<server name="irc.choopa.net" description="US, NJ, New Jersey" ports="6666-6669,7000" password="" />
+			<server name="irc.nac.net" description="US, NY, New York" ports="6665-6669,7000" password="" />
+		</network>
+		<network name="eKyNoX.net" description="">
+			<server name="irc.ekynox.net" description="Random server" ports="6667" password="" />
+		</network>
+
+		<network name="EntertheGame" description="">
+			<server name="irc.enterthegame.com" description="Random server" ports="6667-6669" password="" />
+		</network>
+		<network name="EpiKnet" description="">
+			<server name="irc.epiknet.org" description="Random server" ports="6660-6669,7000,7001" password="" />
+		</network>
+		<network name="EsperNet" description="">
+			<server name="irc.esper.net" description="Random server" ports="5555,6667-6669" password="" />
+		</network>
+
+		<network name="Ethereal" description="">
+			<server name="irc.ethereal.web.za" description="Random server" ports="6666-6667" password="" />
+		</network>
+		<network name="eu-irc" description="">
+			<server name="irc.eu-irc.net" description="Random server" ports="6665-6669" password="" />
+			<server name="irc.swissirc.net" description="EU, CH, SwissIRC" ports="6667-6670" password="" />
+		</network>
+		<network name="euIRCnet" description="">
+			<server name="irc.euirc.net" description="Random server" ports="6665-6669" password="" />
+
+		</network>
+		<network name="EverywhereChat" description="">
+			<server name="irc.everywherechat.com" description="Random server" ports="6667,7000" password="" />
+		</network>
+		<network name="Exiled" description="">
+			<server name="irc.exiled.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="FBN" description="">
+			<server name="irc.fbnet.org" description="Random server" ports="6667" password="" />
+
+		</network>
+		<network name="FDFnet" description="">
+			<server name="irc.fdfnet.net" description="Random server" ports="6666-6668,9999" password="" />
+		</network>
+		<network name="FEFnet" description="">
+			<server name="irc.fef.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="Financialchat" description="">
+			<server name="irc.financialchat.com" description="Random server" ports="6667-6669,7000" password="" />
+
+		</network>
+		<network name="Forestnet" description="">
+			<server name="irc.forestnet.org" description="Random server" ports="6667,7000" password="" />
+		</network>
+		<network name="ForeverChat" description="">
+			<server name="irc.foreverchat.net" description="Random server" ports="6660-6669,7000" password="" />
+		</network>
+		<network name="Free2Code" description="Network oriented around programming and computers. Home of the Bersirc IRC Client!">
+			<server name="irc.free2code.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="FreedomIRC" description="">
+			<server name="irc.freedomirc.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="FreeNode" description="">
+			<server name="irc.freenode.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="Freequest" description="">
+			<server name="irc.freequest.net" description="Random server" ports="7000" password="" />
+		</network>
+		<network name="FreshIRC" description="">
+			<server name="irc.freshirc.com" description="Random server" ports="6667,6669" password="" />
+
+		</network>
+		<network name="FroZen-GrounD" description="">
+			<server name="irc.frozen-ground.co.uk" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="FuNet" description="">
+			<server name="irc.funet-chat.org" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="FunNet" description="">
+			<server name="irc.funnet.org" description="Random server" ports="6667" password="" />
+
+		</network>
+		<network name="GalaxyNet" description="">
+			<server name="irc.galaxynet.org" description="Random server" ports="6662-6668,7000" password="" />
+			<server name="online.be.galaxynet.org" description="EU, BE, Online" ports="6661-6669" password="" />
+			<server name="boston.ma.us.galaxynet.org" description="MA, US, Boston" ports="6661-6669" password="" />
+		</network>
+		<network name="GamersIRC" description="">
+			<server name="irc.gamers-irc.net" description="Random server" ports="6667" password="" />
+		</network>
+
+		<network name="GamesNET" description="">
+			<server name="irc.gamesnet.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="GameSurge" description="">
+			<server name="irc.gamesurge.net" description="Random server" ports="6667" password="" />
+			<server name="irc.eu.gamesurge.net" description="Random EU server" ports="6667" password="" />
+		</network>
+		<network name="GammaForce" description="">
+			<server name="irc.gammaforce.org" description="Random server" ports="6660-6669,7000" password="" />
+
+		</network>
+		<network name="GampangIngat" description="">
+			<server name="irc.gampangingat.com" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="GDChat" description="">
+			<server name="irc.gdchat.org" description="Random server" ports="6667-6669" password="" />
+		</network>
+		<network name="German-Elite" description="">
+			<server name="irc.german-elite.net" description="Random server" ports="6667" password="" />
+
+		</network>
+		<network name="German-freakz" description="">
+			<server name="irc.german-freakz.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="German-IRC" description="">
+			<server name="irc.german-irc.net" description="Random server" ports="6660-6669,7000" password="" />
+		</network>
+		<network name="Gh0st4u.Net" description="">
+			<server name="irc.gh0st4u.net" description="Random server" ports="6660-6669,7000" password="" />
+
+		</network>
+		<network name="GigaIRC" description="">
+			<server name="irc.gigairc.net" description="Random server" ports="6667-6669" password="" />
+		</network>
+		<network name="GIMPNet" description="">
+			<server name="irc.gimp.org" description="Random server" ports="6667" password="" />
+			<server name="irc.au.gimp.org" description="Random AU server" ports="6667" password="" />
+			<server name="irc.us.gimp.org" description="Random US server" ports="6667" password="" />
+		</network>
+		<network name="Global-IRC" description="">
+			<server name="irc.global-irc.com" description="Random server" ports="6660-6669" password="" />
+		</network>
+		<network name="Globalchat" description="">
+			<server name="irc.globalchat.org" description="Random server" ports="6667" password="" />
+
+		</network>
+		<network name="Goldchat" description="">
+			<server name="irc.goldchat.nl" description="Random server" ports="6660-6669,7000" password="" />
+		</network>
+		<network name="Goodchatting" description="">
+			<server name="irc.goodchatting.com" description="Random server" ports="6661-6669,7000" password="" />
+		</network>
+		<network name="GRnet" description="">
+			<server name="srv.irc.gr" description="Random server" ports="6667,7000" password="" />
+
+			<server name="eu.irc.gr" description="Random EU server" ports="6667,7000" password="" />
+			<server name="us.irc.gr" description="Random US server" ports="6667,7000" password="" />
+		</network>
+		<network name="HabberNet" description="">
+			<server name="irc.habber.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="HeliosChat" description="">
+			<server name="irc.heliosnet.org" description="Random server" ports="6667-6669" password="" />
+		</network>
+
+		<network name="HellaS-iRC" description="">
+			<server name="irc.hellas-irc.net" description="Random server" ports="6667,7000" password="" />
+		</network>
+		<network name="HellenicNet" description="">
+			<server name="irc.mirc.gr" description="Random server" ports="6667,7000" password="" />
+		</network>
+		<network name="HiNet" description="">
+			<server name="irc.hinet.net" description="Random server" ports="6660-6669" password="" />
+		</network>
+
+		<network name="HomeLAN" description="">
+			<server name="irc.homelan.com" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="Immortal-Anime" description="">
+			<server name="irc.immortal-anime.net" description="Random server" ports="6660-6669,7000" password="" />
+		</network>
+		<network name="Imperium" description="">
+			<server name="irc.imperium.ca" description="Random server" ports="6660-6667" password="" />
+		</network>
+
+		<network name="Infomatrix" description="">
+			<server name="irc.infomatrix.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="insiderZ.DE" description="">
+			<server name="irc.insiderz.de" description="Random server" ports="6660-6670" password="" />
+		</network>
+		<network name="IRC-Chat" description="">
+			<server name="irc.irc-chat.net" description="Random server" ports="6664-6669,7000,7001" password="" />
+		</network>
+
+		<network name="IRC-Chile" description="">
+			<server name="irc.cl" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="IRC-Domain.Org" description="">
+			<server name="irc.irc-domain.org" description="Random server" ports="6666-6668" password="" />
+		</network>
+		<network name="IRC-Evolution" description="">
+			<server name="IRC.IRC-Evolution.Org" description="Random server" ports="6667" password="" />
+		</network>
+
+		<network name="IRC-Hispano" description="">
+			<server name="irc.irc-hispano.org" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="IRCChat" description="">
+			<server name="irc.ircchat.tk" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="IRCFutureNet" description="">
+			<server name="irc.ircfuture.net" description="Random server" ports="6661-6669,7000" password="" />
+		</network>
+
+		<network name="IRCHighway" description="">
+			<server name="irc.irchighway.net" description="Random server" ports="6660-6669" password="" />
+		</network>
+		<network name="IrcItalia" description="">
+			<server name="irc.ircitalia.net" description="Random server" ports="6666-6669" password="" />
+		</network>
+		<network name="IRCItaly" description="">
+			<server name="irc.ircitaly.net" description="Random server" ports="6666-6669" password="" />
+		</network>
+
+		<network name="IrcMalta" description="">
+			<server name="irc.ircmalta.org" description="Random server" ports="6660-6667" password="" />
+		</network>
+		<network name="IRCnet" description="">
+			<server name="irc.us.ircnet.net" description="Random US server" ports="6665-6668" password="" />
+			<server name="random.ircd.de" description="EU, DE, Random" ports="6665-6669" password="" />
+			<server name="irc.ircnet.ee" description="EU, EE, Random" ports="6666-6669" password="" />
+			<server name="irc.fr.ircnet.net" description="EU, FR, Random" ports="6667" password="" />
+			<server name="ircnet.netvision.net.il" description="AS, IL, Haifa" ports="6661-6668" password="" />
+
+			<server name="irc.tokyo.wide.ad.jp" description="AS, JP, Tokyo" ports="6668" password="" />
+			<server name="irc.seed.net.tw" description="AS, TW, Seed" ports="6667" password="" />
+			<server name="linz.irc.at" description="EU, AT, Linz" ports="6666-6668" password="" />
+			<server name="vienna.irc.at" description="EU, AT, Wien" ports="6666-6669" password="" />
+			<server name="irc.skynet.be" description="EU, BE, Brussels" ports="6667" password="" />
+			<server name="irc.datacomm.ch" description="EU, CH, Basel" ports="6664-6670" password="" />
+			<server name="irc.felk.cvut.cz" description="EU, CZ, Prague" ports="6667" password="" />
+			<server name="irc.ircnet.dk" description="EU, DK, Copenhagen" ports="6667" password="" />
+			<server name="irc.cs.hut.fi" description="EU, FI, Helsinki" ports="6667" password="" />
+
+			<server name="irc.ee.auth.gr" description="EU, GR, Thessaloniki" ports="6666-6669" password="" />
+			<server name="irc.elte.hu" description="EU, HU, Budapest" ports="6667" password="" />
+			<server name="irc.simnet.is" description="EU, IS, Reykjavik (Simnet)" ports="6660-6669" password="" />
+			<server name="irc.ircnet.is" description="EU, IS, Reykjavik" ports="6661-6669" password="" />
+			<server name="irc.tin.it" description="EU, IT, Rome" ports="6665-6669" password="" />
+			<server name="irc.apollo.lv" description="EU, LV, Riga" ports="6666-6669,7000" password="" />
+			<server name="irc.uunet.nl" description="EU, NL, Amsterdam (uunet)" ports="6660-6669" password="" />
+			<server name="irc.xs4all.nl" description="EU, NL, Amsterdam (xs4all)" ports="6660-6669" password="" />
+			<server name="irc.snt.utwente.nl" description="EU, NL, Enschede" ports="6660-6669" password="" />
+
+			<server name="irc.sci.kun.nl" description="EU, NL, Nijmegen" ports="6660-6669" password="" />
+			<server name="irc.ifi.uio.no" description="EU, NO, Oslo" ports="6667" password="" />
+			<server name="irc.pvv.ntnu.no" description="EU, NO, Trondheim" ports="6667" password="" />
+			<server name="lublin.irc.pl" description="EU, PL, Lublin" ports="6666-6668" password="" />
+			<server name="warszawa.irc.pl" description="EU, PL, Warsaw" ports="6666-6668" password="" />
+			<server name="irc.ru" description="EU, RU, Moscow" ports="6667" password="" />
+			<server name="irc.ludd.luth.se" description="EU, SE, Lulea" ports="6661-6669" password="" />
+			<server name="irc.swipnet.se" description="EU, SE, Stockholm" ports="5190,6660-6670,7002,8000" password="" />
+			<server name="ircnet.demon.co.uk" description="EU, UK, London" ports="6665-6669" password="" />
+
+			<server name="irc.stealth.net" description="US, NY, New York" ports="6660-6669" password="" />
+			<server name="irc1.us.ircnet.net" description="US, WA, Washington" ports="6667" password="" />
+		</network>
+		<network name="IRCNexus" description="">
+			<server name="irc.ircnexus.net" description="Random server" ports="6660-6669,7000" password="" />
+		</network>
+		<network name="IRCoper" description="">
+			<server name="irc.ircoper.com" description="Random server" ports="6661-6669,7000" password="" />
+		</network>
+
+		<network name="IrCQ-Net" description="">
+			<server name="irc.icq.com" description="Random server" ports="6665-6669,7000" password="" />
+		</network>
+		<network name="IRCSoulZ" description="">
+			<server name="irc.ircsoulz.net" description="Random server" ports="6665-6667,7000" password="" />
+		</network>
+		<network name="IrcSuper" description="">
+			<server name="irc.ircsuper.net" description="Random server" ports="6660-6670" password="" />
+		</network>
+
+		<network name="IRCtoo" description="">
+			<server name="irc.irctoo.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="IRDSI" description="">
+			<server name="irc.irdsi.net" description="Random server" ports="6667-6669,7032" password="" />
+		</network>
+		<network name="JuggaloIRC.net" description="">
+			<server name="irc.juggaloirc.net" description="Random server" ports="6667" password="" />
+		</network>
+
+		<network name="Kamakazee" description="">
+			<server name="irc.kamakazee.net" description="Random server" ports="6667-6669,7000" password="" />
+		</network>
+		<network name="KampungChat" description="">
+			<server name="irc.kampungchat.org" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="KDFSnet" description="">
+			<server name="irc.kdfs.net" description="Random server" ports="6667-6669" password="" />
+		</network>
+
+		<network name="KidsWorld" description="">
+			<server name="irc.kidsworld.org" description="Random server" ports="6666-6669" password="" />
+		</network>
+		<network name="KnightIRC" description="">
+			<server name="irc.knightirc.net" description="Random server" ports="6660-6669,6677" password="" />
+		</network>
+		<network name="Knightnet" description="">
+			<server name="orc.dbn.za.knightnet.net" description="AF, ZA, Durban" ports="6667,5555" password="" />
+			<server name="goldengate.ca.us.knightnet.net" description="US, CA, Goldengate" ports="6667,5555" password="" />
+
+		</network>
+		<network name="Kreynet" description="">
+			<server name="irc.krey.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="Krono" description="">
+			<server name="irc.krono.net" description="Random server" ports="6660-6669,7000" password="" />
+		</network>
+		<network name="LagNet" description="">
+			<server name="irc.lagnet.org.za" description="Random server" ports="6667" password="" />
+
+		</network>
+		<network name="Langochat" description="">
+			<server name="irc.langochat.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="LaZy" description="">
+			<server name="irc.lazy-net.de" description="Random server" ports="6666-6669" password="" />
+		</network>
+		<network name="LDSircNet" description="">
+			<server name="irc.ldsirc.net" description="Random server" ports="6667" password="" />
+
+		</network>
+		<network name="Librenet" description="">
+			<server name="irc.librenet.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="LichtSnel" description="">
+			<server name="irc.lichtsnel.nl" description="Random server" ports="6660-6669,7000" password="" />
+		</network>
+		<network name="LinkNet" description="">
+			<server name="irc.link-net.org" description="Random server" ports="6667-6669" password="" />
+
+		</network>
+		<network name="LobiNET" description="">
+			<server name="irc.lobi.net" description="Random server" ports="6660-6669,7000" password="" />
+		</network>
+		<network name="Lunarstorm" description="">
+			<server name="irc.lunarstorm.se" description="Random server" ports="6666-6668" password="" />
+		</network>
+		<network name="MagicStar" description="">
+			<server name="irc.magicstar.net" description="Random server" ports="6667" password="" />
+
+		</network>
+		<network name="Malaynet" description="">
+			<server name="irc.malaynet.org" description="Random server" ports="6667-6669" password="" />
+		</network>
+		<network name="Matrix-Net" description="">
+			<server name="irc.matrix-network.org" description="Random server" ports="6667-6669" password="" />
+		</network>
+		<network name="MavraNET" description="">
+			<server name="irc.mavra.net" description="Random server" ports="6660-6669" password="" />
+
+		</network>
+		<network name="MemphisNet" description="">
+			<server name="irc.memphisnet.org" description="Random server" ports="6660-6669,7000,7001" password="" />
+		</network>
+		<network name="Mistrider" description="">
+			<server name="irc.mistrider.net" description="Random server" ports="6661-6669" password="" />
+		</network>
+		<network name="Mozilla" description="">
+			<server name="irc.mozilla.org" description="Random server" ports="6667" password="" />
+
+		</network>
+		<network name="Muhabbet" description="">
+			<server name="irc.muhabbet.net" description="Random server" ports="6661-6669" password="" />
+		</network>
+		<network name="MusiChat" description="">
+			<server name="irc.musichat.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="NeoXys" description="">
+			<server name="irc.neoxys.org" description="Random server" ports="6667" password="" />
+
+		</network>
+		<network name="Net-France" description="">
+			<server name="irc.net-france.com" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="Netgamers" description="">
+			<server name="irc.netgamers.org" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="Nevernet" description="">
+			<server name="irc.nevernet.net" description="Random server" ports="6667" password="" />
+
+		</network>
+		<network name="Newnet" description="">
+			<server name="irc.newnet.net" description="Random server" ports="6665-6667" password="" />
+		</network>
+		<network name="Nexusirc" description="">
+			<server name="irc.nexusirc.org" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="NightStar" description="">
+			<server name="irc.nightstar.net" description="Random server" ports="6665-6669" password="" />
+
+		</network>
+		<network name="NitrousNet" description="">
+			<server name="irc.nitrousnet.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="NomadIrc" description="">
+			<server name="irc.nomadirc.net" description="Random server" ports="6665-6669,7000" password="" />
+		</network>
+		<network name="Novernet" description="">
+			<server name="irc.novernet.com" description="Random server" ports="6665-6669,7000" password="" />
+
+		</network>
+		<network name="NullIRC" description="">
+			<server name="irc.nullirc.net" description="Random server" ports="6665-6667,7000" password="" />
+		</network>
+		<network name="NullusNet" description="">
+			<server name="irc.nullus.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="NWS-IRC" description="">
+			<server name="irc.nws-irc.co.uk" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="Oceanius" description="Network started by a group of self-motivated open source developers from across the globe, home to projects such as Free UNIX Shells">
+			<server name="irc.oceanius.com" description="Random server" ports="6667" password="" />
+			<server name="spark.oceanius.com" description="Spark - Ashburn, VA, USA" ports="6667" password="" />
+			<server name="blue.oceanius.com" description="Blue - Chicago, IL, USA" ports="6667" password="" />
+			<server name="pie.oceanius.com" description="Pie - Chicago, IL, USA" ports="6667" password="" />
+		</network>
+		<network name="OflooIRC" description="">
+			<server name="irc.ofloo.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="OtechNet" description="">
+			<server name="irc.otechnet.org" description="Random server" ports="6667,7000" password="" />
+		</network>
+		<network name="Othernet" description="">
+			<server name="irc.othernet.org" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="Outsiderz" description="">
+			<server name="irc.outsiderz.com" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="OverDrive" description="">
+			<server name="irc.overdriveirc.net" description="Random server" ports="6667-6669,7000" password="" />
+		</network>
+		<network name="Oz.org" description="">
+			<server name="irc.oz.org" description="Random server" ports="6666-6668,7000,7777" password="" />
+		</network>
+		<network name="P2PChat" description="">
+			<server name="irc.p2pchat.net" description="Random server" ports="6667,7000" password="" />
+		</network>
+		<network name="Peacefulhaven" description="">
+			<server name="irc2.peacefulhaven.net" description="Random server" ports="6660-6669" password="" />
+		</network>
+		<network name="PhatNET" description="">
+			<server name="irc.phat-net.de" description="Random server" ports="6660-6667,7000" password="" />
+
+		</network>
+		<network name="PhaZeNet" description="">
+			<server name="irc.phazenet.com" description="Random server" ports="6667-6669,7000" password="" />
+		</network>
+		<network name="PHEYnet" description="">
+			<server name="irc.phey.net" description="Random server" ports="6660-6669,7000" password="" />
+		</network>
+		<network name="PlayChat" description="">
+			<server name="irc.playchat.net" description="Random server" ports="6667" password="" />
+
+		</network>
+		<network name="POLNet" description="">
+			<server name="irc.ircnet.pl" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="Psionics" description="">
+			<server name="chat.psionics.net" description="Random server" ports="6660-6669" password="" />
+		</network>
+		<network name="PTlink" description="">
+			<server name="irc.ptlink.net" description="Random server" ports="6667" password="" />
+
+		</network>
+		<network name="PTnet" description="">
+			<server name="irc.ptnet.org" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="QChat" description="">
+			<server name="irc.qchat.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="Quakenet" description="">
+			<server name="irc.quakenet.org" description="Random server" ports="6667-6669" password="" />
+
+		</network>
+		<network name="QuakeNet" description="">
+			<server name="de.quakenet.org" description="Random DE server" ports="6667-6669" password="" />
+			<server name="se.quakenet.org" description="Random SE server" ports="6667-6669" password="" />
+			<server name="uk.quakenet.org" description="Random UK server" ports="6667-6669" password="" />
+			<server name="us.quakenet.org" description="Random US server" ports="6667-6669" password="" />
+		</network>
+		<network name="QuickNet" description="">
+			<server name="irc.quicknet.nl" description="Random server" ports="6667" password="" />
+
+		</network>
+		<network name="Realirc" description="">
+			<server name="irc.realirc.org" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="RebelChat" description="">
+			<server name="irc.rebelchat.org" description="Random server" ports="6667-6669" password="" />
+		</network>
+		<network name="Recycled-IRC" description="">
+			<server name="irc.recycled-irc.org" description="Random server" ports="6660-6669" password="" />
+
+		</network>
+		<network name="Red-Latina" description="">
+			<server name="irc.red-latina.org" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="RedLatona" description="">
+			<server name="irc.redlatona.net" description="Random server" ports="6667,6668" password="" />
+		</network>
+		<network name="Rezosup" description="">
+			<server name="irc.rezosup.org" description="Random server" ports="6667" password="" />
+
+		</network>
+		<network name="Risanet" description="">
+			<server name="irc.risanet.com" description="Random server" ports="6667-6669" password="" />
+		</network>
+		<network name="Rizon" description="">
+			<server name="irc.rizon.net" description="Random server" ports="6660-6669,7000" password="" />
+		</network>
+		<network name="RomaniaIRC" description="">
+			<server name="irc.romaniairc.org" description="Random server" ports="6667,6668" password="" />
+
+		</network>
+		<network name="RunComZero" description="">
+			<server name="irc.rc0.net" description="Random server" ports="6660-6669,7000" password="" />
+		</network>
+		<network name="Rusnet" description="">
+			<server name="irc.tsk.ru" description="EU, RU, Tomsk" ports="6667-6669,7770-7775" password="" />
+			<server name="irc.alkar.net" description="EU, UA, Dnepropetrovsk" ports="6667-6669,7770-7775" password="" />
+		</network>
+		<network name="Sahte" description="">
+
+			<server name="irc.sahte.com" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="Saltek" description="">
+			<server name="irc.saltek.net" description="Random server" ports="6660-6669,7000" password="" />
+		</network>
+		<network name="Sandnet" description="">
+			<server name="irc.sandnet.net" description="Random server" ports="6660-6669,7000" password="" />
+		</network>
+		<network name="Satanic-Chat" description="">
+
+			<server name="irc.satanic-chat.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="ScaryNet" description="">
+			<server name="irc.scarynet.org" description="Random server" ports="6660-6669" password="" />
+		</network>
+		<network name="Scifi-Net" description="">
+			<server name="irc.scifi-fans.net" description="Random server " ports="6660-6668,7000" password="" />
+		</network>
+		<network name="ScoobyNET" description="">
+
+			<server name="irc.scoobynet.org" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="SerbianCafe" description="">
+			<server name="irc.serbiancafe.ws" description="Random server" ports="6665-6669" password="" />
+		</network>
+		<network name="Serenia" description="">
+			<server name="irc2.serenia.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="Serv" description="">
+
+			<server name="irc.serv.co.il" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="SexNet" description="">
+			<server name="irc.sexnet.org" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="ShadowFire" description="">
+			<server name="irc.shadowfire.org" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="ShadowWorld" description="">
+
+			<server name="irc.shadowworld.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="SimosNap" description="">
+			<server name="irc.simosnap.net" description="Random server" ports="6666-6669" password="" />
+		</network>
+		<network name="Sinoptic" description="">
+			<server name="irc.sinoptic.net" description="Random server" ports="6660-6669" password="" />
+		</network>
+		<network name="Slashnet" description="">
+
+			<server name="irc.slashnet.org" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="Sohbet" description="">
+			<server name="irc.sohbet.net" description="Random server" ports="6661-6669" password="" />
+		</network>
+		<network name="SolarStone" description="">
+			<server name="irc.solarstone.net" description="Random server" ports="6660-6669" password="" />
+		</network>
+		<network name="SorceryNet" description="">
+
+			<server name="irc.sorcery.net" description="Random server" ports="6667,7000,9000" password="" />
+		</network>
+		<network name="Sorcerynet" description="">
+			<server name="kechara.sorcery.net" description="US, CA, Palo Alto" ports="6667,7000,9000" password="" />
+		</network>
+		<network name="SpaceTronix" description="">
+			<server name="irc.spacetronix.net" description="Random server" ports="6660-6669,7000" password="" />
+		</network>
+		<network name="SpiderNet" description="">
+			<server name="irc.spidernet.org" description="Random server" ports="6667-6669" password="" />
+		</network>
+		<network name="SpotChat" description="">
+			<server name="irc.spotchat.org" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="ST-City" description="">
+			<server name="irc.st-city.net" description="Random server" ports="6660-6669" password="" />
+		</network>
+		<network name="Staff-chat" description="">
+			<server name="irc.staff-chat.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="StarByte" description="">
+
+			<server name="irc.starbyte.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="StarChat" description="">
+			<server name="irc.starchat.net" description="Random server" ports="6667-6669,7000" password="" />
+		</network>
+		<network name="Starfusion" description="">
+			<server name="irc.starfusion.org" description="Random server" ports="6663-6669" password="" />
+		</network>
+		<network name="starlink-irc" description="">
+
+			<server name="irc.starlink-irc.org" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="StarLink.Org" description="">
+			<server name="irc.starlink.org" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="StarWars-IRC" description="">
+			<server name="irc.starwars-irc.net" description="Random server" ports="6663-6667" password="" />
+		</network>
+		<network name="StayNet" description="">
+
+			<server name="irc.staynet.org" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="Stormdancing" description="">
+			<server name="irc.stormdancing.net" description="Random server" ports="6664-6669,7000,9000" password="" />
+		</network>
+		<network name="Stratics" description="">
+			<server name="irc.stratics.com" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="Striked" description="">
+
+			<server name="irc.striked.org" description="Random server" ports="6660-6669,7000" password="" />
+		</network>
+		<network name="SyrolNet" description="">
+			<server name="irc.syrolnet.org" description="Random server" ports="6666-6668" password="" />
+		</network>
+		<network name="TaintedX" description="">
+			<server name="irc.taintedx.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="Talkpinoy" description="">
+
+			<server name="irc.talkpinoy.com" description="Random server" ports="6667-6669" password="" />
+		</network>
+		<network name="Tevhidnet" description="">
+			<server name="irc.tevhid.net" description="Random server" ports="6666-6669,7000" password="" />
+		</network>
+		<network name="ThunderCity" description="">
+			<server name="irc.thundercity.net" description="Random server" ports="6660-6669,7000" password="" />
+		</network>
+		<network name="Tni3" description="">
+
+			<server name="irc.tni3.com" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="TopIRCNet" description="">
+			<server name="topircnet.com" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="TR-net" description="">
+			<server name="irc.teklan.com.tr" description="EU, Tr, Istanbul" ports="6667" password="" />
+		</network>
+		<network name="Twistification" description="">
+
+			<server name="irc.twistification.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="UAAP" description="">
+			<server name="irc.uaap.net" description="Random server" ports="6660-6669,7000" password="" />
+		</network>
+		<network name="UICN" description="">
+			<server name="irc.uicn.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="uIRC" description="">
+
+			<server name="irc.uirc.net" description="Random server" ports="6660-6669" password="" />
+		</network>
+		<network name="UKchatterbox" description="">
+			<server name="irc.ukchatterbox.com" description="Random server" ports="7000" password="" />
+		</network>
+		<network name="UnderMind" description="">
+			<server name="irc.undermind.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="Undernet" description="">
+
+			<server name="eu.undernet.org" description="Random EU server" ports="6667" password="" />
+			<server name="us.undernet.org" description="Random US server" ports="6667" password="" />
+			<server name="graz2.at.eu.undernet.org" description="EU, AT, Graz2" ports="6660-6670,7000" password="" />
+			<server name="graz.at.eu.undernet.org" description="EU, AT, Graz" ports="6660-6670,7000" password="" />
+			<server name="elsene.be.eu.undernet.org" description="EU, BE, Elsene" ports="6667-6669,7000" password="" />
+			<server name="geneva.ch.eu.undernet.org" description="EU, CH, Geneva" ports="6660-6669,7000" password="" />
+			<server name="zagreb.hr.eu.undernet.org" description="EU, HR, Zagreb" ports="6666-6669,9999" password="" />
+			<server name="amsterdam.nl.eu.undernet.org" description="EU, NL, Amsterdam" ports="6660-6668" password="" />
+			<server name="ede.nl.eu.undernet.org" description="EU, NL, Ede" ports="6666-6669" password="" />
+
+			<server name="oslo.no.eu.undernet.org" description="EU, NO, Oslo" ports="6666-6669" password="" />
+			<server name="stockholm.se.eu.undernet.org" description="EU, SE, Stockholm" ports="6666-6669,7000" password="" />
+			<server name="surrey.uk.eu.undernet.org" description="EU, UK, Surrey" ports="6666-6669,7000" password="" />
+			<server name="panamacity.pa.undernet.org" description="SA, PA, Panama City" ports="6660-6669,7000" password="" />
+			<server name="mesa.az.us.undernet.org" description="US, AZ, Mesa" ports="6660,6665-6667,7000" password="" />
+			<server name="losangeles.ca.us.undernet.org" description="US, CA, LosAngeles" ports="6660-6669,7000" password="" />
+			<server name="miami.fl.us.undernet.org" description="US, FL, Miami" ports="6666-6669,7000,8888" password="" />
+			<server name="fairfax.va.us.undernet.org" description="US, VA, Fairfax" ports="6660,6665-6667,7000" password="" />
+		</network>
+
+		<network name="UnderPT" description="">
+			<server name="irc.UnderPT.org" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="UnderZ" description="">
+			<server name="irc.underz.org" description="Random server" ports="6667-6668" password="" />
+		</network>
+		<network name="Unerror" description="">
+			<server name="irc.unerror.com" description="Random server" ports="6667" password="" />
+		</network>
+
+		<network name="UnionLatina" description="">
+			<server name="irc.unionlatina.org" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="UnitedChat" description="">
+			<server name="irc.unitedchat.org" description="Random server" ports="6660-6669,7000" password="" />
+		</network>
+		<network name="Unreal-IRC" description="">
+			<server name="irc.unreal-irc.net" description="Random server" ports="6667" password="" />
+		</network>
+
+		<network name="vIRCio.org" description="">
+			<server name="irc.vircio.org" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="VirtuaLife" description="">
+			<server name="irc.virtualife.com.br" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="Voila" description="">
+			<server name="irc.voila.fr" description="Random server" ports="6667" password="" />
+		</network>
+
+		<network name="VoltNET" description="">
+			<server name="irc.voltnet.org" description="Random server" ports="6665-6669" password="" />
+		</network>
+		<network name="WatNet" description="">
+			<server name="irc.watnet.org" description="Random server" ports="6660-6669" password="" />
+		</network>
+		<network name="WebChatting" description="">
+			<server name="irc.webchatting.com" description="Random server" ports="6660-6669" password="" />
+		</network>
+
+		<network name="Webnet" description="">
+			<server name="irc.webchat.org" description="Random server" ports="6667-6669,7000" password="" />
+			<server name="webmaster.ca.us.webchat.org" description="US, CA, Santa Clara" ports="6661-6669" password="" />
+		</network>
+		<network name="WhatNet" description="">
+			<server name="irc.whatnet.org" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="WikkedWire" description="">
+			<server name="irc.wikkedwire.com" description="Random server" ports="6660-6669" password="" />
+
+		</network>
+		<network name="WildChat" description="">
+			<server name="irc.wildchat.org" description="Random server" ports="6660-6669,7000" password="" />
+		</network>
+		<network name="WildGhosts" description="">
+			<server name="irc.wildghosts.net" description="Random server" ports="6664-6669" password="" />
+		</network>
+		<network name="WorldIRC" description="">
+			<server name="irc.worldirc.org" description="Random server" ports="6660-6667" password="" />
+
+		</network>
+		<network name="Worldnet" description="">
+			<server name="irc.worldnet.net" description="Random server" ports="6667,7000" password="" />
+		</network>
+		<network name="WyldRyde" description="">
+			<server name="irc.wyldryde.org" description="Random server" ports="6666-6669" password="" />
+		</network>
+		<network name="X-Reaction" description="">
+			<server name="irc.x-reaction.net" description="andom " ports="6660-6669,7000" password="" />
+
+		</network>
+		<network name="Xelium" description="">
+			<server name="irc.xelium.net" description="Random server" ports="6667-6669,7000" password="" />
+		</network>
+		<network name="XentoniX" description="">
+			<server name="irc.xentonix.net" description="Random server" ports="6661-6669" password="" />
+		</network>
+		<network name="XeroIRC" description="">
+			<server name="irc.xeroirc.net" description="Random server" ports="6667" password="" />
+			<server name="pico.xeroirc.net" description="England, UK" ports="6667" password="" />
+			<server name="flying.xeroirc.net" description="California, USA" ports="6667" password="" />
+			<server name="xi0n.xeroirc.net" description="New Jersey, USA" ports="6667" password="" />
+			<server name="ipv6.xeroirc.net" description="Maryland, USA" ports="6667" password="" />
+			<server name="paradox.xeroirc.net" description="California, USA" ports="6667" password="" />
+			<server name="menominah.xeroirc.net" description="Illinois, USA" ports="6667" password="" />
+		</network>
+		<network name="Xevion" description="">
+			<server name="irc.xevion.net" description="Random server" ports="6667,7000" password="" />
+
+		</network>
+		<network name="XPnet" description="">
+			<server name="irc.msinternals.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="Xtasy-Chat" description="">
+			<server name="irc.xtasy-chat.net" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="XtC-Dreams" description="">
+			<server name="irc.xtc-dreams.com" description="Random server" ports="6667,6668,6669" password="" />
+
+		</network>
+		<network name="ZAnetNet" description="">
+			<server name="irc.zanet.net" description="ZAnet Net: Random server" ports="6667" password="" />
+		</network>
+		<network name="ZAnetOrg" description="">
+			<server name="apophis.zanet.org.za" description="ZAnet Org: UK, London" ports="6667" password="" />
+		</network>
+		<network name="ZeroFuzion" description="">
+			<server name="irc.zerofuzion.net" description="Random server" ports="6661-6669" password="" />
+
+		</network>
+		<network name="Zerolimit" description="">
+			<server name="irc.zerolimit.net" description="Random server" ports="6666,6667" password="" />
+		</network>
+		<network name="ZiRC" description="">
+			<server name="irc.zirc.org" description="Random server" ports="6660-6669" password="" />
+		</network>
+		<network name="ZUHnet" description="">
+			<server name="irc.zuh.net" description="Random server" ports="6667" password="" />
+
+		</network>
+		<network name="ZurnaCom" description="">
+			<server name="irc.zurna.com" description="Random server" ports="6667" password="" />
+		</network>
+		<network name="ZurnaNet" description="">
+			<server name="irc.zurna.net" description="Random server" ports="6667" password="" />
+		</network>
+	</networklist>
+</Bersirc>

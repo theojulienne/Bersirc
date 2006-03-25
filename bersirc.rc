@@ -1,0 +1,4 @@
+1 24 "bersirc.manifest"
+
+ICON_BERSIRC            ICON    DISCARDABLE     "icons/32-bers.ico"
+ICON_MINI_BERS          ICON    DISCARDABLE     "icons/16-bers.ico"
