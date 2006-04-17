@@ -102,6 +102,8 @@ typedef struct b_win_contextm
 	object_t *splitter;\
 	object_t *scroll;\
 	\
+	object_t *tv_item;\
+	\
 	int window_flags;\
 	
 

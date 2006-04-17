@@ -480,7 +480,7 @@ int main( int argc, char *argv[] )
 	// MOO
 	bersirc->splitter = splitter_widget_create( bersirc->mainwin, lt_bounds(lt,"workspace"), cSplitterHorizontal );
 	bersirc->treeview = treeview_widget_create( bersirc->splitter, NO_BOUNDS, 0 );
-	
+	/*
 	object_t *ti, *tti, *tti2;
 	ti = treeview_append_row( bersirc->treeview, 0, b_icon("server"), "irc.free2code.net" );
 	//list_item_set_text_color( ti, 1, 0, 0, 1 );
@@ -499,7 +499,7 @@ int main( int argc, char *argv[] )
 	treeview_expand( bersirc->treeview, ti );
 	treeview_expand( bersirc->treeview, tti );
 	treeview_expand( bersirc->treeview, tti2 );
-	
+	*/
 	splitter_set_info( bersirc->splitter, cSplitterFirst, 0, 200 );
 	
 	// Workspace

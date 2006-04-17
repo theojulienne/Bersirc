@@ -116,6 +116,9 @@ event_handler( b_server_win_destroy )
 	b_server_printf( sw, "QUIT :%s", b_get_quit_message( ) );
 	c_socket_close( sw->sock );
 	
+	// remove from treeview
+	treeview_remove_row( bersirc->treeview, sw->tv_item );
+	
 	// FIXME: FLUSH
 	
 	//for ( curr = sw->chat_head; curr != 0; curr = next )
@@ -163,6 +166,7 @@ event_handler( b_server_enter_press )
 void b_server_update_title( BServerWindow *server )
 {
 	char buf[1024];
+	char *name;
 	
 	if ( server->connected == 0 )
 		sprintf( buf, lang_phrase_quick( "status_title_idle" ) );
@@ -171,6 +175,13 @@ void b_server_update_title( BServerWindow *server )
 	
 	workspace_window_set_title( server->window, buf );
 	b_taskbar_redraw( );
+	
+	name = "Status";
+		
+	if ( server->connected == 1 )
+		name = server->servername;
+	
+	list_widget_edit_row( bersirc->treeview, server->tv_item, 1, name, -1 );
 }
 
 int b_server_printf( BServerWindow *server, char *fmt, ... )
@@ -325,6 +336,10 @@ BServerWindow *b_new_server_window( int flags )
 	}
 	
 	b_taskbar_redraw( );
+	
+	// add to the treeview
+	server->tv_item = treeview_append_row( bersirc->treeview, 0, b_icon("server"), "Status" );
+	list_item_set_font_extra( server->tv_item, cFontWeightBold, cFontSlantNormal, cFontDecorationNormal );
 	
 	b_window_create_context_menu( server );
 	

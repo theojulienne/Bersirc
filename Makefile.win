@@ -61,7 +61,7 @@ src/resources.o: bersirc.rc
 	windres -o src/resources.o bersirc.rc
 
 clean:
-	del src/*.o
-	del src/net/*.o
-	del src/xml/*.o
-	del src/options/*.o
+	del src\*.o
+	del src\net\*.o
+	del src\xml\*.o
+	del src\options\*.o
