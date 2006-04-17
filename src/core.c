@@ -308,6 +308,33 @@ event_handler( profile_main_finished )
 	claro_shutdown( );
 }
 
+event_handler( treeview_handle_context )
+{
+	object_t **dat = (object_t **)event->args;
+	int *dati = (int *)event->args;
+	object_t *item = dat[0];
+	BServerWindow *sw = (BServerWindow *)item->appdata;
+	int dx, dy;
+	
+	if ( sw )
+	{
+		widget_screen_offset( object, &dx, &dy );
+		dx += dati[1];
+		dy += dati[2];
+		menu_popup( sw->conmenu.menu, dx, dy, 0 );
+	}
+}
+
+event_handler( treeview_handle_selected )
+{
+	object_t **dat = (object_t **)event->args;
+	object_t *item = dat[0];
+	BServerWindow *sw = (BServerWindow *)item->appdata;
+	
+	if ( sw )
+		b_window_focus( sw->window );
+}
+
 int main( int argc, char *argv[] )
 {
 	char *realname, *username;
@@ -480,6 +507,8 @@ int main( int argc, char *argv[] )
 	// MOO
 	bersirc->splitter = splitter_widget_create( bersirc->mainwin, lt_bounds(lt,"workspace"), cSplitterHorizontal );
 	bersirc->treeview = treeview_widget_create( bersirc->splitter, NO_BOUNDS, 0 );
+	object_addhandler( bersirc->treeview, "right_clicked", treeview_handle_context );
+	object_addhandler( bersirc->treeview, "selected", treeview_handle_selected );
 	/*
 	object_t *ti, *tti, *tti2;
 	ti = treeview_append_row( bersirc->treeview, 0, b_icon("server"), "irc.free2code.net" );

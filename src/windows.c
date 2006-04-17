@@ -68,6 +68,9 @@ void b_window_focus( object_t *w )
 {
 	BServerWindow *sw = b_find_any_by_widget( w );
 	
+	if ( sw == 0 )
+		sw = (BServerWindow *)w;
+	
 	c_widget_show( w );
 	
 	if ( sw->window_flags & B_WINDOW_MINIMISE )

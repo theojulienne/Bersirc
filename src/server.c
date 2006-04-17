@@ -342,6 +342,7 @@ BServerWindow *b_new_server_window( int flags )
 	
 	// add to the treeview
 	server->tv_item = treeview_append_row( bersirc->treeview, 0, b_icon("server"), "Status" );
+	server->tv_item->appdata = (void *)server;
 	list_item_set_font_extra( server->tv_item, cFontWeightBold, cFontSlantNormal, cFontDecorationNormal );
 	
 	b_window_create_context_menu( server );

@@ -442,6 +442,7 @@ BChatWindow *b_new_chat_window( BServerWindow *server, char *dest, int flags )
 		}
 		
 		chat->tv_item = treeview_append_row( bersirc->treeview, server->tv_channels, b_icon("channel_window"), chat->dest );
+		chat->tv_item->appdata = (void *)chat;
 		
 		if ( newf )
 		{
@@ -461,6 +462,7 @@ BChatWindow *b_new_chat_window( BServerWindow *server, char *dest, int flags )
 		}
 		
 		chat->tv_item = treeview_append_row( bersirc->treeview, server->tv_queries, b_icon("query_window"), chat->dest );
+		chat->tv_item->appdata = (void *)chat;
 		
 		if ( newf )
 		{
