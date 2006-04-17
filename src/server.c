@@ -337,6 +337,9 @@ BServerWindow *b_new_server_window( int flags )
 	
 	b_taskbar_redraw( );
 	
+	server->tv_queries = 0;
+	server->tv_channels = 0;
+	
 	// add to the treeview
 	server->tv_item = treeview_append_row( bersirc->treeview, 0, b_icon("server"), "Status" );
 	list_item_set_font_extra( server->tv_item, cFontWeightBold, cFontSlantNormal, cFontDecorationNormal );

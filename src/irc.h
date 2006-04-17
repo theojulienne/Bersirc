@@ -161,6 +161,8 @@ typedef struct b_sw
 	int nickcount;
 	char password[64];
 	
+	object_t *tv_channels, *tv_queries;
+	
 	list_t chat_windows;
 } BServerWindow;
 

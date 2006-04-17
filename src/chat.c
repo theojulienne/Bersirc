@@ -109,7 +109,7 @@ event_handler( b_chat_win_destroy )
 
 	// find server
 	server = (BServerWindow *)deadwin->server;
-
+	
 	// remove from list?
 	if ( server != 0 )
 	{
@@ -117,6 +117,21 @@ event_handler( b_chat_win_destroy )
 		n = node_find( deadwin, &server->chat_windows );
 		node_del( n, &server->chat_windows );
 		node_free( n );
+		
+		// remove the item first.
+		treeview_remove_row( bersirc->treeview, deadwin->tv_item );
+		
+		if ( treeview_get_rows( bersirc->treeview, server->tv_channels ) == 0 )
+		{
+			treeview_remove_row( bersirc->treeview, server->tv_channels );
+			server->tv_channels = 0;
+		}
+		
+		if ( treeview_get_rows( bersirc->treeview, server->tv_queries ) == 0 )
+		{
+			treeview_remove_row( bersirc->treeview, server->tv_queries );
+			server->tv_queries = 0;
+		}
 	}
 	
 	// finally, get rid of the structure
@@ -413,6 +428,46 @@ BChatWindow *b_new_chat_window( BServerWindow *server, char *dest, int flags )
 	/* config fonts */
 	b_widget_set_font( chat->content, "chat-buffer" );
 	b_widget_set_font( chat->input, "chat-input" );
+	
+	// add to the treeview
+	if ( flags & 1 )
+	{
+		int newf=0;
+		
+		// channel
+		if ( server->tv_channels == 0 )
+		{
+			server->tv_channels = treeview_insert_row( bersirc->treeview, server->tv_item, 0, b_icon("tree_channels"), "Channels" ); // FIXME: language
+			newf = 1;
+		}
+		
+		chat->tv_item = treeview_append_row( bersirc->treeview, server->tv_channels, b_icon("channel_window"), chat->dest );
+		
+		if ( newf )
+		{
+			treeview_expand( bersirc->treeview, server->tv_channels );
+			treeview_expand( bersirc->treeview, server->tv_item );
+		}
+	}
+	else
+	{
+		int newf=0;
+		
+		// query
+		if ( server->tv_queries == 0 )
+		{
+			server->tv_queries = treeview_append_row( bersirc->treeview, server->tv_item, b_icon("queries"), "Private Chats" ); // FIXME: language
+			newf = 1;
+		}
+		
+		chat->tv_item = treeview_append_row( bersirc->treeview, server->tv_queries, b_icon("query_window"), chat->dest );
+		
+		if ( newf )
+		{
+			treeview_expand( bersirc->treeview, server->tv_queries );
+			treeview_expand( bersirc->treeview, server->tv_item );
+		}
+	}
 	
 	b_taskbar_redraw( );
 	
