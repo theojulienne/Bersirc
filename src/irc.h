@@ -47,7 +47,7 @@ typedef struct busr
 	
 	char modes[16];
 	
-	ClaroTableRow *row;
+	list_item_t *row;
 	
 	struct busr *next;
 	struct busr *prev;
@@ -115,16 +115,13 @@ typedef struct b_cw
 	
 	// before this point, Chat and Server window structures are identical.
 	
-	CWidget *userlist;
+	object_t *userlist;
 	
 	char dest[256];
 	char topic[512];
 	char key[256];
 	
-	ClaroTable *channel_modes;
-	
 	BUserStore *users; // just for channels (user list)
-	ClaroTable *users_table;
 	int synced;
 	
 	int parted;

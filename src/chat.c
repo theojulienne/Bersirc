@@ -99,7 +99,7 @@ event_handler( b_chat_enter_press )
 
 event_handler( b_chat_win_destroy )
 {
-	BChatWindow /**cwin, *cnext, */*deadwin;
+	BChatWindow *deadwin;
 	BServerWindow *server;
 	
 	deadwin = b_find_chat_by_widget( object );
@@ -117,6 +117,9 @@ event_handler( b_chat_win_destroy )
 		n = node_find( deadwin, &server->chat_windows );
 		node_del( n, &server->chat_windows );
 		node_free( n );
+		
+		if ( deadwin->type == B_CMD_WINDOW_CHANNEL )
+			b_server_printf( server, "PART %s", deadwin->dest );
 		
 		// remove the item first.
 		treeview_remove_row( bersirc->treeview, deadwin->tv_item );
@@ -185,7 +188,8 @@ void b_chat_update_title( BChatWindow *cw )
 void b_userstore_updated( BChatWindow *win, BUserStore *user, int relocate )
 {
 	char *data;
-	//int newpos;
+	int pos;
+	int newpos;
 	
 	data = malloc( 1 + strlen( user->nickname ) + 1 );
 		
@@ -196,22 +200,22 @@ void b_userstore_updated( BChatWindow *win, BUserStore *user, int relocate )
 		
 	strcat( data, user->nickname );
 	
-	/* PORTHACK
-	c_tbl_set_cell_data( win->users_table, user->row->pos, 0, data, 1 );
+	pos = user->row->row;
+	listbox_remove_row( win->userlist, user->row );
 	
-	if ( relocate == 1 )
-	{
-		newpos = b_find_table_row_position( win->users_table, user );
-		c_tbl_move_row( win->users_table, user->row->pos, newpos );
-	}
-	*/
+	newpos = pos;
+	if ( relocate )
+		newpos = b_find_table_row_position( win->userlist, user );
+	
+	user->row = listbox_insert_row( win->userlist, newpos, data );
+	
+	free( data );
 }
 
 void b_chat_user_add( BChatWindow *win, BUserStore *user )
 {
 	BUserStore *nuser;
-	ClaroTableRow *row;
-	//ClaroTableCell *cell;
+	list_item_t *row;
 	
 	if ( !( nuser = (BUserStore *)malloc( sizeof(BUserStore) ) ) )
 		return;
@@ -233,10 +237,8 @@ void b_chat_user_add( BChatWindow *win, BUserStore *user )
 	
 	// add to users table
 	
-	/* PORTHACK
-	row = c_tbl_insert_row( win->users_table, b_find_table_row_position( win->users_table, nuser ) );
-	//cell = c_tbl_get_cell( win->users_table, row->pos, 0 );
-	*/
+	row = listbox_insert_row( win->userlist, b_find_table_row_position( win->userlist, nuser ), nuser->nickname );
+	
 	nuser->row = row;
 	b_userstore_updated( win, nuser, 0 );
 }
@@ -263,7 +265,7 @@ void b_chat_user_del( BChatWindow *win, char *nick )
 				curr->next->prev = curr->prev;
 			}
 			
-			// PORTHACK c_tbl_delete_row( win->users_table, curr->row->pos );
+			listbox_remove_row( win->userlist, curr->row );
 			
 			free( curr );
 			return;
@@ -279,12 +281,12 @@ void b_chat_user_empty( BChatWindow *win )
 	{
 		next = curr->next;
 		
+		listbox_remove_row( win->userlist, curr->row );
+		
 		free( curr );
 	}
 	
 	win->users = 0;
-	
-	// PORTHACK c_tbl_empty( win->users_table );
 }
 
 BUserStore *b_chat_user_find_nick( BChatWindow *win, char *nick )
@@ -358,8 +360,6 @@ BChatWindow *b_new_chat_window( BServerWindow *server, char *dest, int flags )
 	chat->recall_newest = 0;
 	chat->recall_shown = 0;
 	chat->recall_mode = 0;
-	
-	chat->users_table = 0;
 	
 	bounds_t *b = new_bounds(-1,-1,600,400);
 	chat->window = workspace_window_widget_create( bersirc->workspace, b, 0 );

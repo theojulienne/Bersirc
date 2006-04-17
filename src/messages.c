@@ -833,8 +833,6 @@ BERS_MESSAGE( b_msg_channames )
 	{
 		chatwin->synced = 0;
 		b_chat_user_empty( chatwin );
-		
-		c_tbl_empty( chatwin->users_table );
 	}
 	
 	tmp = (char *)malloc( strlen( params[3] ) + 1 );
@@ -866,9 +864,6 @@ BERS_MESSAGE( b_msg_channames )
 		}
 		
 		b_chat_user_add( chatwin, &store );
-		//b_insert_userlist_user( chatwin, &store );
-		
-	
 		
 		a = NULL;
 	}
@@ -920,13 +915,12 @@ char b_find_user_prefix( BUserStore *st )
 	return 0;
 }
 
-int b_find_table_row_position( ClaroTable *tbl, BUserStore *st )
+int b_find_table_row_position( object_t *tbl, BUserStore *st )
 {
-	/* PORTHACK
-	int a;
+	int a, b;
 	char tuser[64];
 	char prefix = b_find_user_prefix( st );
-	ClaroTableCell *cell;
+	list_item_t *item;
 	
 	strcpy( tuser, "" );
 	
@@ -935,19 +929,16 @@ int b_find_table_row_position( ClaroTable *tbl, BUserStore *st )
 	
 	strcat( tuser, st->nickname );
 	
-	for ( a = 0; a < tbl->rows; a++ )
+	b = listbox_get_rows( tbl );
+	for ( a = 0; a < b; a++ )
 	{
+		item = list_widget_get_row( tbl, 0, a );
 		
-		cell = c_tbl_get_cell( tbl, a, 0 );
-		
-		if ( b_nickcmp( tuser, (char *)cell->data ) == -1 )
+		if ( b_nickcmp( tuser, (char *)item->data[0] ) == -1 )
 			return a;
-		
 	}
 	
-	return tbl->rows; // should go at the end
-	*/
-	return 0;
+	return b; // should go at the end
 }
 
 BERS_MESSAGE( b_msg_channames_end )
@@ -1035,7 +1026,7 @@ BERS_MESSAGE( b_msg_part )
 		cw->parted = 1;
 		if ( cw->partrequested == 1 && b_get_option_bool( xidentity, "general", "opt_gen_close_on_part" ) )
 		{
-			c_close_widget( cw->window );
+			widget_close( cw->window );
 		}
 		else
 		{
@@ -1308,8 +1299,6 @@ int b_mode_handle_power( B_MODE_HANDLER_PARMS )
 	// save. remember, the original will be used if nothing happened.
 	strcpy( user->modes, newmodes );
 	
-	// FIXME: fix teh item here
-	//b_update_userlist( chanwin );
 	b_userstore_updated( chanwin, user, 1 );
 	
 	return 0;

@@ -121,7 +121,6 @@ event_handler( b_server_win_destroy )
 	
 	// FIXME: FLUSH
 	
-	//for ( curr = sw->chat_head; curr != 0; curr = next )
 	LIST_FOREACH_SAFE( n, tn, sw->chat_windows.head )
 	{
 		curr = (BChatWindow *)n->data;
