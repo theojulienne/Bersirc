@@ -69,6 +69,8 @@ typedef struct
 
 typedef struct b_plugin_struct
 {
+	object_t object;
+	
 #ifdef ENV_WIN32
 	HMODULE plugin;
 #else
@@ -81,7 +83,9 @@ typedef struct b_plugin_struct
 	
 	struct b_plugin_struct *next;
 	struct b_plugin_struct *prev;
-} BersircPlugin;
+} bplugin_t;
+
+#define BersircPlugin bplugin_t
 
 enum
 {

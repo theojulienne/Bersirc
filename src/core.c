@@ -79,6 +79,9 @@ BersircIcon bicons[] = {
 	{ "bug_report", 0 },
 	{ "website", 0 },
 	{ "help", 0 },
+	{ "tree_channels", 0 },
+	{ "server", 0 },
+	{ "queries", 0 },
 	{ 0, 0 },
 };
 
@@ -109,6 +112,63 @@ void b_remove_systray( );
 
 int mw_state_x, mw_state_y, mw_state_w, mw_state_h, mw_state_max, mw_state_min;
 
+event_handler( state_change_minimized )
+{
+	mw_state_min = 1;
+	/* PORTFIX:
+	if ( b_get_option_bool( xidentity, "general", "opt_gen_min_to_systray" ) )
+	{
+		b_insert_systray( );
+		window_hide( bersirc->mainwin );
+	}
+	*/
+}
+
+event_handler( state_change_maximized )
+{
+	mw_state_max = 1;
+	mw_state_min = 0;
+	
+	if ( !b_get_option_bool( xidentity, "general", "opt_gen_show_in_systray" ) )
+		b_remove_systray( );
+}
+
+event_handler( state_change_restored )
+{
+	mw_state_max = 0;
+	mw_state_min = 0;
+	
+	if ( !b_get_option_bool( xidentity, "general", "opt_gen_show_in_systray" ) )
+		b_remove_systray( );
+}
+
+event_handler( state_change_moved )
+{
+	widget_t *widget = WIDGET(object);
+	
+	if ( mw_state_max )
+		return;
+	
+	if ( widget->size.x > 0 || widget->size.y > 0 )
+	{
+		mw_state_x = widget->size.x;
+		mw_state_y = widget->size.y;
+	}
+}
+
+event_handler( state_change_resized )
+{
+	widget_t *widget = WIDGET(object);
+	
+	if ( mw_state_max )
+		return;
+	
+	if ( widget->size_ct.w > 0 || widget->size_ct.h > 0 )
+	{
+		mw_state_w = widget->size_ct.w;
+		mw_state_h = widget->size_ct.h;
+	}
+}
 event_handler( state_changed )
 {
 /* PORTHACK */
@@ -253,7 +313,8 @@ int main( int argc, char *argv[] )
 	char *realname, *username;
 	XMLItem *nicks;
 	BServerWindow *sw;
-	int x, y, w, h, f;	
+	int x, y, w, h, f;
+	int startup_max=0;
 	
 	// Move the CWD so we're in the path of the executable if we started elsewhere
 	char path[1024];
@@ -362,7 +423,7 @@ int main( int argc, char *argv[] )
 	mw_state_y = y;
 	mw_state_w = w;
 	mw_state_h = h;
-	mw_state_max = b_get_option_bool( xidentity, "state", "main_maximise" );
+	startup_max = mw_state_max = b_get_option_bool( xidentity, "state", "main_maximise" );
 	mw_state_min = b_get_option_bool( xidentity, "state", "main_minimise" );
 	/*
 	if ( mw_state_max == 1 )
@@ -378,7 +439,11 @@ int main( int argc, char *argv[] )
 	
 	// Set up event handlers
 	object_addhandler( bersirc->mainwin, "destroy", b_cleanup_and_exit );
-	
+	object_addhandler( bersirc->mainwin, "minimized", state_change_minimized );
+	object_addhandler( bersirc->mainwin, "maximized", state_change_maximized );
+	object_addhandler( bersirc->mainwin, "restored", state_change_restored );
+	object_addhandler( bersirc->mainwin, "moved", state_change_moved );
+	object_addhandler( bersirc->mainwin, "content_resized", state_change_resized );
 	
 	/* PORTFIX */
 	/*
@@ -412,8 +477,31 @@ int main( int argc, char *argv[] )
 	lt = layout_create( bersirc->mainwin, "[_workspace][{25}taskbar]", *b, 20, 20 );
 	bersirc->layout = lt;
 	
+	// MOO
+	bersirc->splitter = splitter_widget_create( bersirc->mainwin, lt_bounds(lt,"workspace"), cSplitterHorizontal );
+	bersirc->treeview = treeview_widget_create( bersirc->splitter, NO_BOUNDS, 0 );
+	
+	object_t *ti, *tti, *tti2;
+	ti = treeview_append_row( bersirc->treeview, 0, b_icon("server"), "irc.free2code.net" );
+	//list_item_set_text_color( ti, 1, 0, 0, 1 );
+	list_item_set_font_extra( ti, cFontWeightBold, cFontSlantNormal, cFontDecorationNormal );
+	tti = treeview_append_row( bersirc->treeview, ti, b_icon("tree_channels"), "Channels" );
+	//list_item_set_text_color( tti, 0, 0, 1, 1 );
+	       treeview_append_row( bersirc->treeview, tti, b_icon("channel_window"), "#test" );
+	       treeview_append_row( bersirc->treeview, tti, b_icon("channel_window"), "#test2" );
+	       treeview_append_row( bersirc->treeview, tti, b_icon("channel_window"), "#lobby" );
+	tti2 = treeview_append_row( bersirc->treeview, ti, b_icon("queries"), "Private Chats" );
+	treeview_expand( bersirc->treeview, tti );
+	       treeview_append_row( bersirc->treeview, tti2, b_icon("query_window"), "Theo" );
+	       treeview_append_row( bersirc->treeview, tti2, b_icon("query_window"), "Terminal" );
+	       treeview_append_row( bersirc->treeview, tti2, b_icon("query_window"), "Bersirc" );
+	
+	treeview_expand( bersirc->treeview, ti );
+	treeview_expand( bersirc->treeview, tti );
+	treeview_expand( bersirc->treeview, tti2 );
+	
 	// Workspace
-	bersirc->workspace = workspace_widget_create( bersirc->mainwin, lt_bounds(lt,"workspace"), 0 );
+	bersirc->workspace = workspace_widget_create( bersirc->splitter, NO_BOUNDS, 0 );
 	
 	// Task bar
 	b_create_taskbar( bersirc->mainwin );
@@ -437,11 +525,13 @@ int main( int argc, char *argv[] )
 	b_autowin_run( sw );
 	
 	// show main window
-	window_show( bersirc->mainwin );
+	//window_show( bersirc->mainwin );
 	
 	// maximise?
-	if ( mw_state_max == 1 )
+	if ( startup_max )
 		window_maximise( bersirc->mainwin );
+	else
+		window_show( bersirc->mainwin );
 	
 	// Go into the loop!
 	claro_loop( );

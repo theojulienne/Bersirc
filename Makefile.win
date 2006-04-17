@@ -1,4 +1,4 @@
-CLARODIR=C:/dev/claro-test
+CLARODIR=C:\dev\claro-test
 
 CC=gcc
 CFLAGS=-I$(CLARODIR)/src -Wall -DNO_CAIRO -DENV_WIN32
@@ -53,8 +53,8 @@ CFLAGS+= -g
 all: bersirc
 
 bersirc: $(OBJECTS) $(CLARODIR)/build/claro-base.dll $(CLARODIR)/build/claro-graphics.dll
-	cp $(CLARODIR)/build/claro-base.dll .
-	cp $(CLARODIR)/build/claro-graphics.dll .
+	copy $(CLARODIR)\build\claro-base.dll .
+	copy $(CLARODIR)\build\claro-graphics.dll .
 	$(CC) -Wl,-export-all-symbols,--out-implib,libbersirc.a -mno-cygwin $(OBJECTS) $(LDFLAGS) -o bersirc
 
 src/resources.o: bersirc.rc

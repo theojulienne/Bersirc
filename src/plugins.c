@@ -25,7 +25,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <dlfcn.h>
 #endif
 
-BersircPlugin *plg_head = 0;
+bplugin_t *plg_head = 0;
 
 int b_window_printf( void *win, int colour, char *fmt, ... )
 {
@@ -68,7 +68,7 @@ void *b_active_window(  )
 	return 0;
 }
 
-int b_plugin_message( BersircPlugin *plugin, int message, void *data )
+int b_plugin_message( bplugin_t *plugin, int message, void *data )
 {
 	char **loc;
 	BersircPluginWrite *bpw;
@@ -95,16 +95,16 @@ int b_plugin_message( BersircPlugin *plugin, int message, void *data )
 	return 1;
 }
 
-int b_plugin_send( BersircPlugin *plugin, int message, void *data )
+int b_plugin_send( bplugin_t *plugin, int message, void *data )
 {
 	return (*plugin->handler)( plugin, message, data );
 }
 
 int b_plugin_load( char *filename )
 {
-	BersircPlugin plg, *ptmp;
+	bplugin_t plg, *ptmp;
 	
-	memset( &plg, 0, sizeof( BersircPlugin ) );
+	memset( &plg, 0, sizeof( bplugin_t ) );
 	
 #ifdef _WIN32
 	plg.plugin = LoadLibrary( filename );
@@ -135,9 +135,9 @@ int b_plugin_load( char *filename )
 	
 	// all worked.. let's save this plugin.
 	
-	ptmp = (BersircPlugin *)malloc( sizeof(BersircPlugin) );
+	ptmp = (bplugin_t *)malloc( sizeof(bplugin_t) );
 	
-	memcpy( ptmp, &plg, sizeof(BersircPlugin) );
+	memcpy( ptmp, &plg, sizeof(bplugin_t) );
 	
 	ptmp->next = plg_head;
 	if ( plg_head != 0 )
