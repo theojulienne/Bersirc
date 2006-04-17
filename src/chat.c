@@ -348,7 +348,7 @@ BChatWindow *b_new_chat_window( BServerWindow *server, char *dest, int flags )
 	
 	bounds_t *b = new_bounds(-1,-1,600,400);
 	chat->window = workspace_window_widget_create( bersirc->workspace, b, 0 );
-	sprintf( lt_str, "[_content|(%d)scrollbar][{1}line][{20}input]", scrollbar_get_sys_width( ) );
+	sprintf( lt_str, "[_content][{1}line][{20}input]" );
 	chat->layout = layout_create( chat->window, lt_str, *b, 20, 20 );
 	
 	object_addhandler( chat->window, "destroy", b_chat_win_destroy );
@@ -379,16 +379,21 @@ BChatWindow *b_new_chat_window( BServerWindow *server, char *dest, int flags )
 		
 	workspace_window_set_icon( server->window, b_icon( icon ) );
 	
-	chat->content = (object_t *)ircview_widget_create( cparent, cbounds );
+	chat->container = container_widget_create( cparent, cbounds, 0 );
+	sprintf( lt_str, "[_content|scrollbar(%d)]", scrollbar_get_sys_width( ) );
+	chat->ct_layout = layout_create( chat->container, lt_str, *cbounds, 20, 20 );
+	
+	chat->content = (object_t *)ircview_widget_create( chat->container, lt_bounds(chat->ct_layout,"content") ); //cparent, cbounds );
 	object_addhandler( chat->content, "focus", b_chat_content_focus );
 	
-	chat->scroll = scrollbar_widget_create( chat->window, lt_bounds(chat->layout,"scrollbar"), cScrollbarVertical );
+	chat->scroll = scrollbar_widget_create( chat->container, lt_bounds(chat->ct_layout,"scrollbar"), cScrollbarVertical );
 	ircview_set_scrollbar( chat->content, chat->scroll );
 	
 	if ( flags & 1 )
 	{
 		chat->userlist = listbox_widget_create( chat->splitter, NO_BOUNDS, cWidgetNoBorder );
 		chat->type = B_CMD_WINDOW_CHANNEL;
+		splitter_set_info( chat->splitter, cSplitterSecond, 0, 100 );
 		
 		/*chat->users_table = c_tbl_create( 2 );
 		c_listbox_attach_table( chat->userlist, chat->users_table, 0 );

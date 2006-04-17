@@ -24,7 +24,7 @@ typedef struct
 	object_t object;
 	
 	object_t *mainwin;
-	object_t *menu, *toolbar, *workspace, *splitter, *treeview;
+	object_t *menu, *toolbar, *statusbar, *workspace, *splitter, *treeview;
 	
 	layout_t *layout;
 	

@@ -500,6 +500,8 @@ int main( int argc, char *argv[] )
 	treeview_expand( bersirc->treeview, tti );
 	treeview_expand( bersirc->treeview, tti2 );
 	
+	splitter_set_info( bersirc->splitter, cSplitterFirst, 0, 200 );
+	
 	// Workspace
 	bersirc->workspace = workspace_widget_create( bersirc->splitter, NO_BOUNDS, 0 );
 	
@@ -507,7 +509,7 @@ int main( int argc, char *argv[] )
 	b_create_taskbar( bersirc->mainwin );
 	
 	// Status bar
-	statusbar_widget_create( bersirc->mainwin, 0 );
+	bersirc->statusbar = statusbar_widget_create( bersirc->mainwin, 0 );
 	
 	// prepare...
 	list_create( &bersirc->servers );

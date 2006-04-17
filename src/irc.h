@@ -97,6 +97,8 @@ typedef struct b_win_contextm
 	object_t *input;\
 	layout_t *layout;\
 	object_t *content;\
+	object_t *container;\
+	layout_t *ct_layout;\
 	object_t *splitter;\
 	object_t *scroll;\
 	\
