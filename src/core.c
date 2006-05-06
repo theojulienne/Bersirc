@@ -337,7 +337,12 @@ event_handler( treeview_handle_selected )
 {
 	object_t **dat = (object_t **)event->args;
 	object_t *item = dat[0];
-	BServerWindow *sw = (BServerWindow *)item->appdata;
+	BServerWindow *sw;
+	
+	if ( !item )
+		return;
+	
+	sw = (BServerWindow *)item->appdata;
 	
 	if ( sw )
 		b_window_focus( sw->window );
