@@ -408,7 +408,7 @@ BChatWindow *b_new_chat_window( BServerWindow *server, char *dest, int flags )
 	{
 		chat->userlist = listbox_widget_create( chat->splitter, NO_BOUNDS, cWidgetNoBorder );
 		chat->type = B_CMD_WINDOW_CHANNEL;
-		splitter_set_info( chat->splitter, cSplitterSecond, 0, 100 );
+		splitter_set_info( chat->splitter, cSplitterSecond, 0, 150 );
 		
 		/*chat->users_table = c_tbl_create( 2 );
 		c_listbox_attach_table( chat->userlist, chat->users_table, 0 );

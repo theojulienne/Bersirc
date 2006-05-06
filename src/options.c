@@ -50,6 +50,7 @@ BOptionDefault b_opt_defaults[] = {
 	{ "general", "opt_gen_close_on_part", "false" },
 	{ "general", "opt_gen_rejoin_on_kick", "false" },
 	{ "general", "opt_gen_language", "en_uk" },
+	{ "general", "opt_gen_icon_theme", "default" },
 	
 	// misc (general)
 	{ "general", "opt_misc_quit_message", "" },

@@ -47,6 +47,8 @@ char identity[1024];
 extern int savedprofile;
 char filepath[4096];
 
+char b_icon_theme[64];
+
 typedef struct
 {
 	char *name;
@@ -96,8 +98,14 @@ image_t *b_icon( char *name )
 		{
 			if ( bicons[a].icon == 0 )
 			{
-				sprintf( tmp, "themes/default/icons/%s.png", name );
-				bicons[a].icon = (image_t *)image_load( bersirc->mainwin, tmp );;
+				sprintf( tmp, "themes/%s/icons/%s.png", b_icon_theme, name );
+				bicons[a].icon = (image_t *)image_load( bersirc->mainwin, tmp );
+				
+				if ( bicons[a].icon == 0 )
+				{
+					sprintf( tmp, "themes/%s/icons/%s.png", "default", name );
+					bicons[a].icon = (image_t *)image_load( bersirc->mainwin, tmp );;
+				}
 			}
 			
 			return bicons[a].icon;
@@ -383,9 +391,6 @@ int main( int argc, char *argv[] )
 	// Sort out the user directory
 	config_userdir_init( );
 	
-	// Load the Bersirc icon
-	bersirc_icon = image_load( bersirc->mainwin, "themes/default/icons/bersirc.png" );
-	
 	// Create XML parser and load prefs.xml (or the default if prefs.xml doesn't exist)
 	config = c_xml_create( );
 	
@@ -405,6 +410,12 @@ int main( int argc, char *argv[] )
 		printf( "Could not find Bersirc.identities.identity in user XML file. Bailing out\n" );
 		return 0;
 	}
+	
+	// Load our theme set
+	strcpy( b_icon_theme, b_get_option_string( xidentity, "general", "opt_gen_icon_theme" ) );
+	
+	// Load the Bersirc icon
+	bersirc_icon = b_icon( "bersirc" ); //image_load( bersirc->mainwin, "themes/default/icons/bersirc.png" );
 	
 	// Load our primary language (backup is always EN-UK)
 	lang_init( b_get_option_string( xidentity, "general", "opt_gen_language" ) );

@@ -873,7 +873,9 @@ event_handler( ircview_handle_scroll )
 		if ( iv->scroll == object )
 		{
 			canvas_redraw( WIDGET(iv) );
-			widget_focus( WIDGET(iv) ); // in turn, goes to input
+			// FIXME: only do this if we're the active window, it's to effective
+			// and causes cross-window focusing for every scroll event (new msg, too)
+			//widget_focus( WIDGET(iv) ); // in turn, goes to input
 		}
 	}
 }
