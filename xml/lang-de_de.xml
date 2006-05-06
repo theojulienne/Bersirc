@@ -182,4 +182,10 @@
 <toomanychannels text="$chan: Sie haben zu viele Kanäle betreten" />
 <wasnosuchnick text="$nick: Es gab keinen solchen Spitznamen" />
 <toomanytargets text="$nick: Doppelter Empfänger. Es wurde keine Nachricht ausgeliefert" />
+<chan_all_modes text="* Channel modes are: $mode $victims" />
+<autoitemenable text="Diese Verbindung aktivieren" />
+<menu_irc text="&amp;Client" />
+<menu_help_docs text="&amp;Dokumentation" />
+<menu_fav_add text="Zu Favoriten &amp;hinzufügen..." />
+<menu_fav_manage text="Favoriten &amp;verwalten..." />
 </textblocks>
