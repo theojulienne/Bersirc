@@ -177,7 +177,7 @@ void b_init_commands( )
 	b_register_command( "j", &b_cmd_join, B_CMD_WINDOW_ALL );
 	b_register_command( "part", &b_cmd_part, B_CMD_WINDOW_ALL );
 	b_register_command( "p", &b_cmd_part, B_CMD_WINDOW_ALL );
-	b_register_command( "nick", &b_cmd_nick, B_CMD_WINDOW_ALL );
+	//b_register_command( "nick", &b_cmd_nick, B_CMD_WINDOW_ALL );
 	b_register_command( "msg", &b_cmd_privmsg, B_CMD_WINDOW_ALL );
 	b_register_command( "action", &b_cmd_action, B_CMD_WINDOW_ALL );
 	b_register_command( "me", &b_cmd_me, B_CMD_WINDOW_CHAT );
@@ -528,7 +528,7 @@ BERS_COMMAND( b_cmd_default )
 	return 0;
 }
 
-BERS_COMMAND( b_cmd_nick )
+/*BERS_COMMAND( b_cmd_nick )
 {
 	if ( pcount < 1 )
 		return -1;
@@ -536,7 +536,7 @@ BERS_COMMAND( b_cmd_nick )
 	b_server_printf( server, "NICK %s", params[0] );
 	
 	return 0;
-}
+}*/
 
 BERS_COMMAND( b_cmd_privmsg )
 {

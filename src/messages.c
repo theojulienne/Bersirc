@@ -228,6 +228,7 @@ void b_init_messages( )
 	// 252: RPL_LUSEROP "<integer> :operator(s) online"
 	b_register_message( "252", &b_msg_welcome, 0 );
 	// 253: RPL_LUSERUNKNOWN "<integer> :unknown connection(s)"
+	b_register_message( "253", &b_msg_welcome, 0 );
 	// 254: RPL_LUSERCHANNELS "<integer> :channels formed"
 	b_register_message( "254", &b_msg_welcome, 0 );
 	// 255: RPL_LUSERME ":I have <integer> clients and <integer> servers"
@@ -342,7 +343,7 @@ void b_init_messages( )
 	b_register_message( "375", &b_msg_motd, 0 );
 	// 376: RPL_ENDOFMOTD ":End of /MOTD command"
 	b_register_message( "376", &b_msg_motd, 0 );
-	// -
+	// 377: glass.webchat.org 377 davidk Z-Default 5606 1137752600 :Last MOTD change information: Fri, 20 Jan 2006 02:23:20 -0800
 	// 378: ??
 	b_register_message( "378", &b_msg_whois_is, 0 );
 	// 379: ??
