@@ -65,7 +65,7 @@ void config_userdir_init( )
 #else
 	snprintf( userdir, 512, "%s/.bersirc", getenv( "HOME" ) );
 
-	if ( mkdir( userdir ) != 0 && errno != EEXIST )
+	if ( mkdir( userdir, 0700 ) != 0 && errno != EEXIST )
 	{
 		printf( "Could not create %s!\n", userdir );
 		exit( 0 );
