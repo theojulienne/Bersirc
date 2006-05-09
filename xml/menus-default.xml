@@ -8,7 +8,6 @@
 			<menu title="-" />
 			<menu title="lang:menu_file_disconnect_active" icon="disconnect" command="/quit" />
 			<menu title="-" />
-			<menu title="lang:menu_autoconnect" command="/autowin" />
 			<menu title="lang:menu_file_network_browser" icon="network_browser" command="/netbrowse" enabled="false" />
 			<menu title="-" />
 			<menu title="lang:menu_file_join_channel" icon="channel_window" command="/joinwin" />
@@ -16,6 +15,8 @@
 			<menu title="lang:menu_file_exit" command="/exit" />
 		</menu>
 		<menu title="lang:menu_favorites" init="menu_setup_favorites">
+			<menu title="lang:menu_autoconnect" command="/autowin" />
+			<menu title="-" />
 			<menu title="lang:menu_fav_add" command="/addfav" enabled="false" />
 			<menu title="lang:menu_fav_manage" command="/managefav" enabled="false" />
 			<menu title="-" />
