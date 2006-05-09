@@ -492,6 +492,10 @@ BERS_COMMAND( b_cmd_query )
 	{
 		chatwin = b_new_chat_window( server, params[0], 0 );
 	}
+	else
+	{
+		b_window_focus( chatwin->window );
+	}
 	
 	return 0;
 }

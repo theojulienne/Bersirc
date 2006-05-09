@@ -35,7 +35,7 @@ BChatWindow *b_find_chat_by_widget( CWidget *w )
 		{
 			cwin = (BChatWindow *)cn->data;
 			
-			if ( cwin->window == w || cwin->content == w || cwin->input == w || cwin->conmenu.menu == w )
+			if ( cwin->userlist == w || cwin->window == w || cwin->content == w || cwin->input == w || cwin->conmenu.menu == w )
 			{
 				return cwin;
 			}
@@ -206,6 +206,7 @@ void b_userstore_updated( BChatWindow *win, BUserStore *user, int relocate )
 		newpos = b_find_table_row_position( win->userlist, user );
 	
 	user->row = listbox_insert_row( win->userlist, newpos, data );
+	OBJECT(user->row)->appdata = user;
 	
 	free( data );
 }
@@ -237,6 +238,7 @@ void b_chat_user_add( BChatWindow *win, BUserStore *user )
 	
 	row = listbox_insert_row( win->userlist, b_find_table_row_position( win->userlist, nuser ), nuser->nickname );
 	
+	OBJECT(row)->appdata = nuser;
 	nuser->row = row;
 	b_userstore_updated( win, nuser, 0 );
 }
@@ -335,6 +337,26 @@ int b_chatwin_printf( BChatWindow *cwin, int colour, char *fmt, ... )
 	return 1;
 }
 
+event_handler( userlist_doubleclick )
+{
+	list_item_t *li = listbox_get_selected( object );
+	char tmp[128];
+	BUserStore *us;
+	BChatWindow *win = b_find_any_by_widget( object );
+	
+	if ( !li )
+		return;
+	
+	us = OBJECT(li)->appdata;
+	
+	if ( !us )
+		return;
+	
+	sprintf( tmp, "/query %s", us->nickname );
+	
+	b_user_command( win, tmp, 1 );
+}
+
 BChatWindow *b_new_chat_window( BServerWindow *server, char *dest, int flags )
 {
 	BChatWindow *chat;
@@ -407,6 +429,7 @@ BChatWindow *b_new_chat_window( BServerWindow *server, char *dest, int flags )
 	if ( flags & 1 )
 	{
 		chat->userlist = listbox_widget_create( chat->splitter, NO_BOUNDS, cWidgetNoBorder );
+		object_addhandler( chat->userlist, "double_clicked", userlist_doubleclick );
 		chat->type = B_CMD_WINDOW_CHANNEL;
 		splitter_set_info( chat->splitter, cSplitterSecond, 0, 150 );
 		
