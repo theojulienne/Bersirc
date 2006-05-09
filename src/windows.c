@@ -103,6 +103,67 @@ void b_window_create_context_menu( BServerWindow *win )
 		b_menu_from_xml( xmenu, win->conmenu.menu, "context-query", 4 );
 }
 
+char *b_window_autocomplete( bchannel_t *cw )
+{
+	int rnum = 0;
+	bserver_t *sw;
+	char *start = cw->last_tab_comp;
+	int result = cw->tab_comp_num;
+	node_t *n;
+	BUserStore *curr;
+	
+	if ( cw->type == B_CMD_WINDOW_CHANNEL )
+	{
+		for ( curr = cw->users; curr != 0; curr = curr->next )
+		{
+			char *text = curr->nickname;
+			if ( !strncasecmp( start, text, strlen( start ) ) )
+			{
+				rnum++;
+				if ( rnum > result )
+				{
+					cw->tab_comp_num++;
+					return text;
+				}
+			}
+		}
+	}
+	
+	sw = cw;
+	
+	if ( cw->type != B_CMD_WINDOW_STATUS )
+		sw = cw->server;
+	
+	LIST_FOREACH( n, sw->chat_windows.head )
+	{
+		bchannel_t *nc = (bchannel_t *)n->data;
+		char *text = nc->dest;
+		
+		if ( nc->type != B_CMD_WINDOW_CHANNEL )
+			continue;
+		
+		if ( !strncmp( start, text, strlen( start ) ) )
+		{
+			rnum++;
+			if ( rnum > result )
+			{
+				cw->tab_comp_num++;
+				return text;
+			}
+		}
+	}
+	
+	// did we find one or more but go past the end?
+	// wasteful, but loop!
+	if ( rnum > 0 )
+	{
+		cw->tab_comp_num = 0;
+		return b_window_autocomplete( cw );
+	}
+	
+	return 0;
+}
+
 event_handler( b_input_key_press )
 {
 	/* PORTHACK */
@@ -147,10 +208,76 @@ event_handler( b_input_key_press )
 	else if ( key == cKeyReturn )
 	{
 		event->handled = event_send( object, "enter_press", "" );
+		goto clear_tab_comp;
+		return;
+	}
+	else if ( key == cKeyTab )
+	{
+		char *text, *tmp, *res;
+		char cpy[CLARO_TEXTBOX_MAXIMUM];
+		int a;
+		
+		// FIXME: this should really be checking from where the cursor is, not just the end of the line.
+		
+		text = textbox_get_text( object );
+		strcpy( cpy, text );
+		text = &cpy;
+		tmp = "";
+		
+		for ( a = strlen( text ); a >= 0; a-- )
+		{
+			tmp = text + a;
+			
+			if ( tmp[0] == ' ' )
+			{
+				tmp++;
+				break;
+			}
+		}
+		
+		if ( !strcmp( text, "" ) )
+			return;
+		
+		if ( win->last_tab_comp != 0 )
+		{
+			// again
+			res = b_window_autocomplete( win );
+			if ( res == 0 )
+				return;
+			strcpy( tmp, res );
+			
+			textbox_set_text( object, text );
+			textbox_set_pos( object, strlen(text) );
+			
+			event->handled = 1;
+			return;
+		}
+		
+		win->last_tab_comp = strdup( tmp );
+		win->tab_comp_num = 0;
+		
+		res = b_window_autocomplete( win );
+		if ( res == 0 )
+			return;
+		strcpy( tmp, res );
+		
+		textbox_set_text( object, text );
+		textbox_set_pos( object, strlen(text) );
+		
+		event->handled = 1;
 		return;
 	}
 	else
+	{
+		clear_tab_comp:
+		if ( win->last_tab_comp != 0 )
+		{
+			free( win->last_tab_comp );
+			win->last_tab_comp = 0;
+			win->tab_comp_num = 0;
+		}
 		return; // we don't care
+	}
 	
 	event->handled = 1;
 	
@@ -199,6 +326,14 @@ event_handler( b_input_key_press )
 		
 		win->recall_mode = 0;
 		win->recall_shown = 0;
+	}
+	
+	/* clear tab completion here too */
+	if ( win->last_tab_comp != 0 )
+	{
+		free( win->last_tab_comp );
+		win->last_tab_comp = 0;
+		win->tab_comp_num = 0;
 	}
 }
 

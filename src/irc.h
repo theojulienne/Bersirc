@@ -105,6 +105,9 @@ typedef struct b_win_contextm
 	object_t *tv_item;\
 	\
 	int window_flags;\
+	\
+	char *last_tab_comp;\
+	int tab_comp_num;\
 	
 
 //
