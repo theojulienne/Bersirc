@@ -630,14 +630,24 @@ int b_msg_check_ctcp( BServerWindow *server, BChatWindow *chatwin, BUserMask *us
 		
 		if ( s == 0 )
 		{
-			/*
-			if ( chatwin == 0 )
-				b_swindow_printf( server, BTV_CTCP, "%s", out );
-			else
-				b_chatwin_printf( chatwin, BTV_CTCP, "%s", out );
-			*/
+			bserver_t *sendw = b_active_window( ), *real_serv;
+			bchannel_t *cw;
 			
-			b_window_printf( b_active_window( ), BTV_CTCP, "%s", out );
+			real_serv = sendw;
+			
+			if ( sendw->type == B_CMD_WINDOW_CHANNEL )
+			{
+				cw = (bchannel_t *)sendw;
+				real_serv = (bserver_t *)cw->server;
+			}
+			
+			if ( real_serv != server )
+			{
+				// different network! use our status window instead of active.
+				sendw = server;
+			}
+			
+			b_window_printf( sendw, BTV_CTCP, "%s", out );
 		}
 		
 		return 1;
