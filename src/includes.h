@@ -261,6 +261,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include "xml/xml.h"
 #include "irc.h"
 #include "commands.h"
+#include "modes.h"
 #include "messages.h"
 #include "lang.h"
 #include "profile.h"

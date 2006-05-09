@@ -172,6 +172,7 @@ void b_init_messages( )
 	b_register_message( "004", &b_msg_welcome, 0 );
 	b_register_message( "004", &b_msg_uphost, 0 );
 	b_register_message( "005", &b_msg_checkprefix, 0 );
+	b_register_message( "005", &b_msg_checkchanmodes, 0 );
 	b_register_message( "005", &b_msg_welcome, 0 );
 	b_register_message( "006", &b_msg_welcome, 0 );
 	b_register_message( "007", &b_msg_welcome, 0 );
@@ -759,6 +760,7 @@ int b_update_userlist_sortfunc( const void *a, const void *b )
 	return strcasecmp( *((char **)a), *((char **)b) );
 }
 
+#if 0 /* DEPRECATED */
 void b_update_userlist_mode( BChatWindow *chan, char **users, int num, char *prefix )
 {
 	char tmp[64];
@@ -770,10 +772,10 @@ void b_update_userlist_mode( BChatWindow *chan, char **users, int num, char *pre
 	{
 		sprintf( tmp, "%s%s", prefix, users[a] );
 		
-		/* PORTHACK 
-		c_listbox_additem( chan->userlist, tmp );*/
+		/*c_listbox_additem( chan->userlist, tmp );*/
 	}
 }
+#endif
 
 void b_update_userlist( BChatWindow *chan )
 {
@@ -987,8 +989,13 @@ BERS_MESSAGE( b_msg_join )
 		}
 		c_btv_printf( cw->content, 0, BTV_WindowOpen, "%s", lang_tmp_buf );
 		
+		// clean up the channel mode list, we're new :)
+		b_channel_mode_list_clean( cw );
+		
+		// mark that channel is active
 		cw->parted = 0;
 		
+		// request the channel's mode list
 		b_server_printf( server, "MODE %s", params[0] );
 	}
 	else
@@ -1176,6 +1183,8 @@ BERS_MESSAGE( b_msg_welcome )
 {
 	char *sender = "NULL";
 	BUserMask *from = (BUserMask *)window;
+	char tmp[1024];
+	int a;
 	
 	server->nickcount = -1;
 	
@@ -1187,10 +1196,23 @@ BERS_MESSAGE( b_msg_welcome )
 	
 	strcpy( server->nickname, params[0] );
 	
+	/*
 	if ( pcount == 2 )
 		b_swindow_printf( server, BTV_Message, "%s", params[1] );
 	else
 		b_swindow_printf( server, BTV_Message, "%s %s", params[1], params[2] );
+	*/
+	
+	strcpy( tmp, "" );
+	
+	for ( a = 1; a < pcount; a++ )
+	{
+		if ( a > 1 )
+			strcat( tmp, " " );
+		strncat( tmp, params[a], 1024 - (strlen(tmp) + 2) );
+	}
+	
+	b_swindow_printf( server, BTV_Message, "%s", tmp );
 	
 	return 0;
 }
@@ -1267,59 +1289,7 @@ BERS_MESSAGE( b_msg_motd )
 	return 0;
 }
 
-int b_mode_handle_power( B_MODE_HANDLER_PARMS )
-{
-	BUserStore *user;
-	char newmodes[16];
-	int a, b;
-	
-	// BServerWindow *server, BChatWindow *chanwin, char dir, char mode, char *channel, char *victim
-	
-	if ( ( user = b_chat_user_find_nick( chanwin, victim ) ) == 0 )
-		return 0;
-	
-	strcpy( newmodes, user->modes );
-	
-	if ( dir == '+' && strchr( user->modes, mode ) == 0 )
-	{
-		sprintf( newmodes, "%s%c", user->modes, mode );
-	}
-	else if ( dir == '-' )
-	{
-		memset( &newmodes, 0, 16 );
-		for ( a = 0, b = 0; a < strlen( user->modes ); a++ )
-		{
-			if ( user->modes[a] != mode )
-			{
-				newmodes[b] = user->modes[a];
-				b++;
-			}
-		}
-	}
-	
-	// save. remember, the original will be used if nothing happened.
-	strcpy( user->modes, newmodes );
-	
-	b_userstore_updated( chanwin, user, 1 );
-	
-	return 0;
-}
-
-int b_mode_handle_null( B_MODE_HANDLER_PARMS )
-{
-	return 0;
-}
-
-int b_mode_handle_key( B_MODE_HANDLER_PARMS )
-{
-	if ( dir == '-' )
-		strcpy( chanwin->key, "" );
-	else
-		strcpy( chanwin->key, victim );
-	
-	return 0;
-}
-
+/*
 typedef struct
 {
 	char mode;
@@ -1356,59 +1326,72 @@ ChannelModeHandler b_chan_mode_handlers[] = {
 	// that's it!
 	{ 0 }
 };
+*/
 
-void b_mode_handle_any( B_MODE_HANDLER_PARMS )
+/*
+This is a list of channel modes according to 4 types.
+A = Mode that adds or removes a nick or address to a list. Always has a parameter.
+B = Mode that changes a setting and always has a parameter.
+C = Mode that changes a setting and only has a parameter when set.
+D = Mode that changes a setting and never has a parameter.
+
+Note: Modes of type A return the list when there is no parameter present.
+
+Note: Some clients assumes that any mode not listed is of type D.
+
+Note: Modes in PREFIX are not listed but could be considered type B. 
+
+[source: http://www.irc.org/tech_docs/005.html ]
+
+CHANMODES=eIbq,k,flj,imnpstrcgzLPQF
+*/
+
+BERS_MESSAGE( b_msg_checkchanmodes )
 {
-	/* PORTHACK */
-#if 0
-	ClaroTableRow *row;
-	ClaroTableCell *cell;
-	int a;
+	char *cmodes;
+	char *tmp, *loc;
+	int type, mflags;
 	
-	// BServerWindow *server, BChatWindow *chanwin, char dir, char mode, char *channel, char *victim
-
-	if ( dir == '-' )
+	cmodes = strstr( origcmd, "CHANMODES=" );
+	
+	if ( cmodes == 0 )
+		return 0;
+	
+	tmp = strdup( cmodes );
+	
+	loc = strstr( tmp, " " );
+	if ( loc != 0 )
+		loc[0] = 0;
+	
+	cmodes = tmp + 10;
+	
+	b_server_clear_cmodes( server, bModeTypeSetting );
+	
+	type = 0;
+	while ( *cmodes != 0 )
 	{
-		// remove that row
-		for ( a = 0; a < chanwin->channel_modes->rows; a++ )
-		{
-			cell = c_tbl_get_cell( chanwin->channel_modes, a, 0 );
-			if ( ((char *)cell->data)[0] == mode )
-			{
-				free( cell->data );
-				
-				cell = c_tbl_get_cell( chanwin->channel_modes, a, 1 );
-				free( cell->data );
-				
-				c_tbl_delete_row( chanwin->channel_modes, a );
-				
-				b_chat_update_title( chanwin );
-				
-				return;
-			}
-		}
-	}
-	else
-	{
-		// firstly, remove the row (just in case) :p
-		b_mode_handle_any( server, chanwin, '-', mode, channel, victim );
-		
-		// now add it
-		row = c_tbl_insert_row( chanwin->channel_modes, chanwin->channel_modes->rows );
-		
-		cell = c_tbl_get_cell( chanwin->channel_modes, row->pos, 0 );
-		cell->data = malloc( 2 );
-		sprintf( cell->data, "%c", mode );
-		
-		cell = c_tbl_get_cell( chanwin->channel_modes, row->pos, 1 );
-		if ( victim == 0 )
-			cell->data = strdup( "" );
+		if ( *cmodes == ',' )
+			type++;
 		else
-			cell->data = strdup( victim );
+		{
+			if ( type == 0 )
+				mflags = bModeHasParamAlways | bModeTypeList;
+			else if ( type == 1 )
+				mflags = bModeHasParamAlways | bModeRemember;
+			else if ( type == 2 )
+				mflags = bModeHasParamOnSet | bModeRemember;
+			else
+				mflags = bModeHasNoParams | bModeRemember;
+			
+			b_server_add_cmode( server, *cmodes, bModeTypeSetting | mflags );
+		}
 		
-		b_chat_update_title( chanwin );
+		cmodes++;
 	}
-#endif
+	
+	free( tmp );
+	
+	return 0;
 }
 
 BERS_MESSAGE( b_msg_chanmodeis )
@@ -1437,38 +1420,26 @@ BERS_MESSAGE( b_msg_chanmodeis )
 			continue;
 		}
 		
-		for ( a = 0; b_chan_mode_handlers[a].mode != 0; a++ )
+		tmp = 0;
+		if ( pcount > b )
+			tmp = params[b];
+		
+		a = b_channel_mode_handle( server, cw, act, cch, params[1], tmp );
+		b += a;
+		
+		if ( a > 0 )
 		{
-			if ( b_chan_mode_handlers[a].mode == cch )
-			{
-				// run it :)
-				
-				tmp = 0;
-				
-				if ( b_chan_mode_handlers[a].pnum != 0 && pcount > b )
-					tmp = params[b];
-				
-				(*b_chan_mode_handlers[a].handler)( server, cw, act, cch, params[1], tmp );
-				b_mode_handle_any( server, cw, act, cch, params[1], tmp );
-				
-				if ( tmp != 0 )
-				{
-					e = d;
-					d += strlen( tmp ) + 1;
-					
-					modevictims = (char *)realloc( modevictims, d+1 );
-					
-					if ( e == 0 )
-						strcpy( modevictims, "" );
-					else
-						strcat( modevictims, " " );
-					
-					strcat( modevictims, tmp );
-				}
-				
-				b += b_chan_mode_handlers[a].pnum;
-				break;
-			}
+			e = d;
+			d += strlen( tmp ) + 1;
+			
+			modevictims = (char *)realloc( modevictims, d+1 );
+			
+			if ( e == 0 )
+				strcpy( modevictims, "" );
+			else
+				strcat( modevictims, " " );
+			
+			strcat( modevictims, tmp );
 		}
 	}
 	
@@ -1529,39 +1500,26 @@ BERS_MESSAGE( b_msg_mode )
 				continue;
 			}
 			
-			for ( a = 0; b_chan_mode_handlers[a].mode != 0; a++ )
+			tmp = 0;
+			if ( pcount > b )
+				tmp = params[b];
+			
+			a = b_channel_mode_handle( server, cw, act, cch, params[1], tmp );
+			b += a;
+			
+			if ( a > 0 )
 			{
-				if ( b_chan_mode_handlers[a].mode == cch )
-				{
-					// run it :)
-					
-					tmp = 0;
-					
-					if ( b_chan_mode_handlers[a].pnum != 0 && pcount > b )
-						tmp = params[b];
-					
-					(*b_chan_mode_handlers[a].handler)( server, cw, act, cch, params[0], tmp );
-					if ( b_chan_mode_handlers[a].chmode == 1 )
-						b_mode_handle_any( server, cw, act, cch, params[0], tmp );
-					
-					if ( tmp != 0 )
-					{
-						e = d;
-						d += strlen( tmp ) + 1;
-						
-						modevictims = (char *)realloc( modevictims, d+1 );
-						
-						if ( e == 0 )
-							strcpy( modevictims, "" );
-						else
-							strcat( modevictims, " " );
-						
-						strcat( modevictims, tmp );
-					}
-					
-					b += b_chan_mode_handlers[a].pnum;
-					break;
-				}
+				e = d;
+				d += strlen( tmp ) + 1;
+				
+				modevictims = (char *)realloc( modevictims, d+1 );
+				
+				if ( e == 0 )
+					strcpy( modevictims, "" );
+				else
+					strcat( modevictims, " " );
+				
+				strcat( modevictims, tmp );
 			}
 		}
 		
@@ -1867,6 +1825,15 @@ BERS_MESSAGE( b_msg_checkprefix )
 	sscanf( prefix, "(%[^)])%s", b_irc_modes, b_irc_symbs );
 	
 	free( tmp );
+	
+	b_server_clear_cmodes( server, bModeTypePower );
+	
+	tmp = b_irc_modes;
+	while ( *tmp )
+	{
+		b_server_add_cmode( server, *tmp, bModeTypePower );
+		tmp++;
+	}
 	
 	return 0;
 }

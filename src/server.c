@@ -268,6 +268,7 @@ BServerWindow *b_new_server_window( int flags )
 	memset( server, 0, sizeof( BServerWindow ) );
 	
 	list_create( &server->chat_windows );
+	list_create( &server->channel_mode_handlers );
 	
 	server->type = B_CMD_WINDOW_STATUS;
 	

@@ -4,6 +4,7 @@ CC=gcc
 CFLAGS=-I$(CLARODIR)/src -Wall -DNO_CAIRO -DENV_WIN32
 OBJECTS=src/resources.o \
 src/core.o \
+src/modes.o \
 src/ircview.o \
 src/irc.o \
 src/commands.o \

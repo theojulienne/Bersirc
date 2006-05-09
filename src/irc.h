@@ -121,6 +121,8 @@ typedef struct b_cw
 	char topic[512];
 	char key[256];
 	
+	list_t channel_modes;
+	
 	BUserStore *users; // just for channels (user list)
 	int synced;
 	
@@ -128,7 +130,7 @@ typedef struct b_cw
 	int partrequested;
 	
 	void *server;
-} BChatWindow;
+} BChatWindow, bchannel_t;
 
 typedef struct b_sw
 {
@@ -161,7 +163,9 @@ typedef struct b_sw
 	object_t *tv_channels, *tv_queries;
 	
 	list_t chat_windows;
-} BServerWindow;
+	
+	list_t channel_mode_handlers;
+} BServerWindow, bserver_t; /* server_t could likely be used by Claro, so prefix with b for bersirc! :) */
 
 typedef struct b_cmd
 {

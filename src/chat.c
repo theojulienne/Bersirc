@@ -145,42 +145,40 @@ event_handler( b_chat_win_destroy )
 
 void b_chat_update_title( BChatWindow *cw )
 {
-	/* PORTHACK
-	char buf[1024];
-	int users = 0;
+	char buf[4096];
 	char modes[256];
 	char modev[256];
+	int users = 0;
 	char tmp[2];
-	int a;
-	ClaroTableCell *cell;
+	node_t *n;
+	channel_mode_t *cm;
 	
 	strcpy( buf, cw->dest );
 	
 	if ( cw->type == B_CMD_WINDOW_CHANNEL )
 	{
-		users = cw->users_table->rows;
-		
 		strcpy( modes, "" );
 		strcpy( modev, "" );
 		
-		for ( a = 0; a < cw->channel_modes->rows; a++ )
+		users = listbox_get_rows( cw->userlist );
+		
+		LIST_FOREACH( n, cw->channel_modes.head )
 		{
-			cell = c_tbl_get_cell( cw->channel_modes, a, 0 );
-			strcat( modes, cell->data );
+			cm = (channel_mode_t *)n->data;
 			
-			cell = c_tbl_get_cell( cw->channel_modes, a, 1 );
-			if ( cell->data != 0 && strcmp( cell->data, "" ) )
+			sprintf( tmp, "%c", cm->mode );
+			strcat( modes, tmp );
+			
+			if ( strcmp( cm->victim, "" ) )
 			{
 				strcat( modev, " " );
-				strcat( modev, cell->data );
+				strcat( modev, cm->victim );
 			}
 		}
 		
 		sprintf( buf, "%s [%d] [+%s%s]: %s", cw->dest, users, modes, modev, cw->topic );
 	}
-	*/
-	char buf[1024];
-	strcpy( buf, cw->dest );
+	
 	workspace_window_set_title( cw->window, buf );
 	b_taskbar_redraw( );
 }
@@ -352,6 +350,8 @@ BChatWindow *b_new_chat_window( BServerWindow *server, char *dest, int flags )
 	
 	n = node_create( );
 	node_add( chat, n, &server->chat_windows );
+	
+	list_create( &chat->channel_modes );
 	
 	strncpy( chat->dest, dest, 256 );
 	

@@ -28,8 +28,6 @@ void b_init_messages( );
 
 #define BERS_MESSAGE(x) int x( BServerWindow *server, char *origcmd, char *command, char **params, int pcount, int flags, void *window )
 
-#define B_MODE_HANDLER_PARMS BServerWindow *server, BChatWindow *chanwin, char dir, char mode, char *channel, char *victim
-
 #define BERS_MESSAGE_FROM() (BUserMask *)window
 
 #ifndef BERSIRC_PLUGIN
@@ -79,6 +77,7 @@ BERS_MESSAGE( b_msg_notopic );
 BERS_MESSAGE( b_msg_stderror );
 BERS_MESSAGE( b_msg_chanurl );
 BERS_MESSAGE( b_msg_chanmodeis );
+BERS_MESSAGE( b_msg_checkchanmodes );
 #endif
 
 //
