@@ -947,7 +947,7 @@ int b_find_table_row_position( object_t *tbl, BUserStore *st )
 	{
 		item = list_widget_get_row( tbl, 0, a );
 		
-		if ( b_nickcmp( tuser, (char *)item->data[0] ) == -1 )
+		if ( b_nickcmp( tuser, (char *)item->data[0] ) < 0 )
 			return a;
 	}
 	

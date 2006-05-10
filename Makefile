@@ -2,6 +2,7 @@ CLARODIR=../claro
 
 CFLAGS=-I$(CLARODIR)/src -Wall -DENV_GTK -D_NIX `pkg-config --cflags gtk+-2.0`
 OBJECTS=src/core.o \
+src/modes.o \
 src/ircview.o \
 src/irc.o \
 src/commands.o \
