@@ -1,0 +1,78 @@
+info
+	name "bersirc"
+	description "Bersirc IRC Client"
+	version "2.2.15"
+
+targets
+	application bersirc
+		sources
+			src/core.c
+			src/ircview.c
+			src/irc.c
+			src/commands.c
+			src/messages.c
+			src/favorites.c
+			src/menus.c
+			src/server.c
+			src/chat.c
+			src/connection.c
+			src/windows.c
+			src/configdir.c
+			src/lang.c
+			src/taskbar.c
+			src/plugins.c
+			src/aboutwin.c
+			src/profile.c
+			src/modes.c
+			src/netbrowser.c
+			src/connectwin.c
+			src/dcc.c
+			src/dccwin.c
+			src/urlwin.c
+			src/joinwin.c
+			src/autowin.c
+			src/net/socket.c
+			src/xml/xml.c
+			src/options.c
+			src/options/opt_general.c
+			src/options/opt_connections.c
+			src/options/opt_irc_servers.c
+			src/options/opt_firewall_ip.c
+			src/options/opt_visual.c
+			src/options/opt_assorted.c
+			src/options/opt_taskbar.c
+			src/options/opt_nicklist.c
+			src/options/opt_fonts.c
+			src/options/opt_colour.c
+			src/options/opt_text.c
+			src/options/opt_highlight.c
+			src/options/opt_misc.c
+			src/options/opt_time.c
+
+
+contains
+	none
+
+depends
+	platform win32
+		none
+	platform darwin
+		none
+	platform posix
+		test pkg-config "gtk+-2.0 gdk-2.0"
+	platform all
+		none
+
+flags
+	include "../claro/src"
+	libdir "../claro/src/claro/base"
+	libdir "../claro/src/claro/graphics"
+	library "claro-base"
+	library "claro-graphics"
+	platform darwin
+		define _MAC
+	platform posix
+		pkg-config "gtk+-2.0 gdk-2.0"
+	platform all
+		define ENV_GTK
+		define _NIX

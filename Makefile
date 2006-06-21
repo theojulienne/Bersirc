@@ -1,6 +1,6 @@
 CLARODIR=../claro
 
-CFLAGS=-I$(CLARODIR)/src -Wall -DENV_GTK -D_NIX `pkg-config --cflags gtk+-2.0`
+CFLAGS=-I$(CLARODIR)/src -Wall -DENV_GTK -D_NIX `pkg-config --cflags gtk+-2.0`O5B
 OBJECTS=src/core.o \
 src/modes.o \
 src/ircview.o \
@@ -44,7 +44,7 @@ src/options/opt_highlight.o \
 src/options/opt_misc.o \
 src/options/opt_time.o \
 
-LDFLAGS=-L. -lclaro-base -lclaro-graphics -L$(CLARODIR)/build
+LDFLAGS=-L. -lclaro-base -lclaro-graphics -L$(CLARODIR)/build -L$(CLARODIR)/src/claro/base -L$(CLARODIR)/src/claro/graphics `pkg-config --libs gtk+-2.0`
 
 CFLAGS+=-g
 

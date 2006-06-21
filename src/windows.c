@@ -71,7 +71,7 @@ void b_window_focus( object_t *w )
 	if ( sw == 0 )
 		sw = (BServerWindow *)w;
 	
-	c_widget_show( w );
+	widget_show( w );
 	
 	if ( sw->window_flags & B_WINDOW_MINIMISE )
 	{
@@ -84,6 +84,7 @@ void b_window_focus( object_t *w )
 			workspace_window_restore( w );
 	}
 	
+	workspace_set_active( bersirc->workspace, w );
 	widget_focus( w );
 }
 
