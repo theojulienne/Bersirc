@@ -62,6 +62,8 @@ void b_taskbar_draw_button( widget_t *c, int type, char *text, int x, int y, int
 	image_t *icon;
 	int a;
 	
+	canvas_set_text_font( c, "Verdana", 16, 0, 0, 0 );
+	
 	a = canvas_text_display_count( c, text, w-4-16-3-3 );
 	
 	if ( type == B_CMD_WINDOW_CHANNEL )

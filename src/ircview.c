@@ -924,6 +924,8 @@ ircview_t *ircview_widget_create( object_t *parent, bounds_t *b )
 	object_override_next_size( sizeof(ircview_t) );
 	c = canvas_widget_create( parent, b, 0 );
 	
+	widget_set_notify( c, cNotifyMouse );
+	
 	/* save me */
 	n = node_create( );
 	node_add( c, n, &ircviews );
