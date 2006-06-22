@@ -316,7 +316,7 @@ B_OPTIONS_PAGE_CREATE( b_options_null_page )
 {
 	object_t *cat;
 	
-	cat = frame_widget_create( parent, new_bounds(px, py, pw, ph), title, 0 );
+	cat = frame_widget_create_with_label( parent, new_bounds(px, py, pw, ph), 0, title );
 	
 	c_new_label( cat, lang_phrase_quick( "opt_reserved_1" ), 0, 0, pw, -1, 0 );
 	c_new_label( cat, lang_phrase_quick( "opt_reserved_2" ), 0, 18, pw, -1, 0 );

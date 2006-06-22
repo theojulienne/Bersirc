@@ -317,16 +317,16 @@ void b_open_conto( int type )
 		
 		if ( type == 0 )
 		{
-			ct_lbl_servername = label_widget_create( ctwin, new_bounds(10, y, mpos, -1), lang_phrase_quick( "connectwin_servername" ), 0 );
+			ct_lbl_servername = label_widget_create_with_text( ctwin, new_bounds(10, y, mpos, -1), 0, lang_phrase_quick( "connectwin_servername" ) );
 			ct_txt_servername = textbox_widget_create( ctwin, new_bounds(mpos, y, w-mpos-10, -1), 0 );
 			c_widget_focus( ct_txt_servername );
 			y += 30;
 			
-			ct_lbl_password = label_widget_create( ctwin, new_bounds(10, y, mpos, -1), lang_phrase_quick( "connectwin_password" ), 0 );
+			ct_lbl_password = label_widget_create_with_text( ctwin, new_bounds(10, y, mpos, -1), 0, lang_phrase_quick( "connectwin_password" ) );
 			ct_txt_password = textbox_widget_create( ctwin, new_bounds(mpos, y, 140, -1), cTextBoxTypePassword );
 			y += 30;
 			
-			ct_lbl_port =label_widget_create( ctwin, new_bounds(10, y, mpos, -1), lang_phrase_quick( "connectwin_port" ), 0 );
+			ct_lbl_port =label_widget_create_with_text( ctwin, new_bounds(10, y, mpos, -1), 0, lang_phrase_quick( "connectwin_port" ) );
 			ct_txt_port = textbox_widget_create( ctwin, new_bounds(mpos, y, 80, -1), 0 );
 			textbox_set_text( ct_txt_port, "6667" );
 			y += 30;
@@ -339,12 +339,12 @@ void b_open_conto( int type )
 		}
 		else
 		{
-			ct_lbl_network = label_widget_create( ctwin, new_bounds(10, y, mpos, -1), lang_phrase_quick( "connectwin_network" ), 0 );
+			ct_lbl_network = label_widget_create_with_text( ctwin, new_bounds(10, y, mpos, -1), 0, lang_phrase_quick( "connectwin_network" ) );
 			ct_ddn_network = combo_widget_create( ctwin, new_bounds(mpos, y, w-mpos-10, -1), 0 );
 			widget_focus( ct_ddn_network );
 			y += 30;
 			
-			ct_lbl_server =label_widget_create( ctwin, new_bounds(10, y, mpos, -1), lang_phrase_quick( "connectwin_server" ), 0 );
+			ct_lbl_server =label_widget_create_with_text( ctwin, new_bounds(10, y, mpos, -1), 0, lang_phrase_quick( "connectwin_server" ) );
 			ct_ddn_server = combo_widget_create( ctwin, new_bounds(mpos, y, w-mpos-10, -1), 0 );
 			widget_disable( ct_ddn_server );
 			y += 30;
@@ -353,7 +353,7 @@ void b_open_conto( int type )
 			object_addhandler( ct_ddn_server, "selected", b_ct_netsrv_selected );
 		}
 		
-		ct_cbx_newwin = checkbox_widget_create( ctwin, new_bounds(10, y, w-40, -1), lang_phrase_quick( "connectwin_newwin" ), 0 );
+		ct_cbx_newwin = checkbox_widget_create_with_label( ctwin, new_bounds(10, y, w-40, -1), 0, lang_phrase_quick( "connectwin_newwin" ) );
 		checkbox_set_checked( ct_cbx_newwin, 1 );
 		y += 25;
 		

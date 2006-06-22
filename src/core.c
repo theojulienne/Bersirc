@@ -329,7 +329,7 @@ event_handler( treeview_handle_context )
 		widget_screen_offset( object, &dx, &dy );
 		dx += dati[1];
 		dy += dati[2];
-		menu_popup( sw->conmenu.menu, dx, dy, 0 );
+		menu_popup( sw->conmenu.menu, dx, dy, cMenuPopupAtCursor );
 	}
 }
 
@@ -546,7 +546,7 @@ int main( int argc, char *argv[] )
 	treeview_expand( bersirc->treeview, tti2 );
 	*/
 	splitter_set_info( bersirc->splitter, cSplitterFirst, 0, 200 );
-	
+		
 	// Workspace
 	bersirc->workspace = workspace_widget_create( bersirc->splitter, NO_BOUNDS, 0 );
 	

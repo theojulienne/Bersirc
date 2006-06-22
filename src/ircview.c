@@ -170,7 +170,7 @@ event_handler( ircview_handle_rightrel )
 		widget_screen_offset( object, &dx, &dy );
 		x += dx;
 		y += dy;
-		menu_popup( popup, x, y, 0 );
+		menu_popup( popup, x, y, cMenuPopupAtCursor );
 	}
 }
 
@@ -1004,7 +1004,7 @@ void ircview_add_line( ircview_t *ircview, int colour, int flags, char *text )
 	/* allocate a line */
 	if ( ( line = block_alloc( line_heap ) ) == 0 )
 	{
-		claro_log( CL_ERROR, "Could not allocate a line from line_heap. This should never happen." );
+		clog( CL_ERROR, "Could not allocate a line from line_heap. This should never happen." );
 		return;
 	}
 	

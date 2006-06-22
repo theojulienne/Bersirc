@@ -303,9 +303,9 @@ object_t *b_open_profile( )
 						 "[]", text_w, text_w, text_w, text_w );
 		lt = layout_create( profilewin, lt_str, *b, 10, 10 );
 		
-		labels[0] = label_widget_create( profilewin, lt_bounds(lt,"lbluser"), strs[0], 0 );
-		labels[1] = label_widget_create( profilewin, lt_bounds(lt,"lblreal"), strs[1], 0 );
-		labels[2] = label_widget_create( profilewin, lt_bounds(lt,"lblnick"), strs[2], 0 );
+		labels[0] = label_widget_create_with_text( profilewin, lt_bounds(lt,"lbluser"), 0, strs[0] );
+		labels[1] = label_widget_create_with_text( profilewin, lt_bounds(lt,"lblreal"), 0, strs[1] );
+		labels[2] = label_widget_create_with_text( profilewin, lt_bounds(lt,"lblnick"), 0, strs[2] );
 		
 		texts[0] = textbox_widget_create( profilewin, lt_bounds(lt,"txtuser"), 0 );
 		texts[1] = textbox_widget_create( profilewin, lt_bounds(lt,"txtreal"), 0 );

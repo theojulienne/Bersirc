@@ -47,9 +47,9 @@ void b_open_aboutwin( )
 		object_addhandler( aboutwin, "destroy", b_aboutwin_killed );
 		
 		img = image_load( aboutwin, "themes/bers_about.png" );
-		image_widget_create( aboutwin, new_bounds( 68, 0, 214, 200 ), img, 0 );
+		image_widget_create_with_image( aboutwin, new_bounds( 68, 0, 214, 200 ), 0, img );
 		
-		txt = label_widget_create( aboutwin, new_bounds( 90, 210, 350, 25 ), "Bersirc IRC Client v" BERSIRC_VERSION, 0 );
+		txt = label_widget_create_with_text( aboutwin, new_bounds( 90, 210, 350, 25 ), 0, "Bersirc IRC Client v" BERSIRC_VERSION );
 		
 		btnclose = button_widget_create_with_label( aboutwin, new_bounds( 100, 235, 150, -1 ), 0, lang_phrase_quick( "close" ) );
 		object_addhandler( btnclose, "pushed", b_aboutwin_close );

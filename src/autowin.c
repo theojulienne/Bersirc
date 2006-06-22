@@ -262,11 +262,11 @@ void create_autoeditwin( list_item_t *item )
 					 "[][{25}<|enabled|<][][{25}<|btnsave|<|btncancel|<]", text_w, text_w );
 	lt = layout_create( autoeditwin, lt_str, *b, 10, 10 );
 	
-	aew_lbl_server = label_widget_create( autoeditwin, lt_bounds(lt,"lblserver"), srv_title, 0 );
+	aew_lbl_server = label_widget_create_with_text( autoeditwin, lt_bounds(lt,"lblserver"), 0, srv_title );
 	aew_txt_server = textbox_widget_create( autoeditwin, lt_bounds(lt,"txtserver"), 0 );
 	textbox_set_text( aew_txt_server, srv_text );
 	
-	aew_lbl_channels = label_widget_create( autoeditwin, lt_bounds(lt,"lblchannels"), chan_title, 0 );
+	aew_lbl_channels = label_widget_create_with_text( autoeditwin, lt_bounds(lt,"lblchannels"), 0, chan_title );
 	aew_txt_channels = textbox_widget_create( autoeditwin, lt_bounds(lt,"txtchannels"), 0 );
 	textbox_set_text( aew_txt_channels, chn_text );
 	
@@ -275,7 +275,7 @@ void create_autoeditwin( list_item_t *item )
 	
 	widget_focus( aew_txt_server );
 	
-	aew_cbx_enabled = checkbox_widget_create( autoeditwin, lt_bounds(lt,"enabled"), lang_phrase_quick( "autoitemenable" ), 0 );
+	aew_cbx_enabled = checkbox_widget_create_with_label( autoeditwin, lt_bounds(lt,"enabled"), 0, lang_phrase_quick( "autoitemenable" ) );
 	checkbox_set_checked( aew_cbx_enabled, enable );
 	
 	// buttons

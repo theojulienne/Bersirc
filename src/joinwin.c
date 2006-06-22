@@ -106,11 +106,11 @@ void b_open_joinwin( )
 		window_set_title( joinwin, lang_phrase_quick( "join_channel" ) );
 		object_addhandler( joinwin, "destroy", b_joinwin_killed );
 
-		join_lbl_channel = label_widget_create( joinwin, new_bounds( 10, 20, 70, -1 ), lang_phrase_quick( "channel" ), 0 );
+		join_lbl_channel = label_widget_create_with_text( joinwin, new_bounds( 10, 20, 70, -1 ), 0, lang_phrase_quick( "channel" ) );
 		join_txt_channel = textbox_widget_create( joinwin, new_bounds(95, 18, 245, -1), 0 );
 		textbox_set_text( join_txt_channel, "" );
 		
-		join_lbl_key = label_widget_create( joinwin, new_bounds( 10, 50, 70, -1 ), lang_phrase_quick( "connectwin_password" ), 0 );
+		join_lbl_key = label_widget_create_with_text( joinwin, new_bounds( 10, 50, 70, -1 ), 0, lang_phrase_quick( "connectwin_password" ) );
 		join_txt_key = textbox_widget_create( joinwin, new_bounds(95, 48, 245, -1), cTextBoxTypePassword );
 		textbox_set_text( join_txt_key, "" );
 		

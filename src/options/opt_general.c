@@ -111,7 +111,7 @@ B_OPTIONS_PAGE_CREATE( b_options_general_page )
 	int y = 0;
 	//int sx = 200;
 	
-	cat = frame_widget_create( parent, new_bounds(px, py, pw, ph), title, 0 );
+	cat = frame_widget_create_with_label( parent, new_bounds(px, py, pw, ph), 0, title );
 	
 	// language
 	
@@ -124,7 +124,7 @@ B_OPTIONS_PAGE_CREATE( b_options_general_page )
 	text_w += 20;
 	
 	c_new_label( cat, l_title, 0, y, text_w, -1, 0 );
-	opt_gen_language = combo_widget_create( cat, new_bounds( text_w, y, lang_w, 20 ), 0 );
+	opt_gen_language = combo_widget_create( cat, new_bounds( text_w, y, lang_w, 25 ), 0 );
 	opt_gen_lang_real = b_get_option_string( identity, "general", "opt_gen_language" );
 	b_options_general_load_languages( opt_gen_lang_real );
 	object_addhandler( opt_gen_language, "selected", b_gen_language_selected );

@@ -239,7 +239,7 @@ event_handler( b_taskbar_mouse_move )
 			px += dx;
 			py += dy;
 			
-			menu_popup( srv->conmenu.menu, px, py, 0 );
+			menu_popup( srv->conmenu.menu, px, py, cMenuPopupAtCursor );
 		}
 		
 		x += width + padding;

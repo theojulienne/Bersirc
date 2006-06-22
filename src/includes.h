@@ -50,6 +50,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "version.h"
 
+
+#define CLARO_APPLICATION "bersirc"
+
+
 #include <claro/graphics.h>
 
 /* cheap porting :) */
@@ -74,10 +78,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 	textbox_widget_create( p, new_bounds(x,y,w,h), f )
 
 #define c_new_groupbox(p,text,x,y,w,h,f) \
-	frame_widget_create( p, new_bounds(x,y,w,h), text, f )
+	frame_widget_create_with_label( p, new_bounds(x,y,w,h), f, text )
 
 #define c_new_checkbox(p,text,x,y,w,h,f) \
-	checkbox_widget_create( p, new_bounds(x,y,w,h), text, f )
+	checkbox_widget_create_with_label( p, new_bounds(x,y,w,h), f, text )
 
 #define c_new_pushbutton(p,text,x,y,w,h,f) \
 	button_widget_create_with_label( p, new_bounds(x,y,w,h), f, text )
@@ -86,7 +90,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 	listbox_widget_create( p, new_bounds(x,y,w,h), f )
 
 #define c_new_label(p,text,x,y,w,h,f) \
-	label_widget_create( p, new_bounds(x,y,w,h), text, f )
+	label_widget_create_with_text( p, new_bounds(x,y,w,h), f, text )
 
 /*#define c_new_canvas(p,x,y,w,h,f) \
 	canvas_widget_create( p, new_bounds(x,y,w,h), f )*/
