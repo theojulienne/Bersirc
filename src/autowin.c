@@ -146,12 +146,12 @@ void b_autowin_gui_save( )
 	c_xml_dump_file( config, filepath );
 }
 
-void b_autowin_closing( )
+event_handler( b_autowin_closing )
 {
 	b_autowin_gui_save( );
 }
 
-void b_autowin_killed( )
+event_handler( b_autowin_killed )
 {
 	autowin = 0;
 	autowin_servlist = 0;
@@ -164,7 +164,7 @@ event_handler( b_autowin_close )
 
 object_t *autoeditwin = 0;
 
-void b_autoeditwin_killed( )
+event_handler( b_autoeditwin_killed )
 {
 	autoeditwin = 0;
 	
@@ -350,15 +350,20 @@ void b_open_autowin( )
 	
 	if ( autowin == 0 )
 	{
-		autowin = window_widget_create( bersirc->mainwin, new_bounds( -1, -1, w, h ), cWindowModalDialog | cWindowCenterParent );
+		bounds_t *b = new_bounds( -1, -1, w, h );
+		layout_t *lt;
+		
+		autowin = window_widget_create( bersirc->mainwin, b, cWindowModalDialog | cWindowCenterParent );
 		window_set_icon( autowin, b_icon( "bersirc" ) );
 		window_set_title( autowin, lang_phrase_quick( "autoconnectwin" ) );
 		object_addhandler( autowin, "destroy", b_autowin_killed );
 		object_addhandler( autowin, "closing", b_autowin_closing );
 		
+		lt = layout_create( autowin, "[][_<|list|<][][{25}<|btnadd|<|btnedit|<|btndelete|<|btncancel|<][]", *b, 10, 10 );
+		
 		y = 10;
 		
-		autowin_servlist = listview_widget_create( autowin, new_bounds(10, 10, w-20, h-20-30), 3, 0,
+		autowin_servlist = listview_widget_create( autowin, lt_bounds(lt,"list"), 3, 0,
 				"", cListViewTypeCheckBox,
 				lang_phrase_quick( "serveraddy" ), cListViewTypeText,
 				lang_phrase_quick( "channels" ), cListViewTypeText
@@ -366,10 +371,10 @@ void b_open_autowin( )
 		
 		btn_w = ((w-20-20)/4);
 		
-		btnadd = button_widget_create_with_label( autowin, new_bounds( 10, h-10-20, btn_w, -1 ), 0, lang_phrase_quick( "addserver" ) );
-		btnedit = button_widget_create_with_label( autowin, new_bounds( 10+btn_w+10, h-10-20, btn_w, -1 ), 0, lang_phrase_quick( "editserver" ) );
-		btndelete = button_widget_create_with_label( autowin, new_bounds( 10+btn_w+10+btn_w+10, h-10-20, btn_w, -1 ), 0, lang_phrase_quick( "deleteserver" ) );
-		btncancel = button_widget_create_with_label( autowin, new_bounds( 10+btn_w+10+btn_w+10+btn_w+10, h-10-20, btn_w, -1 ), 0, lang_phrase_quick( "close" ) );
+		btnadd = button_widget_create_with_label( autowin, lt_bounds(lt,"btnadd"), 0, lang_phrase_quick( "addserver" ) );
+		btnedit = button_widget_create_with_label( autowin, lt_bounds(lt,"btnedit"), 0, lang_phrase_quick( "editserver" ) );
+		btndelete = button_widget_create_with_label( autowin, lt_bounds(lt,"btndelete"), 0, lang_phrase_quick( "deleteserver" ) );
+		btncancel = button_widget_create_with_label( autowin, lt_bounds(lt,"btncancel"), 0, lang_phrase_quick( "close" ) );
 		
 		// no edit or delete until selected
 		widget_disable( WIDGET( btndelete ) );

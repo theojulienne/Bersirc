@@ -33,6 +33,9 @@ int b_window_printf( void *win, int colour, char *fmt, ... )
 	va_list args;
 	char buf[16384];
 	
+	if ( win == NULL )
+		return 0;
+	
 	va_start( args, fmt );
 	vsprintf( buf, fmt, args );
 	va_end( args );
@@ -48,7 +51,7 @@ void *b_active_window(  )
 	CWidget *w;
 	void *sw, *cw;
 	
-	w = c_workspace_get_active( bersirc->workspace );
+	w = workspace_get_active( bersirc->workspace );
 	
 	if ( w == 0 )
 	{
@@ -109,11 +112,17 @@ int b_plugin_load( char *filename )
 #ifdef _WIN32
 	plg.plugin = LoadLibrary( filename );
 #else
-	plg.plugin = dlopen( filename, RTLD_LAZY );
+	plg.plugin = dlopen( filename, RTLD_NOW );
 #endif
 	
 	if ( plg.plugin == 0 )
+	{
+		fprintf( stderr, "Failed to load plugin: %s\n", filename );
+#ifndef _WIN32
+		fprintf( stderr, "Reason: %s\n", dlerror( ) );
+#endif
 		return 0;
+	}
 	
 #ifdef _WIN32
 	plg.handler = GetProcAddress( plg.plugin, "Message" );
@@ -125,6 +134,8 @@ int b_plugin_load( char *filename )
 	
 	if ( plg.handler == 0 || b_plugin_send( &plg, B_MSG_PLG_INIT, &plg.init ) != 1 )
 	{
+		fprintf( stderr, "Plugin loaded but the Message function did not exist or the init message returned invalid results\n" );
+
 #ifdef _WIN32
 		FreeLibrary( plg.plugin );
 #else

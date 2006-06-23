@@ -24,6 +24,20 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 /* UPGRADE FIXME: move to list/node_t */
 BUserCommand *ucmd_head = 0;
 
+void b_window_command( void *window, char *cmd )
+{
+	int *wintype = (int *)window;
+	
+	if ( *wintype == B_CMD_WINDOW_STATUS )
+		b_user_command( (BServerWindow *)wintype, cmd, 0 );
+	else if ( *wintype & B_CMD_WINDOW_CHAT )
+		b_user_command( (BChatWindow *)wintype, cmd, 1 );
+	else
+	{
+		printf( "Unknown window type passed to b_window_command(): %p (%d)\n", window, *wintype );
+	}
+}
+
 int b_user_command( void *inwin, char *cmdi, int fromtype )
 {
 	char *cmd, *cmdo, *cmdb, *tmp;

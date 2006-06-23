@@ -19,6 +19,7 @@ License along with this application; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 **************************************************************************/
 
+void b_window_command( void *window, char *cmd );
 void b_run_command( BServerWindow *server, char *origcmd, char *command, char **params, int pcount, int flags, void *window );
 
 #define BERS_COMMAND(x) int x( BServerWindow *server, char *origcmd, char *command, char **params, int pcount, int flags, void *window )

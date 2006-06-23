@@ -69,6 +69,7 @@ flags
 	libdir "../claro/src/claro/graphics"
 	library "claro-base"
 	library "claro-graphics"
+	ldflags "-Wl,--export-dynamic"
 	platform darwin
 		define _MAC
 	platform posix
