@@ -1287,6 +1287,9 @@ BERS_COMMAND( b_cmd_exec )
 	FILE *pin;
 	BChatWindow *chatwin = (BChatWindow *)window;
 
+	if (pcount == 0)
+		return -1;
+
 	if (!strcmp(params[0], "-o") || !strcmp(params[0], "-out"))
 	{
 		out = 1;
