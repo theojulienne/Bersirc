@@ -85,7 +85,7 @@ void b_handle_socket_connecting( CSocket *sock )
 	else
 		sprintf( ptmp, "%s (%s:%d)", sw->server_network, sw->server_name, sw->server_port );
 	
-	lang_phrase_parse( buf, 1024, "connect_connecting", "server", ptmp, 0 );
+	lang_phrase_parse( buf, 1024, "connect_connecting", "server", ptmp, NULL );
 	b_swindow_printf( sw, BTV_ConnectionMsg, buf );
 	
 	sw->connected = 0;

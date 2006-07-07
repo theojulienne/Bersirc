@@ -524,7 +524,7 @@ BERS_MESSAGE( b_msg_nickused )
 {
 	if ( server->nickcount == -1 )
 	{
-		lang_phrase_parse( lang_tmp_buf, 1024, "nick_in_use", "nick", params[1], 0 );
+		lang_phrase_parse( lang_tmp_buf, 1024, "nick_in_use", "nick", params[1], NULL );
 		b_swindow_printf( server, BTV_Message, "%s", lang_tmp_buf );
 		return 0;
 	}
@@ -571,7 +571,7 @@ int b_msg_check_ctcp( BServerWindow *server, BChatWindow *chatwin, BUserMask *us
 			}
 			else
 			{
-				lang_phrase_parse( out, 1024, "ctcp-reply", "user", user->nickname, "type", cmd, "response", params, 0 );
+				lang_phrase_parse( out, 1024, "ctcp-reply", "user", user->nickname, "type", cmd, "response", params, NULL );
 			}
 			// otherwise just display the reply :)
 		}
@@ -712,7 +712,7 @@ BERS_MESSAGE( b_msg_topic_change )
 	if ( chatwin == NULL )
 		return -1;
 	
-	lang_phrase_parse( lang_tmp_buf, 1024, "topic_change", "nick", from->nickname, "topic", params[1], 0 );
+	lang_phrase_parse( lang_tmp_buf, 1024, "topic_change", "nick", from->nickname, "topic", params[1], NULL );
 	b_chatwin_printf( chatwin, BTV_Topic, "%s", lang_tmp_buf );
 	
 	strcpy( chatwin->topic, params[1] );
@@ -733,7 +733,7 @@ BERS_MESSAGE( b_msg_topic )
 	if ( chatwin == NULL )
 		return -1;
 	
-	lang_phrase_parse( lang_tmp_buf, 1024, "topic", "topic", params[2], 0 );
+	lang_phrase_parse( lang_tmp_buf, 1024, "topic", "topic", params[2], NULL );
 	b_chatwin_printf( chatwin, BTV_Topic, "%s", lang_tmp_buf );
 	
 	strcpy( chatwin->topic, params[2] );
@@ -759,7 +759,7 @@ BERS_MESSAGE( b_msg_topicset )
 	curtime = atoi( params[3] );
 	strftime( currtimes, 256, b_get_option_string( xidentity, "time", "opt_time_long_timestamp" ), localtime(&curtime) );
 	
-	lang_phrase_parse( lang_tmp_buf, 1024, "topic_set", "nick", params[2], "date", currtimes, 0 );
+	lang_phrase_parse( lang_tmp_buf, 1024, "topic_set", "nick", params[2], "date", currtimes, NULL );
 	b_chatwin_printf( chatwin, BTV_Topic, "%s", lang_tmp_buf );
 	
 	return 0;
@@ -991,11 +991,11 @@ BERS_MESSAGE( b_msg_join )
 		if ( cw == 0 )
 		{
 			cw = b_new_chat_window( server, params[0], 1 );
-			lang_phrase_parse( lang_tmp_buf, 1024, "nowtalking", "chan", params[0], 0 );
+			lang_phrase_parse( lang_tmp_buf, 1024, "nowtalking", "chan", params[0], NULL );
 		}
 		else
 		{
-			lang_phrase_parse( lang_tmp_buf, 1024, "rejoined", "chan", params[0], 0 );
+			lang_phrase_parse( lang_tmp_buf, 1024, "rejoined", "chan", params[0], NULL );
 		}
 		c_btv_printf( cw->content, 0, BTV_WindowOpen, "%s", lang_tmp_buf );
 		
@@ -1010,7 +1010,7 @@ BERS_MESSAGE( b_msg_join )
 	}
 	else
 	{
-		lang_phrase_parse( lang_tmp_buf, 1024, "fmt_join", "nick", from->nickname, "user", from->username, "host", from->hostname, "chan", params[0], 0 );
+		lang_phrase_parse( lang_tmp_buf, 1024, "fmt_join", "nick", from->nickname, "user", from->username, "host", from->hostname, "chan", params[0], NULL );
 		c_btv_printf( cw->content, 0, BTV_UserJoin, "%s", lang_tmp_buf );
 		strcpy( store.nickname, from->nickname );
 		strcpy( store.username, from->username );
@@ -1048,7 +1048,7 @@ BERS_MESSAGE( b_msg_part )
 		}
 		else
 		{
-			lang_phrase_parse( lang_tmp_buf, 1024, "fmt_self_part", "chan", params[0], 0 );
+			lang_phrase_parse( lang_tmp_buf, 1024, "fmt_self_part", "chan", params[0], NULL );
 			c_btv_printf( cw->content, 0, BTV_UserPart, "%s", lang_tmp_buf );
 			
 			b_chat_user_empty( cw );
@@ -1058,7 +1058,7 @@ BERS_MESSAGE( b_msg_part )
 	}
 	else
 	{
-		lang_phrase_parse( lang_tmp_buf, 1024, "fmt_part", "nick", from->nickname, "user", from->username, "host", from->hostname, "chan", params[0], "reason", (pcount == 1 ? "No reason" : params[1]), 0 );
+		lang_phrase_parse( lang_tmp_buf, 1024, "fmt_part", "nick", from->nickname, "user", from->username, "host", from->hostname, "chan", params[0], "reason", (pcount == 1 ? "No reason" : params[1]), NULL );
 		c_btv_printf( cw->content, 0, BTV_UserPart, "%s", lang_tmp_buf );
 		b_chat_user_del( cw, from->nickname );
 		
@@ -1084,7 +1084,7 @@ BERS_MESSAGE( b_msg_kick )
 	if ( !strcasecmp( params[1], server->nickname ) )
 	{
 		cw->parted = 1;
-		lang_phrase_parse( lang_tmp_buf, 1024, "youkicked", "nick", from->nickname, "chan", params[0], "reason", params[2], 0 );
+		lang_phrase_parse( lang_tmp_buf, 1024, "youkicked", "nick", from->nickname, "chan", params[0], "reason", params[2], NULL );
 		c_btv_printf( cw->content, 0, BTV_UserKick, "%s", lang_tmp_buf );
 		
 		b_chat_user_empty( cw );
@@ -1099,7 +1099,7 @@ BERS_MESSAGE( b_msg_kick )
 	}
 	else
 	{
-		lang_phrase_parse( lang_tmp_buf, 1024, "userkicked", "nick", from->nickname, "victim", params[1], "chan", params[0], "reason", params[2], 0 );
+		lang_phrase_parse( lang_tmp_buf, 1024, "userkicked", "nick", from->nickname, "victim", params[1], "chan", params[0], "reason", params[2], NULL );
 		c_btv_printf( cw->content, 0, BTV_UserKick, "%s", lang_tmp_buf );
 		b_chat_user_del( cw, params[1] );
 		
@@ -1119,7 +1119,7 @@ BERS_MESSAGE( b_msg_quit )
 	if ( pcount < 1 )
 		return -1;
 	
-	lang_phrase_parse( quitmsg, 1024, "fmt_quit", "nick", from->nickname, "user", from->username, "host", from->hostname, "reason", params[0], 0 );
+	lang_phrase_parse( quitmsg, 1024, "fmt_quit", "nick", from->nickname, "user", from->username, "host", from->hostname, "reason", params[0], NULL );
 	//sprintf( quitmsg, "* %s (%s@%s) has quit IRC (%s)", from->nickname, from->username, from->hostname, params[0] );
 	
 	LIST_FOREACH( n, server->chat_windows.head )
@@ -1459,7 +1459,7 @@ BERS_MESSAGE( b_msg_chanmodeis )
 		strcpy( modevictims, "" );
 	}
 	
-	lang_phrase_parse( lang_tmp_buf, 1024, "chan_all_modes", "mode", params[2], "victims", modevictims, 0 );
+	lang_phrase_parse( lang_tmp_buf, 1024, "chan_all_modes", "mode", params[2], "victims", modevictims, NULL );
 	b_chatwin_printf( cw, BTV_ModeChange, "%s", lang_tmp_buf );
 	
 	free( modevictims );
@@ -1485,7 +1485,7 @@ BERS_MESSAGE( b_msg_mode )
 	
 	if ( !strcasecmp( server->nickname, params[0] ) )
 	{
-		lang_phrase_parse( lang_tmp_buf, 1024, "umode", "nick", sender, "mode", params[1], 0 );
+		lang_phrase_parse( lang_tmp_buf, 1024, "umode", "nick", sender, "mode", params[1], NULL );
 		b_swindow_printf( server, BTV_ModeChange, "%s", lang_tmp_buf );
 	}
 	else
@@ -1539,7 +1539,7 @@ BERS_MESSAGE( b_msg_mode )
 			strcpy( modevictims, "" );
 		}
 		
-		lang_phrase_parse( lang_tmp_buf, 1024, "mode", "nick", sender, "mode", params[1], "victims", modevictims, 0 );
+		lang_phrase_parse( lang_tmp_buf, 1024, "mode", "nick", sender, "mode", params[1], "victims", modevictims, NULL );
 		b_chatwin_printf( cw, BTV_ModeChange, "%s", lang_tmp_buf );
 		
 		free( modevictims );
@@ -1576,11 +1576,11 @@ BERS_MESSAGE( b_msg_nick )
 	
 	if ( a == 1 )
 	{
-		lang_phrase_parse( lang_tmp_buf, 1024, "younick", "nick", params[0], 0 );
+		lang_phrase_parse( lang_tmp_buf, 1024, "younick", "nick", params[0], NULL );
 	}
 	else
 	{
-		lang_phrase_parse( lang_tmp_buf, 1024, "nick", "oldnick", from->nickname, "nick", params[0], 0 );
+		lang_phrase_parse( lang_tmp_buf, 1024, "nick", "oldnick", from->nickname, "nick", params[0], NULL );
 	}
 	
 	sprintf( nickmsg, "%s", lang_tmp_buf );
@@ -1681,7 +1681,7 @@ BERS_MESSAGE( b_msg_whois_311 )
 	if ( pcount < 5 )
 		return -1;
 	
-	lang_phrase_parse( lang_tmp_buf, 1024, "whois_info", "nick", params[1], "user", params[2], "host", params[3], "name", params[5], 0 );
+	lang_phrase_parse( lang_tmp_buf, 1024, "whois_info", "nick", params[1], "user", params[2], "host", params[3], "name", params[5], NULL );
 	b_window_printf( b_active_window( ), BTV_Whois, "%s", lang_tmp_buf );
 	
 	return 0;
@@ -1692,7 +1692,7 @@ BERS_MESSAGE( b_msg_whois_314 )
 	if ( pcount < 5 )
 		return -1;
 	
-	lang_phrase_parse( lang_tmp_buf, 1024, "whois_was", "nick", params[1], "user", params[2], "host", params[3], "name", params[5], 0 );
+	lang_phrase_parse( lang_tmp_buf, 1024, "whois_was", "nick", params[1], "user", params[2], "host", params[3], "name", params[5], NULL );
 	b_window_printf( b_active_window( ), BTV_Whois, "%s", lang_tmp_buf );
 	
 	return 0;
@@ -1713,7 +1713,7 @@ BERS_MESSAGE( b_msg_whois_319 )
 	if ( pcount < 3 )
 		return -1;
 	
-	lang_phrase_parse( lang_tmp_buf, 1024, "whois_on", "nick", params[1], "what", params[2], 0 );
+	lang_phrase_parse( lang_tmp_buf, 1024, "whois_on", "nick", params[1], "what", params[2], NULL );
 	b_window_printf( b_active_window( ), BTV_Whois, "%s", lang_tmp_buf );
 	
 	return 0;
@@ -1724,7 +1724,7 @@ BERS_MESSAGE( b_msg_whois_312 )
 	if ( pcount < 4 )
 		return -1;
 	
-	lang_phrase_parse( lang_tmp_buf, 1024, "whois_using", "nick", params[1], "server", params[2], "quote", params[3], 0 );
+	lang_phrase_parse( lang_tmp_buf, 1024, "whois_using", "nick", params[1], "server", params[2], "quote", params[3], NULL );
 	b_window_printf( b_active_window( ), BTV_Whois, "%s", lang_tmp_buf );
 	
 	return 0;
@@ -1735,7 +1735,7 @@ BERS_MESSAGE( b_msg_whois_330 )
 	if ( pcount < 4 )
 		return -1;
 	
-	lang_phrase_parse( lang_tmp_buf, 1024, "whois_authed_as", "nick", params[1], "auth", params[2], 0 );
+	lang_phrase_parse( lang_tmp_buf, 1024, "whois_authed_as", "nick", params[1], "auth", params[2], NULL );
 	b_window_printf( b_active_window( ), BTV_Whois, "%s", lang_tmp_buf );
 	
 	return 0;
@@ -1760,7 +1760,7 @@ BERS_MESSAGE( b_msg_whois_317 )
 	curtime = signon;
 	strftime( currtimes, 256, b_get_option_string( xidentity, "time", "opt_time_long_timestamp" ), localtime(&curtime) );
 	
-	lang_phrase_parse( lang_tmp_buf, 1024, "whois_idle", "nick", params[1], "idle", idle, "signon", currtimes, 0 );
+	lang_phrase_parse( lang_tmp_buf, 1024, "whois_idle", "nick", params[1], "idle", idle, "signon", currtimes, NULL );
 	b_window_printf( b_active_window( ), BTV_Whois, "%s", lang_tmp_buf );
 	
 	return 0;
@@ -1781,7 +1781,7 @@ BERS_MESSAGE( b_msg_invite_341 )
 	if ( pcount < 3 )
 		return -1;
 	
-	lang_phrase_parse( lang_tmp_buf, 1024, "youinvited", "nick", params[1], "chan", params[2], 0 );
+	lang_phrase_parse( lang_tmp_buf, 1024, "youinvited", "nick", params[1], "chan", params[2], NULL );
 	b_window_printf( b_active_window( ), BTV_Info, "%s", lang_tmp_buf );
 	
 	return 0;
@@ -1792,7 +1792,7 @@ BERS_MESSAGE( b_msg_uaway )
 	if ( pcount < 3 )
 		return -1;
 	
-	lang_phrase_parse( lang_tmp_buf, 1024, "away", "nick", params[1], "reason", params[2], 0 );
+	lang_phrase_parse( lang_tmp_buf, 1024, "away", "nick", params[1], "reason", params[2], NULL );
 	b_window_printf( b_active_window( ), BTV_Whois, "%s", lang_tmp_buf );
 	
 	return 0;
@@ -1803,7 +1803,7 @@ BERS_MESSAGE( b_msg_time )
 	if ( pcount < 3 )
 		return -1;
 	
-	lang_phrase_parse( lang_tmp_buf, 1024, "server-time", "time", params[2], "server", params[1], 0 );
+	lang_phrase_parse( lang_tmp_buf, 1024, "server-time", "time", params[2], "server", params[1], NULL );
 	b_window_printf( b_active_window( ), BTV_Info, "%s", lang_tmp_buf );
 	
 	return 0;
@@ -1875,7 +1875,7 @@ BERS_MESSAGE( b_msg_createtime )
 	curtime = atoi( params[2] );
 	strftime( currtimes, 256, b_get_option_string( xidentity, "time", "opt_time_long_timestamp" ), localtime(&curtime) );
 	
-	lang_phrase_parse( lang_tmp_buf, 1024, "channel_created", "date", currtimes, 0 );
+	lang_phrase_parse( lang_tmp_buf, 1024, "channel_created", "date", currtimes, NULL );
 	b_chatwin_printf( chatwin, BTV_Topic, "%s", lang_tmp_buf );
 	
 	return 0;
@@ -1885,7 +1885,7 @@ BERS_MESSAGE( b_msg_invite )
 {
 	BUserMask *from = (BUserMask *)window;
 	
-	lang_phrase_parse( lang_tmp_buf, 1024, "channel_invite", "user", from->nickname, "chan", params[1], 0 );
+	lang_phrase_parse( lang_tmp_buf, 1024, "channel_invite", "user", from->nickname, "chan", params[1], NULL );
 	b_window_printf( b_active_window( ), BTV_Invite, "%s", lang_tmp_buf );
 	
 	return 0;
@@ -1895,7 +1895,7 @@ BERS_MESSAGE( b_msg_wallops )
 {
 	BUserMask *from = (BUserMask *)window;
 	
-	lang_phrase_parse( lang_tmp_buf, 1024, "wallops", "user", from->nickname, "msg", params[0], 0 );
+	lang_phrase_parse( lang_tmp_buf, 1024, "wallops", "user", from->nickname, "msg", params[0], NULL );
 	b_window_printf( server, BTV_Wallops, "%s", lang_tmp_buf );
 	
 	return 0;
@@ -1913,7 +1913,7 @@ BERS_MESSAGE( b_msg_notopic )
 	if ( chatwin == NULL )
 		return -1;
 	
-	lang_phrase_parse( lang_tmp_buf, 1024, "channel_notopic", 0 );
+	lang_phrase_parse( lang_tmp_buf, 1024, "channel_notopic", NULL );
 	b_chatwin_printf( chatwin, BTV_Topic, "%s", lang_tmp_buf );
 	
 	return 0;
@@ -1932,7 +1932,7 @@ BERS_MESSAGE( b_msg_chanurl )
 		return -1;
 	
 	// FIXME: Topic: Wrong colour?
-	lang_phrase_parse( lang_tmp_buf, 1024, "channel_url", "url", params[2], 0 );
+	lang_phrase_parse( lang_tmp_buf, 1024, "channel_url", "url", params[2], NULL );
 	b_chatwin_printf( chatwin, BTV_Topic, "%s", lang_tmp_buf );
 	
 	return 0;
@@ -1961,7 +1961,7 @@ BERS_MESSAGE( b_msg_stderror )
 	else
 		return -1;
 	
-	lang_phrase_parse( lang_tmp_buf, 1024, ermsg, "chan", params[1], "nick", params[1], "server", params[1], 0 );
+	lang_phrase_parse( lang_tmp_buf, 1024, ermsg, "chan", params[1], "nick", params[1], "server", params[1], NULL );
 	b_window_printf( b_active_window( ), BTV_Alert, "%s", lang_tmp_buf );
 	
 	return 0;

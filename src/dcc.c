@@ -151,7 +151,7 @@ void dcc_donothing( CSocket *sock )
 
 void dcc_failed( CSocket *sock )
 {
-	lang_phrase_parse( lang_tmp_buf, 1024, "dcc_recv_failed", "nick", ((struct DCCData*)sock->data)->name, 0 );
+	lang_phrase_parse( lang_tmp_buf, 1024, "dcc_recv_failed", "nick", ((struct DCCData*)sock->data)->name, NULL );
 	
 	b_window_printf( b_active_window( ), BTV_CTCP, "%s", lang_tmp_buf );
 	

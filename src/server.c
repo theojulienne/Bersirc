@@ -170,7 +170,7 @@ void b_server_update_title( BServerWindow *server )
 	if ( server->connected == 0 )
 		sprintf( buf, lang_phrase_quick( "status_title_idle" ) );
 	else
-		lang_phrase_parse( buf, 1024, "status_title_conn", "nick", server->nickname, "mode", server->umode, "server", server->servername, 0 );
+		lang_phrase_parse( buf, 1024, "status_title_conn", "nick", server->nickname, "mode", server->umode, "server", server->servername, NULL );
 	
 	workspace_window_set_title( server->window, buf );
 	b_taskbar_redraw( );
@@ -332,7 +332,7 @@ BServerWindow *b_new_server_window( int flags )
 	
 	if ( flags & 1 )
 	{
-		lang_phrase_parse( lang_tmp_buf, 1024, "welcome_splash", "client", "\002Bersirc " BERSIRC_VERSION "\002", 0 );
+		lang_phrase_parse( lang_tmp_buf, 1024, "welcome_splash", "client", "\002Bersirc " BERSIRC_VERSION "\002", NULL );
 		c_btv_addline( server->content, lang_tmp_buf, 0, BTV_ClientWelcome );
 	}
 	

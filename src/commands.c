@@ -762,7 +762,7 @@ BERS_COMMAND( b_cmd_dns )
 	
 	if ( params[0] == res )
 	{
-		lang_phrase_parse( lang_tmp_buf, 1024, "unable_to_resolve", "addr", params[0], 0 );
+		lang_phrase_parse( lang_tmp_buf, 1024, "unable_to_resolve", "addr", params[0], NULL );
 		b_window_printf( window, BTV_Error, "%s", lang_tmp_buf );
 	}
 	else
@@ -1262,7 +1262,7 @@ BERS_COMMAND( b_cmd_chanstats )
 	sprintf( sb, "%d", b );
 	sprintf( sc, "%d", c );
 	
-	lang_phrase_parse( lang_tmp_buf, 1024, "chanstats", "numops", sa, "numusers", sb, "users", sc, 0 );
+	lang_phrase_parse( lang_tmp_buf, 1024, "chanstats", "numops", sa, "numusers", sb, "users", sc, NULL );
 	b_chatwin_printf( chatwin, BTV_Topic, "%s", lang_tmp_buf );
 	
 	return 0;
