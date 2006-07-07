@@ -242,6 +242,10 @@ void b_init_commands( )
 	b_register_command( "autowin", &b_cmd_autowin, B_CMD_WINDOW_ALL | B_CMD_WINDOW_NONE | B_CMD_CLIENTONLY );
 	
 	b_register_command( "operwall", &b_msg_operwall, B_CMD_WINDOW_ALL );
+
+#ifndef ENV_WIN32
+	b_register_command( "exec", &b_cmd_exec, B_CMD_WINDOW_CHAT );
+#endif
 }
 
 void b_run_command( BServerWindow *server, char *origcmd, char *command, char **params, int pcount, int flags, void *window )
@@ -1036,13 +1040,6 @@ BERS_COMMAND( b_msg_operwall )
 	return 0;
 }
 
-
-
-
-
-
-
-
 BERS_COMMAND( b_cmd_exit )
 {
 	claro_shutdown( );
@@ -1279,5 +1276,55 @@ BERS_COMMAND( b_cmd_autowin )
 	b_open_autowin( );
 	return 0;
 }
+
+#ifndef ENV_WIN32
+// XXX: this does not fork yet. --nenolod
+BERS_COMMAND( b_cmd_exec )
+{
+	char cmdbuf[32768];
+	char inbuf[32768];
+	int i, out = 0;
+	FILE *pin;
+	BChatWindow *chatwin = (BChatWindow *)window;
+
+	if (!strcmp(params[0], "-o") || !strcmp(params[0], "-out"))
+	{
+		out = 1;
+	}
+
+	*cmdbuf = '\0';
+
+	for (i = out; i < pcount; i++)
+	{
+		if (i - out != 0)
+			strcat(cmdbuf, " ");
+
+		strcat(cmdbuf, params[i]);
+	}
+
+	pin = popen(cmdbuf, "r");
+
+	while (fgets(inbuf, 32768, pin))
+	{
+		char *c;
+ 
+		if ((c = strchr(inbuf, '\n')))
+			*c = '\0';
+		if ((c = strchr(inbuf, '\r')))
+			*c = '\0';
+		if ((c = strchr(inbuf, '\1')))
+			*c = '\0';
+
+		if (out != 0)
+			b_user_command(chatwin, inbuf, (flags & 1));
+		else
+			b_chatwin_printf(chatwin, BTV_Info, "%s", inbuf);
+	}
+
+	pclose(pin);
+
+	return 0;
+}
+#endif
 
 //

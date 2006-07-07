@@ -60,6 +60,14 @@ BERS_COMMAND( b_cmd_quit );
  */
 BERS_COMMAND( b_cmd_join );
 
+/* /exec
+ *
+ ! Executes stuff (*nix/mac only)
+ ? /exec [-o] cmd args
+ : Executes cmd with args `args', and optionally pipes it to a channel.
+ */
+BERS_COMMAND( b_cmd_exec );
+
 /* /part,p
  *
  ! Part one or more channels
