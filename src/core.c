@@ -378,7 +378,7 @@ int main( int argc, char *argv[] )
 				chdir( path );
 		}
 	}
-
+	
 	// FIXME: User should be able to select the identity within the current user XML file ?
 	strcpy( identity, "Default" );
 	
