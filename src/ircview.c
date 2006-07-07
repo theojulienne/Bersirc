@@ -1027,6 +1027,20 @@ void ircview_add_line( ircview_t *ircview, int colour, int flags, char *text )
 	canvas_redraw( WIDGET(ircview) );
 }
 
+int ircview_printf( ircview_t *ircview, int colour, int flags, char *fmt, ... )
+{
+	va_list args;
+	char buf[16384];
+	
+	va_start( args, fmt );
+	vsprintf( buf, fmt, args );
+	va_end( args );
+	
+	ircview_add_line( ircview, colour, flags, buf );
+	
+	return 1;
+}
+
 void ircview_set_scrollbar( ircview_t *ircview, object_t *s )
 {
 	ircview->scroll = s;

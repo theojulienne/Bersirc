@@ -20,7 +20,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 **************************************************************************/
 
 #define c_btv_addline(o,t,f,c) ircview_add_line((ircview_t*)o,c,f,t)
-#define c_btv_printf(...)
+#define c_btv_printf(i,f,c,fmt,a...) ircview_printf((ircview_t*)i,c,f,fmt, ## a)
 #define BTextView ircview_t
 
 typedef struct
@@ -59,6 +59,7 @@ typedef struct
 
 ircview_t *ircview_widget_create( object_t *parent, bounds_t *b );
 void ircview_add_line( ircview_t *ircview, int colour, int flags, char *text );
+int ircview_printf( ircview_t *ircview, int colour, int flags, char *fmt, ... );
 void ircview_set_scrollbar( ircview_t *ircview, object_t *s );
 void ircview_update_scroll( ircview_t *ircview );
 void ircview_clear( ircview_t *ircview );
