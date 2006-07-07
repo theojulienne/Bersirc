@@ -117,15 +117,16 @@ event_handler( b_server_win_destroy )
 	c_socket_close( sw->sock );
 	
 	// remove from treeview
-	treeview_remove_row( bersirc->treeview, sw->tv_item );
-	
-	// FIXME: FLUSH
+	if ( !object_pending_destroy(bersirc->treeview) )
+		treeview_remove_row( bersirc->treeview, sw->tv_item );
 	
 	LIST_FOREACH_SAFE( n, tn, sw->chat_windows.head )
 	{
 		curr = (BChatWindow *)n->data;
 		curr->server = 0;
-		widget_close( curr->window );
+		
+		if ( !object_pending_destroy(curr->window) )
+			widget_close( curr->window );
 		
 		node_del( n, &sw->chat_windows );
 		node_free( n );

@@ -128,7 +128,8 @@ void b_handle_socket_disconnected( CSocket *sock )
 	
 	sw->connected = 0;
 	
-	b_server_update_title( sw );
+	if ( !object_pending_destroy(sw->window) )
+		b_server_update_title( sw );
 	
 	// clear all channel userlists to be clean
 	LIST_FOREACH( n, sw->chat_windows.head )
