@@ -113,10 +113,13 @@ char *lang_phrase_parse( char *buf, int size, char *phrase, ... )
 	
 	strcpy( outtxt, text );
 	
-	while ( ( p_name = va_arg( ap, char * ) ) )
+	while ( ( p_name = va_arg( ap, char * ) ) != NULL )
 	{
 		// get value too
 		p_value = va_arg( ap, char * );
+		
+		if ( p_name == NULL || p_value == NULL )
+			continue;
 		
 		ns = strlen( p_name );
 		vs = strlen( p_value );

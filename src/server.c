@@ -281,6 +281,7 @@ BServerWindow *b_new_server_window( int flags )
 	
 	strcpy( server->servername, "unknown" );
 	strcpy( server->password, "" );
+	strcpy( server->umode, "" );
 	
 	bounds_t *b = new_bounds(-1,-1,600,400);
 	server->window = workspace_window_widget_create( bersirc->workspace, b, 0 );
