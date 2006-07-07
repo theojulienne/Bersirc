@@ -1292,11 +1292,13 @@ BERS_COMMAND( b_cmd_exec )
 		out = 1;
 	}
 
-	strcpy(cmdbuf, "/bin/sh -c");
+	*cmdbuf = '\0';
 
 	for (i = out; i < pcount; i++)
 	{
-		strcat(cmdbuf, " ");
+		if (i - out != 0)
+			strcat(cmdbuf, " ");
+
 		strcat(cmdbuf, params[i]);
 	}
 

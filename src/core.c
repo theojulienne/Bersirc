@@ -385,7 +385,7 @@ int main( int argc, char *argv[] )
 	// Initialise Claro
 	claro_base_init( );
 	claro_graphics_init( );
-	log_fd_set_level( CL_DEBUG, stderr );
+//	log_fd_set_level( CL_DEBUG, stderr );
 	clog( CL_INFO, "%s (%s) running using Claro!", APPTITLE, __FILE__ );
 	
 	bersirc_create( );
