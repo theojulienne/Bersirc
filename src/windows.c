@@ -71,7 +71,7 @@ void b_window_focus( object_t *w )
 	if ( sw == 0 )
 		sw = (BServerWindow *)w;
 	
-	widget_show( w );
+	workspace_window_show( sw->window );
 	
 	if ( sw->window_flags & B_WINDOW_MINIMISE )
 	{
@@ -79,13 +79,13 @@ void b_window_focus( object_t *w )
 		sw->window_flags -= B_WINDOW_MINIMISE;
 		
 		if ( sw->window_flags & B_WINDOW_MAXIMISE )
-			workspace_window_maximize( w );
+			workspace_window_maximize( sw->window );
 		else
-			workspace_window_restore( w );
+			workspace_window_restore( sw->window );
 	}
 	
-	workspace_set_active( bersirc->workspace, w );
-	widget_focus( w );
+	workspace_set_active( bersirc->workspace, sw->window );
+	widget_focus( sw->window );
 	widget_focus( sw->input );
 }
 
