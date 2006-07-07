@@ -75,6 +75,9 @@ BOptionDefault b_opt_defaults[] = {
 	{ "time", "opt_time_line_timestamp", "[%H:%M]" },
 	{ "time", "opt_time_long_timestamp", "%A, %d %B %Y at %H:%M:%S" },
 	
+	/* taskbar */
+	{ "taskbar", "opt_taskbar_enabled", "true" },
+	
 	// colours
 	{ "colours", "ClientWelcome", CD_GREEN },
 	{ "colours", "ConnectionMsg", CD_BLUE },
@@ -332,6 +335,8 @@ B_OPTIONS_PAGE_CREATE( b_options_misc_page );
 B_OPTIONS_PAGE_SAVE( b_options_misc_save );
 B_OPTIONS_PAGE_CREATE( b_options_font_page );
 B_OPTIONS_PAGE_SAVE( b_options_font_save );
+B_OPTIONS_PAGE_CREATE( b_options_taskbar_page );
+B_OPTIONS_PAGE_SAVE( b_options_taskbar_save );
 
 void b_options_load_pages( object_t *parent, int px, int py, int pw, int ph )
 {
@@ -355,9 +360,9 @@ void b_options_load_pages( object_t *parent, int px, int py, int pw, int ph )
 	b_options_begin_page( 0, "opt_cat_visual", &b_options_null_page, &b_options_null_save, px, py, pw, ph );
 	{
 		/*b_options_begin_page( 1, "opt_cat_assorted", &b_options_null_page, &b_options_null_save, px, py, pw, ph );
-		
-		b_options_begin_page( 1, "opt_cat_taskbar", &b_options_null_page, &b_options_null_save, px, py, pw, ph );
-		
+		*/
+		b_options_begin_page( 1, "opt_cat_taskbar", &b_options_taskbar_page, &b_options_taskbar_save, px, py, pw, ph );
+		/*
 		b_options_begin_page( 1, "opt_cat_nicklist", &b_options_null_page, &b_options_null_save, px, py, pw, ph );
 		*/
 		b_options_begin_page( 1, "opt_cat_fonts", &b_options_font_page, &b_options_font_save, px, py, pw, ph );

@@ -514,7 +514,14 @@ int main( int argc, char *argv[] )
 	
 	// Create the layout for the content
 	layout_t *lt;
-	lt = layout_create( bersirc->mainwin, "[_workspace][{25}taskbar]", *b, 20, 20 );
+	char lttmp[64];
+	int tb_size = 25;
+	
+	if ( b_get_option_bool( xidentity, "taskbar", "opt_taskbar_enabled" ) == 0 )
+		tb_size = 0;
+	
+	sprintf( lttmp, "[_workspace][{%d}taskbar]", tb_size );
+	lt = layout_create( bersirc->mainwin, lttmp, *b, 20, 20 );
 	bersirc->layout = lt;
 	
 	// MOO

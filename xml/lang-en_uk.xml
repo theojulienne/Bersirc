@@ -61,6 +61,7 @@
 <opt_misc_hide_version text="Hide version" />
 <opt_time_line_timestamp text="Line timestamp :" />
 <opt_time_long_timestamp text="Extended timestamp :" />
+<opt_taskbar_enable text="Enable Taskbar" />
 <connectwin_servername text="Server Name:" />
 <connectwin_password text="Password:" />
 <connectwin_port text="Port:" />
