@@ -96,26 +96,26 @@ char *lang_phrase_parse( char *buf, int size, char *phrase, ... )
 	char *text, *rem;
 	char *p_name, *p_value;
 	int ns, vs;
-	char *outtxt = 0, *ot = 0;
-	int outsz = 0;
+	char *outtxt = NULL, *newtxt = NULL;
+	int outsz = 0, oldsz = 0;
 	va_list ap;
 	int a, b, c;
 	
 	text = lang_phrase_quick( phrase );
 	
-	if ( text == 0 )
+	if ( text == NULL )
 		return ""; // oof
 	
 	va_start( ap, phrase );
 	
 	outsz = strlen( text ) + 1;
-	ot = outtxt = malloc( outsz );
+	outtxt = (char *)malloc( outsz );
 	
 	strcpy( outtxt, text );
 	
 	while ( ( p_name = va_arg( ap, char * ) ) != NULL )
 	{
-		// get value too
+		/* value comes after name, get it as well */
 		p_value = va_arg( ap, char * );
 		
 		if ( p_name == NULL || p_value == NULL )
@@ -127,37 +127,41 @@ char *lang_phrase_parse( char *buf, int size, char *phrase, ... )
 		for ( a = 0; outtxt[a] != 0; a++ )
 		{
 			if ( outtxt[a] != '$' )
-				continue; // NOT a var
+				continue; /* NOT a var */
 			
 			b = lang_str_overlap( outtxt+a+1, p_name );
 			
 			if ( b != ns )
-				continue; // NOT a match
+				continue; /* NOT a match */
 			
-			// difference between $n and v
+			/* difference between "$name" and "value" */
 			c = vs - (ns + 1);
 			
-			// ignore if we're shortening, we can't to that
-			if ( c > 0 )
-			{
-				// add it on to our size
-				outsz += c;
-				
-				// reallocate for that difference
-				ot = malloc( outsz );
-				strcpy( ot, outtxt );
-				free( outtxt );
-				outtxt = ot;
-			}
+			/* save current size */
+			oldsz = outsz;
 			
-			// move the remainder down to make space
-			rem = outtxt + a + ns + 1;
-			memmove( outtxt + a + vs, rem, strlen( rem ) + 1 );
+			/* add the difference to the size of the memory block */
+			outsz += c;
 			
-			// copy the value in to the new space
-			memcpy( outtxt + a, p_value, vs );
+			/* allocate our new block */
+			newtxt = (char *)malloc( outsz );
 			
-			// reset to the start of checking
+			/* copy over the initial bytes of the string from the original */
+			if ( a > 0 )
+				memcpy( newtxt, outtxt, a );
+			
+			/* copy over the value string */
+			memcpy( newtxt+a, p_value, vs );
+			
+			/* copy over the remaining contents of the string, including \0 */
+			rem = outtxt + a + 1 + ns; /* <string> + <offset> + $ + <name> */
+			memcpy( newtxt+a+vs, rem, strlen( rem ) + 1 );
+			
+			/* kill the old text buffer, replace with the new one */
+			free( outtxt );
+			outtxt = newtxt;
+			
+			/* reset to the start of checking */
 			a = 0;
 		}
 	}
