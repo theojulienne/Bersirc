@@ -280,6 +280,8 @@ BERS_COMMAND( b_cmd_dns );
 
 BERS_COMMAND( b_msg_operwall );
 
+BERS_COMMAND( b_cmd_sayver );
+
 #endif
 
 //

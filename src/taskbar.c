@@ -79,7 +79,7 @@ void b_taskbar_draw_button( widget_t *c, int type, char *text, int x, int y, int
 	canvas_draw_image( c, icon, x+4, y+3 );
 	canvas_set_text_color( c, BCR(fg), BCG(fg), BCB(fg), BCA(fg) );
 	canvas_set_text_bgcolor( c, BCR(bg), BCG(bg), BCB(bg), BCA(bg) );
-	canvas_show_text( c, x+4+16+3, y+2, text, strlen( text ) );
+	canvas_show_text( c, x+4+16+3, y+2, text, a );
 	/*c_canvas_paint_fillrect( c, bd, x, y, w, h );
 	c_canvas_paint_fillrect( c, bg, x+1, y+1, w-2, h-2 );
 	c_canvas_paint_icon( c, icon, x+4, y+3 );
@@ -177,17 +177,8 @@ event_handler( b_taskbar_mouse_move )
 	int mx;
 	int my;
 	
-	if ( event->args != 0 )
-	{
-		dat = (int *)event->args;
-		mx = dat[0];
-		my = dat[1];
-	}
-	else
-	{
-		mx = -1;
-		my = -1;
-	}
+	mx = event_get_arg_int( event, 0 );
+	my = event_get_arg_int( event, 1 );
 	
 	// first, count the buttons
 	buttons = 0;

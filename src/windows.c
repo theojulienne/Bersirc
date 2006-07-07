@@ -86,6 +86,7 @@ void b_window_focus( object_t *w )
 	
 	workspace_set_active( bersirc->workspace, w );
 	widget_focus( w );
+	widget_focus( sw->input );
 }
 
 void b_window_create_context_menu( BServerWindow *win )

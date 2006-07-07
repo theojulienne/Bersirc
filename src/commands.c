@@ -196,6 +196,8 @@ void b_init_commands( )
 	b_register_command( "action", &b_cmd_action, B_CMD_WINDOW_ALL );
 	b_register_command( "me", &b_cmd_me, B_CMD_WINDOW_CHAT );
 	
+	b_register_command( "sayver", &b_cmd_sayver, B_CMD_WINDOW_CHAT );
+	
 	
 	b_register_command( "kick", &b_cmd_kick, B_CMD_WINDOW_CHANNEL );
 	
@@ -493,6 +495,13 @@ BERS_COMMAND( b_cmd_close )
 	return 0;
 }
 
+BERS_COMMAND( b_cmd_sayver )
+{
+	b_window_command( window, "Client Version: Bersirc v" BERSIRC_VERSION " on " BERSIRC_PLATFORM BERSTAG );
+	
+	return 0;
+}
+
 BERS_COMMAND( b_cmd_query )
 {
 	BChatWindow *chatwin;
@@ -506,10 +515,8 @@ BERS_COMMAND( b_cmd_query )
 	{
 		chatwin = b_new_chat_window( server, params[0], 0 );
 	}
-	else
-	{
-		b_window_focus( chatwin->window );
-	}
+	
+	b_window_focus( chatwin->window );
 	
 	return 0;
 }

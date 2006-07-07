@@ -141,9 +141,8 @@ int mouse_endx = 0, mouse_endy = 0;
 
 event_handler( ircview_handle_rightrel )
 {
-	int *dat = (int *)event->args;
-	int x = dat[0];
-	int y = dat[1];
+	int x = event_get_arg_int( event, 0 );
+	int y = event_get_arg_int( event, 1 );
 	BServerWindow *sw;
 	BChatWindow *cw;
 	object_t *popup;
@@ -176,15 +175,14 @@ event_handler( ircview_handle_rightrel )
 
 void ircview_handle_mousedown( object_t *obj, event_t *event )
 {
-	void *argp = event->args;
-	int *cx = argp;
-	int *cy = cx + 1;
+	int cx = event_get_arg_int( event, 0 );
+	int cy = event_get_arg_int( event, 1 );
 	
 	mouse_sel = 1;
-	mouse_startx = *cx;
-	mouse_starty = *cy;
-	mouse_endx = *cx;
-	mouse_endy = *cy;
+	mouse_startx = cx;
+	mouse_starty = cy;
+	mouse_endx = cx;
+	mouse_endy = cy;
 	
 	canvas_redraw( WIDGET(obj) );
 }
@@ -253,12 +251,11 @@ void ircview_handle_mouseup( object_t *obj, event_t *event )
 
 void ircview_handle_mousemove( object_t *obj, event_t *event )
 {
-	void *argp = event->args;
-	int *cx = argp;
-	int *cy = cx + 1;
+	int cx = event_get_arg_int( event, 0 );
+	int cy = event_get_arg_int( event, 1 );
 	
-	mouse_endx = *cx;
-	mouse_endy = *cy;
+	mouse_endx = cx;
+	mouse_endy = cy;
 	
 	canvas_redraw( WIDGET(obj) );
 }

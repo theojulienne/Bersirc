@@ -318,25 +318,22 @@ event_handler( profile_main_finished )
 
 event_handler( treeview_handle_context )
 {
-	object_t **dat = (object_t **)event->args;
-	int *dati = (int *)event->args;
-	object_t *item = dat[0];
+	object_t *item = OBJECT(event_get_arg_ptr( event, 0 ));
 	BServerWindow *sw = (BServerWindow *)item->appdata;
 	int dx, dy;
 	
 	if ( sw )
 	{
 		widget_screen_offset( object, &dx, &dy );
-		dx += dati[1];
-		dy += dati[2];
+		dx += event_get_arg_int( event, 1 );
+		dy += event_get_arg_int( event, 2 );
 		menu_popup( sw->conmenu.menu, dx, dy, cMenuPopupAtCursor );
 	}
 }
 
 event_handler( treeview_handle_selected )
 {
-	object_t **dat = (object_t **)event->args;
-	object_t *item = dat[0];
+	object_t *item = OBJECT(event_get_arg_ptr( event, 0 ));
 	BServerWindow *sw;
 	
 	if ( !item )
@@ -561,6 +558,7 @@ int main( int argc, char *argv[] )
 	
 	// Create the first status window
 	sw = b_new_server_window( 1 );
+	b_window_focus( sw );
 	
 	// Load the plugins (status window needs to be open just incase there are errors)
 	b_plugins_load( );
