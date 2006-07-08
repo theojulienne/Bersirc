@@ -356,6 +356,9 @@ BServerWindow *b_new_server_window( int flags )
 	/* option this */
 	workspace_window_maximise( server->window );
 	
+	/* this could also be an option */
+	b_window_focus( server );
+	
 	return server;
 }
 

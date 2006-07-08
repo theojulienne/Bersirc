@@ -505,6 +505,9 @@ BChatWindow *b_new_chat_window( BServerWindow *server, char *dest, int flags )
 	/* option this */
 	workspace_window_maximise( chat->window );
 	
+	/* this could also be an option */
+	b_window_focus( chat );
+	
 	return chat;
 }
 
