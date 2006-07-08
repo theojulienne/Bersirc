@@ -203,7 +203,11 @@ XMLItem *c_xml_get_path( XMLFile *file, char *inpath )
 		else
 		{
 			if ( ( next = c_xml_find_child( curr, tmp ) ) == NULL )
+			{
+				free( tmp );
+				free( path );
 				return 0;
+			}
 			else
 				curr = next;
 			
@@ -212,6 +216,7 @@ XMLItem *c_xml_get_path( XMLFile *file, char *inpath )
 	}
 	
 	free( tmp );
+	free( path );
 	
 	return curr;
 }
