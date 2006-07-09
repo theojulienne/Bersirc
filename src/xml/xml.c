@@ -171,6 +171,7 @@ XMLItem *c_xml_get_path_safe( XMLFile *file, char *inpath )
 	}
 	
 	free( tmp );
+	free( path );
 	
 	return curr;
 }
@@ -310,7 +311,7 @@ void c_xml_parse_attribs( XMLItem *item, char *str, int overwrite )
 	
 	b = strlen( str );
 	
-	if ( str[strlen(str)-1] == '/' )
+	if ( ( b > 0) && ( str[b-1] == '/' ) )
 		b--;
 	
 	for ( a = 0, c = 0, e = 0; a < b; a++ )
@@ -488,7 +489,7 @@ int c_xml_merge_file_run( FILE *fp, int overwrite, XMLItem *parent )
 					}
 				}
 				
-				if ( bufb[f-1] == '/' )
+				if ( ( f > 0 ) && ( bufb[f-1] == '/' ) )
 				{
 					// single line tag
 					b = 0;
