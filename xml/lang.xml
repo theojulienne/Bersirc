@@ -4,8 +4,9 @@
 		<language code="de_de" file="lang-de_de.xml" title="Deutsch" />
 		<language code="en_uk" file="lang-en_uk.xml" title="English (UK)" />
 		<language code="en_us" file="lang-en_us.xml" title="English (US)" />
+		<language code="fr_fr" file="lang-fr_fr.xml" title="French" /> 
+		<language code="no_bm" file="lang-no_bm.xml" title="Norsk (Bokm�)" />
 		<language code="pl_pl" file="lang-pl_pl.xml" title="Polski" />
 		<language code="fi_fi" file="lang-fi_fi.xml" title="Suomi" /> 
-		<language code="fr_fr" file="lang-fr_fr.xml" title="French" /> 
 	</languages>
 </Bersirc>
