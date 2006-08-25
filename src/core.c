@@ -529,26 +529,10 @@ int main( int argc, char *argv[] )
 	bersirc->treeview = treeview_widget_create( bersirc->splitter, NO_BOUNDS, 0 );
 	object_addhandler( bersirc->treeview, "right_clicked", treeview_handle_context );
 	object_addhandler( bersirc->treeview, "selected", treeview_handle_selected );
-	/*
-	object_t *ti, *tti, *tti2;
-	ti = treeview_append_row( bersirc->treeview, 0, b_icon("server"), "irc.free2code.net" );
-	//list_item_set_text_color( ti, 1, 0, 0, 1 );
-	list_item_set_font_extra( ti, cFontWeightBold, cFontSlantNormal, cFontDecorationNormal );
-	tti = treeview_append_row( bersirc->treeview, ti, b_icon("tree_channels"), "Channels" );
-	//list_item_set_text_color( tti, 0, 0, 1, 1 );
-	       treeview_append_row( bersirc->treeview, tti, b_icon("channel_window"), "#test" );
-	       treeview_append_row( bersirc->treeview, tti, b_icon("channel_window"), "#test2" );
-	       treeview_append_row( bersirc->treeview, tti, b_icon("channel_window"), "#lobby" );
-	tti2 = treeview_append_row( bersirc->treeview, ti, b_icon("queries"), "Private Chats" );
-	treeview_expand( bersirc->treeview, tti );
-	       treeview_append_row( bersirc->treeview, tti2, b_icon("query_window"), "Theo" );
-	       treeview_append_row( bersirc->treeview, tti2, b_icon("query_window"), "Terminal" );
-	       treeview_append_row( bersirc->treeview, tti2, b_icon("query_window"), "Bersirc" );
 	
-	treeview_expand( bersirc->treeview, ti );
-	treeview_expand( bersirc->treeview, tti );
-	treeview_expand( bersirc->treeview, tti2 );
-	*/
+	if ( b_get_option_bool( xidentity, "servertree", "opt_servertree_enabled" ) == 0 )
+		widget_hide( bersirc->treeview );
+	
 	splitter_set_info( bersirc->splitter, cSplitterFirst, 0, 200 );
 		
 	// Workspace

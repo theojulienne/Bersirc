@@ -45,7 +45,7 @@ BOptionDefault b_opt_defaults[] = {
 	// general
 	{ "general", "opt_gen_open_new_query", "true" },
 	{ "general", "opt_gen_show_ping_pong", "false" },
-	{ "general", "opt_gen_flash_on_message", "true" },
+	{ "general", "opt_gen_flash_on_message", "false" },
 	{ "general", "opt_gen_flash_times", "1" },
 	{ "general", "opt_gen_close_on_part", "false" },
 	{ "general", "opt_gen_rejoin_on_kick", "false" },
@@ -77,6 +77,9 @@ BOptionDefault b_opt_defaults[] = {
 	
 	/* taskbar */
 	{ "taskbar", "opt_taskbar_enabled", "true" },
+	
+	/* server tree */
+	{ "servertree", "opt_servertree_enabled", "true" },
 	
 	// colours
 	{ "colours", "ClientWelcome", CD_GREEN },

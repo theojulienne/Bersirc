@@ -173,10 +173,53 @@ event_handler( ircview_handle_rightrel )
 	}
 }
 
+ircview_link_t *ircview_find_link_at( ircview_t *iv, int cx, int cy )
+{
+	node_t *n, *ln;
+	
+	LIST_FOREACH( n, iv->lines.head )
+	{
+		ircview_line_t *line = (ircview_line_t *)n->data;
+		
+		if ( line->visible == 0 || line->linkn == 0 )
+			continue;
+		
+		LIST_FOREACH( ln, line->links.head )
+		{
+			ircview_link_t *link = (ircview_link_t *)ln->data;
+			
+			if ( cx >= link->x && cx <= link->x + link->w &&
+			     cy >= link->y && cy <= link->y + link->h )
+			{
+				return link;
+			}
+		}
+	}
+	
+	return NULL;
+}
+
 void ircview_handle_mousedown( object_t *obj, event_t *event )
 {
 	int cx = event_get_arg_int( event, 0 );
 	int cy = event_get_arg_int( event, 1 );
+	ircview_link_t *link = NULL;
+	
+	if ( ( link = ircview_find_link_at( (ircview_t*)obj, cx, cy ) ) != NULL)
+	{
+		char cmd[4096];
+		if ( link->type == bIRCViewLinkTypeURL )
+			sprintf( cmd, "/go %s", link->link );
+		else if ( link->type == bIRCViewLinkTypeChannel )
+			sprintf( cmd, "/join %s", link->link );
+		else if ( link->type == bIRCViewLinkTypePerson )
+			sprintf( cmd, "/query %s", link->link );
+		else
+			return;
+		
+		b_window_command( b_find_any_by_widget(obj), cmd );
+		return;
+	}
 	
 	mouse_sel = 1;
 	mouse_startx = cx;
@@ -184,7 +227,7 @@ void ircview_handle_mousedown( object_t *obj, event_t *event )
 	mouse_endx = cx;
 	mouse_endy = cy;
 	
-	canvas_redraw( WIDGET(obj) );
+	canvas_redraw( OBJECT(obj) );
 }
 
 void ircview_handle_mouseup( object_t *obj, event_t *event )
@@ -246,18 +289,28 @@ void ircview_handle_mouseup( object_t *obj, event_t *event )
 	
 	mouse_sel = 0;
 	
-	canvas_redraw( WIDGET(obj) );
+	canvas_redraw( OBJECT(obj) );
 }
 
 void ircview_handle_mousemove( object_t *obj, event_t *event )
 {
 	int cx = event_get_arg_int( event, 0 );
 	int cy = event_get_arg_int( event, 1 );
+	ircview_t *iv = (ircview_t *)obj;
 	
 	mouse_endx = cx;
 	mouse_endy = cy;
 	
-	canvas_redraw( WIDGET(obj) );
+	if ( mouse_sel == 1 )
+	{
+		canvas_redraw( OBJECT(obj) );
+		return;
+	}
+	
+	if ( ircview_find_link_at( iv, cx, cy ) != NULL )
+		widget_set_cursor( obj, cCursorPoint );
+	else
+		widget_set_cursor( obj, cCursorNormal );
 }
 
 int iv_render_hl = 0;
@@ -294,9 +347,9 @@ void ircview_set_colour_hex( ircview_t *ircview, const char *hex, int bg )
 	b = ib / 255.0f;
 	
 	if ( bg == 1 )
-		canvas_set_text_bgcolor( WIDGET(ircview), r, g, b, 1 );
+		canvas_set_text_bgcolor( OBJECT(ircview), r, g, b, 1 );
 	else
-		canvas_set_text_color( WIDGET(ircview), r, g, b, 1 );
+		canvas_set_text_color( OBJECT(ircview), r, g, b, 1 );
 }
 
 int ircview_do_fmt( const char *fmt_ptr, ircview_line_t *line )
@@ -451,7 +504,7 @@ int ircview_update_font( ircview_t *ircview )
 		ircview_set_colour_hex( ircview, ircview_cache_cols[BTV_Highlight], 1 );
 	}
 	
-	canvas_set_text_font( WIDGET(ircview), WIDGET(ircview)->font.face, WIDGET(ircview)->font.size, 
+	canvas_set_text_font( OBJECT(ircview), WIDGET(ircview)->font.face, WIDGET(ircview)->font.size, 
 		(iv_render_bold		? cFontWeightBold : cFontWeightNormal ),
 		(iv_render_italic	? cFontSlantItalic : cFontSlantNormal ),
 		(iv_render_underline? cFontDecorationUnderline : cFontDecorationNormal ) );
@@ -475,6 +528,10 @@ int ircview_show_text( ircview_t *ircview, int x, int y, int max, int *offset, i
 	int hl_os_starting = -1;
 	int hl_os_ending = -1;
 	int return_ready = 0;
+	
+	int start_pos = *offset;
+	int begin_pos = start_pos;
+	
 	//int len = strlen( fmt_ptr );
 	
 	if ( is_hl || (is_hle&&!is_hls) )
@@ -493,7 +550,7 @@ int ircview_show_text( ircview_t *ircview, int x, int y, int max, int *offset, i
 				tmp[tmp_len] = 0;
 				tmp_ptr = tmp;
 				
-				xo = canvas_text_box_width( WIDGET(ircview), tmp, tmp_len );
+				xo = canvas_text_box_width( OBJECT(ircview), tmp, tmp_len );
 				
 				hl_os_starting = -1;
 				hl_os_ending = -1;
@@ -512,7 +569,7 @@ int ircview_show_text( ircview_t *ircview, int x, int y, int max, int *offset, i
 						{
 							/* okay, well 'fx' contains the first coord to look at */
 							
-							b = canvas_text_display_count( WIDGET(ircview), tmp, fx - fxo );
+							b = canvas_text_display_count( OBJECT(ircview), tmp, fx - fxo );
 							
 							hl_os_starting = b;
 							
@@ -526,7 +583,7 @@ int ircview_show_text( ircview_t *ircview, int x, int y, int max, int *offset, i
 						{
 							/* okay, well 'sx' contains the second coord to look at */
 							
-							b = canvas_text_display_count( WIDGET(ircview), tmp, sx - fxo );
+							b = canvas_text_display_count( OBJECT(ircview), tmp, sx - fxo );
 							
 							hl_os_ending = b;
 							
@@ -543,7 +600,7 @@ int ircview_show_text( ircview_t *ircview, int x, int y, int max, int *offset, i
 					/* this would take us over the end. time to word wrap! */
 					
 					/* find how many characters we can fit */
-					b = c = canvas_text_display_count( WIDGET(ircview), tmp, max - (fxo + X_PADDING) );
+					b = c = canvas_text_display_count( OBJECT(ircview), tmp, max - (fxo + X_PADDING) );
 					
 					/* if just one more would mean a space, to hell with it, let's add it. */
 					if ( tmp[c] == ' ' )
@@ -598,8 +655,8 @@ int ircview_show_text( ircview_t *ircview, int x, int y, int max, int *offset, i
 					{
 						/* we start before the end, so split and render */
 						
-						canvas_show_text( WIDGET(ircview), x+fxo, y, tmp_ptr, hl_os_starting );
-						d = canvas_text_box_width( WIDGET(ircview), tmp_ptr, hl_os_starting );
+						canvas_show_text( OBJECT(ircview), x+fxo, y, tmp_ptr, hl_os_starting );
+						d = canvas_text_box_width( OBJECT(ircview), tmp_ptr, hl_os_starting );
 						fxo += d;
 						xo -= d;
 						
@@ -646,8 +703,8 @@ int ircview_show_text( ircview_t *ircview, int x, int y, int max, int *offset, i
 					{
 						/* we start before the end, so split and render */
 						
-						canvas_show_text( WIDGET(ircview), x+fxo, y, tmp_ptr, hl_os_ending );
-						d = canvas_text_box_width( WIDGET(ircview), tmp_ptr, hl_os_ending );
+						canvas_show_text( OBJECT(ircview), x+fxo, y, tmp_ptr, hl_os_ending );
+						d = canvas_text_box_width( OBJECT(ircview), tmp_ptr, hl_os_ending );
 						fxo += d;
 						xo -= d;
 						
@@ -678,7 +735,10 @@ int ircview_show_text( ircview_t *ircview, int x, int y, int max, int *offset, i
 				{
 					/* render everything until this point */
 					if ( ircview_paintmode )
-						canvas_show_text( WIDGET(ircview), x+fxo, y, tmp_ptr, b );
+					{
+						canvas_show_text( OBJECT(ircview), x+fxo, y, tmp_ptr, b );
+						ircview_link_test( ircview, line, x+fxo, y, tmp_len, begin_pos );
+					}
 					
 					/* and then bail out */
 					*offset += last_print + b;
@@ -689,7 +749,10 @@ int ircview_show_text( ircview_t *ircview, int x, int y, int max, int *offset, i
 				still_inc = 1; /* mark that we should keep incrementing last_print until we hit text */
 				
 				if ( ircview_paintmode )
-					canvas_show_text( WIDGET(ircview), x+fxo, y, tmp_ptr, b );
+				{
+					canvas_show_text( OBJECT(ircview), x+fxo, y, tmp_ptr, b );
+					ircview_link_test( ircview, line, x+fxo, y, tmp_len, begin_pos );
+				}
 				
 				fxo += xo;
 				
@@ -709,6 +772,9 @@ int ircview_show_text( ircview_t *ircview, int x, int y, int max, int *offset, i
 			last_print = o;
 			still_inc = 0;
 		}
+		
+		if ( tmp_len == 0 )
+			begin_pos = start_pos + a + 1;
 		
 		/* non-format char, save to a buffer */
 		tmp[tmp_len] = *fmt_ptr; //cptr[a];
@@ -737,13 +803,13 @@ event_handler( ircview_handle_redraw )
 	int height = cvsw->widget.size_req->h;
 	int usable_width = cvsw->widget.size_req->w - padding;
 	int lines = ceil((float)height / font_height);
-	int a, b, c;
+	int a, c;
 	int is_hl = 0;
-	int is_hls, is_hle, hln, hln2, hlx;
+	int is_hls, is_hle, hln, hln2;
 	int tmp_mouse_startx=0, tmp_mouse_starty=0;
 	int tmp_mouse_endx=0, tmp_mouse_endy=0;
 
-	canvas_fill_rect( WIDGET(iv), 0, 0, cvsw->widget.size_req->w, cvsw->widget.size_req->h, 1.0f, 1.0f, 1.0f, 1.0f );
+	canvas_fill_rect( OBJECT(iv), 0, 0, cvsw->widget.size_req->w, cvsw->widget.size_req->h, 1.0f, 1.0f, 1.0f, 1.0f );
 	
 	tmp_mouse_startx = mouse_startx;
 	tmp_mouse_starty = mouse_starty;
@@ -767,14 +833,19 @@ event_handler( ircview_handle_redraw )
 	
 	scroll = ( LIST_LENGTH( &iv->lines ) - scrollbar_get_pos( iv->scroll ) + 1 );
 	
-	canvas_set_text_bgcolor( WIDGET(cvsw), 1, 1, 1, 1 );
+	canvas_set_text_bgcolor( OBJECT(cvsw), 1, 1, 1, 1 );
 	
 	a = 0;
 	c = 0;
 	
 	LIST_FOREACH_PREV( n, iv->lines.tail )
 	{
+		ircview_line_t *ivline = (ircview_line_t *)n->data;
+		
 		c++;
+		
+		ivline->visible = 0;
+		
 		if ( c+1 < scroll )
 			continue;
 		
@@ -788,12 +859,13 @@ event_handler( ircview_handle_redraw )
 		
 		iv_line_fmt_offset = 0;
 		
-		ircview_line_t *ivline = (ircview_line_t *)n->data;
+		
 		char *tptr = ivline->text;
 		int l = 0;
 		int s;
 		int os=0;
 		
+		ivline->visible = 1;
 		ircview_paintmode = 0;
 		
 		while ( *tptr != 0 )
@@ -869,7 +941,7 @@ event_handler( ircview_handle_scroll )
 		iv = (ircview_t *)n->data;
 		if ( iv->scroll == object )
 		{
-			canvas_redraw( WIDGET(iv) );
+			canvas_redraw( OBJECT(iv) );
 			// FIXME: only do this if we're the active window, it's to effective
 			// and causes cross-window focusing for every scroll event (new msg, too)
 			//widget_focus( WIDGET(iv) ); // in turn, goes to input
@@ -945,13 +1017,132 @@ ircview_t *ircview_widget_create( object_t *parent, bounds_t *b )
 	object_addhandler( c, "destroy", ircview_handle_destroy );
 	object_addhandler( c, "right_released", ircview_handle_rightrel );
 	
-	/*
+	
 	c_btv_addline( c, "We\037lcome to \037\035Bersirc 2.2\035 \037utilising\037 the Claro GUI Toolkit", 0, BTV_ClientWelcome );
 	c_btv_addline( c, "Check out our website : http://bersirc.free2code.net/", 0, BTV_ClientWelcome );
-	c_btv_addline( c, "Or take a look at Claro : http://claro.free2code.net/", 0, BTV_ClientWelcome );
-	c_btv_addline( c, "\0031L\0032o\0033r\0034e\0035m\0036 i\0037p\0038s\0039u\00310m \00311d\00312o\00313l\00314o\00315r s\00316i\00317t \002amet, \003consectetuer adipiscing elit. Pellentesque euismod feugiat dolor. Proin in sem. Sed ultricies malesuada ligula. Suspendisse potenti. Donec ornare ipsum non urna. Maecenas a elit non metus hendrerit laoreet. Sed feugiat condimentum arcu. Integer commodo accumsan sem. Integer ante mauris, mattis vitae, mattis eget, ullamcorper non, risus. Etiam nulla. Ut mollis magna nec lacus. Suspendisse potenti. Ut vulputate, arcu non tristique dignissim, urna lacus sodales sem, eu tristique enim arcu vel nulla. Integer interdum porta mi. Praesent tempor viverra justo. Class aptent taciti sociosqu ad litora torquent per conubianostra, per inceptos hymenaeos. Duis tempus neque ac ipsum. In ultrices pulvinar tellus. Fusce odio est, dapibus et, eleifend ut, tincidunt ut, lectus. Proin ultrices pellentesque est. Vivamus tincidunt, nulla nec posuere scelerisque, nunc quam dictum purus, eget molestie arcu arcu quis nisl. Nunc pharetra justo quis urna. Donec vel nibh ac ante hendrerit elementum. Aliquam sed ipsum ac ligula consequat facilisis. Sed quis tortor. Aenean nec nulla. Maecenas ac justo. Nam sit amet purus sed nibh posuere tempus. Vivamus quis risus eget velit suscipit consequat. Cras tortor elit, vehicula nec, tincidunt nec, aliquet eu, sapien. Aenean urna metus, congue quis, lobortis at, ultrices nec, ante. Aenean tellus urna, tempus et\002, fermentum id, sodales nec, dui.", 0, BTV_ClientWelcome );
+	c_btv_addline( c, "Or take a look at Claro #claro : http://claro.free2code.net/", 0, BTV_ClientWelcome );
+	/*c_btv_addline( c, "\0031L\0032o\0033r\0034e\0035m\0036 i\0037p\0038s\0039u\00310m \00311d\00312o\00313l\00314o\00315r s\00316i\00317t \002amet, \003consectetuer adipiscing elit. Pellentesque euismod feugiat dolor. Proin in sem. Sed ultricies malesuada ligula. Suspendisse potenti. Donec ornare ipsum non urna. Maecenas a elit non metus hendrerit laoreet. Sed feugiat condimentum arcu. Integer commodo accumsan sem. Integer ante mauris, mattis vitae, mattis eget, ullamcorper non, risus. Etiam nulla. Ut mollis magna nec lacus. Suspendisse potenti. Ut vulputate, arcu non tristique dignissim, urna lacus sodales sem, eu tristique enim arcu vel nulla. Integer interdum porta mi. Praesent tempor viverra justo. Class aptent taciti sociosqu ad litora torquent per conubianostra, per inceptos hymenaeos. Duis tempus neque ac ipsum. In ultrices pulvinar tellus. Fusce odio est, dapibus et, eleifend ut, tincidunt ut, lectus. Proin ultrices pellentesque est. Vivamus tincidunt, nulla nec posuere scelerisque, nunc quam dictum purus, eget molestie arcu arcu quis nisl. Nunc pharetra justo quis urna. Donec vel nibh ac ante hendrerit elementum. Aliquam sed ipsum ac ligula consequat facilisis. Sed quis tortor. Aenean nec nulla. Maecenas ac justo. Nam sit amet purus sed nibh posuere tempus. Vivamus quis risus eget velit suscipit consequat. Cras tortor elit, vehicula nec, tincidunt nec, aliquet eu, sapien. Aenean urna metus, congue quis, lobortis at, ultrices nec, ante. Aenean tellus urna, tempus et\002, fermentum id, sodales nec, dui.", 0, BTV_ClientWelcome );
 	*/
 	return (ircview_t *)c;
+}
+
+typedef struct
+{
+	char *prefix;
+	
+	int type;
+} ircview_url_prefix_t;
+
+ircview_url_prefix_t ircview_url_prefixes[] = {
+	{ "http://", bIRCViewLinkTypeURL },
+	{ "https://", bIRCViewLinkTypeURL },
+	{ "ftp://", bIRCViewLinkTypeURL },
+	{ "www.", bIRCViewLinkTypeURL },
+	{ "news://", bIRCViewLinkTypeURL },
+	{ "feed://", bIRCViewLinkTypeURL },
+	{ "#", bIRCViewLinkTypeChannel },
+	{ NULL, 0 },
+};
+
+void ircview_line_update_links( ircview_line_t *line )
+{
+	int a, b, ll;
+	
+	if ( line->linkn != 0 )
+		return;
+	
+	line->linkn = 0;
+	list_create( &line->links );
+	
+	ll = strlen( line->text );
+	
+	for ( a = 0; a < ll; a++ )
+	{
+		char *link_tmp = &line->text[a];
+		
+		for ( b = 0; ircview_url_prefixes[b].prefix != NULL; b++ )
+		{
+			if ( !strncasecmp( ircview_url_prefixes[b].prefix, link_tmp, strlen( ircview_url_prefixes[b].prefix ) ) )
+			{
+				node_t *n;
+				char *end_tmp = NULL, *tmp = NULL;
+				int len;
+				
+				/* FIXME: block allocate this, they are reasonably common and the same size. */
+				ircview_link_t *link = (ircview_link_t *)malloc( sizeof(ircview_link_t) );
+				
+				if ( link == NULL )
+					return; /* allocation error */
+				
+				link->type = ircview_url_prefixes[b].type;
+				
+				/* found a match ! */
+				
+				//printf( "Found '%s'\n", ircview_url_prefixes[b].prefix );
+				
+				n = node_create( );
+				node_add( link, n, &line->links );
+				line->linkn++;
+				
+				end_tmp = strchr( link_tmp, ' ' );
+				
+				if ( end_tmp == NULL )
+					len = strlen( link_tmp ); /* to end of string */
+				else
+					len = end_tmp - link_tmp; /* to space */
+				
+				tmp = (char *)malloc( len + 1 );
+				link->link = (char *)malloc( len + 1 );
+				strncpy( tmp, link_tmp, len );
+				tmp[len] = 0;
+				
+				link->offset = a;
+				link->length = len;
+				
+				irc_fmt_strip( link->link, tmp );
+				
+				free( tmp );
+				
+				//printf( "link = %s\n", link->link );
+				
+				a += len; /* skip this link, we don't want http://www. counting twice */
+			}
+		}
+	}
+}
+
+void ircview_link_test( ircview_t *ircview, ircview_line_t *line, int x, int y, int chars, int start_offset )
+{
+	node_t *n;
+	ircview_link_t *link;
+	int xo = 0, width = 0;
+	
+	LIST_FOREACH( n, line->links.head )
+	{
+		link = (ircview_link_t *)n->data;
+		
+		if ( start_offset > link->offset )
+			continue; /* past this link */
+		
+		if ( start_offset+chars < link->offset )
+			continue; /* before this link */
+		
+		/* link starts in this test !! */
+		//printf( "'%s' (%d)\n", line->text + start_offset, chars );
+		/* X distance to the start of the link */
+		xo = canvas_text_box_width( OBJECT(ircview), line->text + start_offset, link->offset - start_offset );
+		
+		/* width of the link */
+		width = canvas_text_box_width( OBJECT(ircview), line->text + link->offset, strlen(link->link) );
+		
+		/* save position/size */
+		link->x = x+xo;
+		link->y = y;
+		link->w = width;
+		link->h = WIDGET(ircview)->font.size;
+		
+		//printf( "!! %d,%d,%d,%d\n", link->x, link->y, link->w, link->h );
+	}
 }
 
 void ircview_update_line( ircview_line_t *line )
@@ -987,6 +1178,9 @@ void ircview_update_line( ircview_line_t *line )
 	sprintf( line->text, "%s%s\003", time, line->original );
 	
 	irc_fmt_strip( line->cleantext, line->text );
+	
+	/* find links in the line */
+	ircview_line_update_links( line );
 }
 
 void ircview_add_line( ircview_t *ircview, int colour, int flags, char *text )
@@ -1010,6 +1204,8 @@ void ircview_add_line( ircview_t *ircview, int colour, int flags, char *text )
 	line->text = 0;
 	line->cleantext = 0;
 	
+	line->linkn = 0;
+	
 	line->time = time( 0 );
 	line->colour = colour;
 	line->flags = flags;
@@ -1024,7 +1220,7 @@ void ircview_add_line( ircview_t *ircview, int colour, int flags, char *text )
 	ircview_update_scroll( ircview );
 	
 	/* redraw the ircview */
-	canvas_redraw( WIDGET(ircview) );
+	canvas_redraw( OBJECT(ircview) );
 }
 
 int ircview_printf( ircview_t *ircview, int colour, int flags, char *fmt, ... )
@@ -1075,6 +1271,6 @@ void ircview_clear( ircview_t *ircview )
 	ircview_update_scroll( ircview );
 	
 	/* redraw the ircview */
-	canvas_redraw( WIDGET(ircview) );
+	canvas_redraw( OBJECT(ircview) );
 }
 
