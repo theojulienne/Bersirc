@@ -69,12 +69,16 @@ flags
 	libdir "../claro/src/claro/graphics"
 	library "claro-base"
 	library "claro-graphics"
-	ldflags "-Wl,--export-dynamic"
 	cflags "-g -Wall"
 	platform darwin
 		define _MAC
+		define ENV_CARBON
+		(cairo) cflags "-I/sw/include/cairo"
+		(cairo) ldflags "-L/sw/lib -lcairo"
+		ldflags "-framework Cocoa"
 	platform posix
 		pkg-config "gtk+-2.0 gdk-2.0"
-	platform all
 		define ENV_GTK
+		ldflags "-Wl,--export-dynamic"
+	platform all
 		define _NIX
