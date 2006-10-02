@@ -73,10 +73,10 @@ typedef struct b_win_contextm
 {
 	CWidget *menu;
 	
-	CMenuItem *close_window;
-	CMenuItem *clear_buffer;
+	list_item_t *close_window;
+	list_item_t *clear_buffer;
 	
-	CMenuItem *reserved[7];
+	list_item_t *reserved[7];
 } BWindowContextMenu;
 
 #define B_WINDOW_MAXIMISE 1

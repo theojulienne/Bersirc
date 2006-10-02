@@ -64,6 +64,12 @@ depends
 		none
 
 flags
+	platform win32
+		(cairo) cflags "-I/MinGW/include/cairo"
+		(cairo) ldflags "-L/MinGW/lib -lcairo"
+		(opengl) ldflags "-lopengl32 -lglu32"
+		ldflags "-lgdi32 -lole32  -lcomctl32 -lmsvcp60 -lwsock32"
+		define ENV_WIN32
 	include "../claro/src"
 	libdir "../claro/src/claro/base"
 	libdir "../claro/src/claro/graphics"
@@ -80,5 +86,4 @@ flags
 		pkg-config "gtk+-2.0 gdk-2.0"
 		define ENV_GTK
 		ldflags "-Wl,--export-dynamic"
-	platform all
 		define _NIX
