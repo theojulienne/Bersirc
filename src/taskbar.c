@@ -107,7 +107,9 @@ event_handler( b_taskbar_draw )
 	int ca, cb, cc;
 	node_t *n, *cn;
 	
+#ifndef _MAC
 	canvas_fill_rect( w, 0, 0, w->size_req->w, w->size_req->h, 0.87f, 0.87f, 0.87f, 1.0f );
+#endif
 	//c_canvas_paint_clear( w, C_NATIVE_BACKGROUND );
 	
 	buttons = 0;
