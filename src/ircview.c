@@ -952,6 +952,10 @@ event_handler( ircview_handle_scroll )
 void ircview_update_scroll( ircview_t *ircview )
 {
 	int a, b;
+	canvas_widget_t *cvsw = (canvas_widget_t *)ircview;
+	int height = cvsw->widget.size_req->h;
+	int font_height = cvsw->widget.font.size;
+	int lines = floor((float)height / font_height);
 	
 	if ( ircview->scroll == 0 )
 		return;
@@ -962,7 +966,9 @@ void ircview_update_scroll( ircview_t *ircview )
 	if ( a < 0 )
 		a = 0;
 	
-	scrollbar_set_range( ircview->scroll, 0, a );
+	// we're setting the maximum to include a whole extra page of scrolling
+	scrollbar_set_range( ircview->scroll, 0, a+lines-1 );
+	scrollbar_set_pagesize( ircview->scroll, lines );
 	
 	if ( a == 0 || a == b+1 )
 	{
