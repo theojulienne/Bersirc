@@ -445,7 +445,7 @@ BERS_COMMAND( b_cmd_part )
 	
 	free( chancpy );
 	
-	if ( channels[0] != '#' )
+	if ( channels[0] != '#' && channels[0] != '&' )
 		b_server_printf( server, "PART :#%s", channels );
 	else
 		b_server_printf( server, "PART :%s", channels );
