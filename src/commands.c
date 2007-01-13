@@ -217,6 +217,7 @@ void b_init_commands( )
 	
 	b_register_command( "query", &b_cmd_query, B_CMD_WINDOW_ALL | B_CMD_CLIENTONLY );
 	
+	b_register_command( "echo", &b_cmd_echo, B_CMD_WINDOW_ALL | B_CMD_CLIENTONLY );
 	b_register_command( "clear", &b_cmd_clear, B_CMD_WINDOW_ALL | B_CMD_CLIENTONLY );
 	b_register_command( "close", &b_cmd_close, B_CMD_WINDOW_ALL | B_CMD_CLIENTONLY );
 	
@@ -1329,5 +1330,20 @@ BERS_COMMAND( b_cmd_exec )
 	return 0;
 }
 #endif
+
+BERS_COMMAND( b_cmd_echo )
+{
+	char *message = NULL;
+	
+	if ( pcount == 0 )
+		return -1;
+	
+	message = origcmd;
+	message += strlen( command ) + 2; // ignore the command, /, and space
+	
+	b_window_printf( window, BTV_Info, "%s", message );
+	
+	return 0;
+}
 
 //

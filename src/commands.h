@@ -265,6 +265,14 @@ BERS_COMMAND( b_cmd_ctcp );
  */
 BERS_COMMAND( b_cmd_dcc );
 
+/* /echo
+ *
+ ! Display text in current window
+ ? /echo <message>
+ : display <message> in active window
+ */
+BERS_COMMAND( b_cmd_echo );
+
 // ex-menu commands
 BERS_COMMAND( b_cmd_exit );
 BERS_COMMAND( b_cmd_newstatus );

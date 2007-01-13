@@ -1047,6 +1047,7 @@ ircview_url_prefix_t ircview_url_prefixes[] = {
 	{ "news://", bIRCViewLinkTypeURL },
 	{ "feed://", bIRCViewLinkTypeURL },
 	{ "#", bIRCViewLinkTypeChannel },
+	{ "&", bIRCViewLinkTypeChannel },
 	{ NULL, 0 },
 };
 
@@ -1112,6 +1113,7 @@ void ircview_line_update_links( ircview_line_t *line )
 				//printf( "link = %s\n", link->link );
 				
 				a += len; /* skip this link, we don't want http://www. counting twice */
+				break;
 			}
 		}
 	}
