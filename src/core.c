@@ -276,18 +276,21 @@ void b_insert_systray( )
 	c_new_event_handler( bersirc_systray_icon, C_EVENT_MOUSE_LEFT_DBLCLK, b_systray_dblclicked );
 	c_new_event_handler( bersirc_systray_icon, C_EVENT_MOUSE_RIGHT_CLICK, b_systray_rclicked );
 	*/
+	
+	bersirc_systray_icon = status_icon_create(bersirc->mainwin, bersirc_icon, 0);
+    object_addhandler(bersirc_systray_icon, "pushed", b_systray_dblclicked);
 }
 
 void b_remove_systray( )
 {
-	if ( bersirc_systray_icon == 0 )
+	if ( bersirc_systray_icon == NULL )
 		return; // don't delete if not shown.
 	
 	// create systray icon widget
 	/* PORTFIX */
 	//c_destroy_widget( bersirc_systray_icon, 1 );
 	
-	bersirc_systray_icon = 0;
+	//bersirc_systray_icon = 0;
 }
 
 void b_shutdown( )
