@@ -219,6 +219,7 @@ event_handler( state_changed )
 #endif
 }
 
+XMLFile *xmenu;
 object_t *bersirc_systray_icon = 0;
 object_t *bersirc_systray_popup = 0;
 image_t *bersirc_icon;
@@ -256,7 +257,7 @@ event_handler( b_systray_rclicked )
 
 void b_insert_systray( )
 {
-	if ( bersirc_systray_icon != 0 )
+	if ( bersirc_systray_icon != NULL )
 		return; // don't add twice.
 	
 	if ( bersirc_systray_popup == 0 )
@@ -277,7 +278,11 @@ void b_insert_systray( )
 	c_new_event_handler( bersirc_systray_icon, C_EVENT_MOUSE_RIGHT_CLICK, b_systray_rclicked );
 	*/
 	
+	bersirc_systray_popup = menu_widget_create( bersirc->mainwin, 0);
 	bersirc_systray_icon = status_icon_create(bersirc->mainwin, bersirc_icon, 0);
+	status_icon_set_tooltip(bersirc_systray_icon, "Bersirc");
+	b_menu_from_xml( xmenu, bersirc_systray_popup, "context-systray", 0 );
+    status_icon_set_menu(bersirc_systray_icon, bersirc_systray_popup);
     object_addhandler(bersirc_systray_icon, "pushed", b_systray_dblclicked);
 }
 
@@ -311,8 +316,6 @@ void b_cleanup_and_exit( object_t *o, event_t *e )
 {
 	claro_shutdown( );
 }
-
-XMLFile *xmenu;
 
 event_handler( profile_main_finished )
 {
