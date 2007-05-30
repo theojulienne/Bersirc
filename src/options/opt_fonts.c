@@ -57,7 +57,7 @@ extern object_t *optionswin;
 event_handler( b_opt_font_choose_response )
 {
 	font_t *f;
-	int accept = event_get_arg_int( event, 0 );
+	int accept = event_get_int( event, "response" );
 	int a = (int)object->appdata;
 	
 	if ( accept )

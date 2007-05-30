@@ -256,8 +256,7 @@ event_handler( b_profile_key_down )
 
 object_t *b_open_profile( )
 {
-	int y, yi, w, h;
-	int x_offset = 130;
+	int yi, w, h;
 	layout_t *lt;
 	char lt_str[512];
 	int a, c, text_w;
@@ -300,7 +299,7 @@ object_t *b_open_profile( )
 						 "[_<|list|<]"
 						 "[]"
 						 "[{25}<|btnsave|<|btncancel|<]"
-						 "[]", text_w, text_w, text_w, text_w );
+						 "[]", text_w, text_w, text_w );
 		lt = layout_create( profilewin, lt_str, *b, 10, 10 );
 		
 		labels[0] = label_widget_create_with_text( profilewin, lt_bounds(lt,"lbluser"), 0, strs[0] );
@@ -347,7 +346,7 @@ object_t *b_open_profile( )
 		object_addhandler( texts[1], "changed", b_profile_input_changed );
 		object_addhandler( texts[2], "changed", b_profile_nick_changed );
 		
-		widget_set_notify( WIDGET(texts[2]), cNotifyKey );
+		widget_set_notify( OBJECT(texts[2]), cNotifyKey );
 		object_addhandler( texts[2], "key_down", b_profile_key_down );
 		object_addhandler( texts[2], "enter_press", b_profile_add_click );
 		
@@ -357,7 +356,7 @@ object_t *b_open_profile( )
 	}
 	else
 	{
-		c_widget_focus( profilewin );
+		widget_focus( profilewin );
 	}
 	
 	return profilewin;

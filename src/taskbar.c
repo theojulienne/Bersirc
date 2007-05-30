@@ -54,7 +54,7 @@ object_t *taskbar;
 
 void b_taskbar_redraw( )
 {
-	canvas_redraw( WIDGET(taskbar) );
+	canvas_redraw( OBJECT(taskbar) );
 }
 
 void b_taskbar_draw_button( widget_t *c, int type, char *text, int x, int y, int w, int h, int bd, int bg, int fg )
@@ -62,9 +62,9 @@ void b_taskbar_draw_button( widget_t *c, int type, char *text, int x, int y, int
 	image_t *icon;
 	int a;
 	
-	canvas_set_text_font( c, "Verdana", 16, 0, 0, 0 );
+	canvas_set_text_font( OBJECT(c), "Verdana", 16, 0, 0, 0 );
 	
-	a = canvas_text_display_count( c, text, w-4-16-3-3 );
+	a = canvas_text_display_count( OBJECT(c), text, w-4-16-3-3 );
 	
 	if ( type == B_CMD_WINDOW_CHANNEL )
 		icon = b_icon( "channel_window" );
@@ -74,12 +74,12 @@ void b_taskbar_draw_button( widget_t *c, int type, char *text, int x, int y, int
 		icon = b_icon( "status_window" );
 	
 	//canvas_
-	canvas_fill_rect( c, x, y, w, h, BCR(bd), BCG(bd), BCB(bd), BCA(bd) );
-	canvas_fill_rect( c, x+1, y+1, w-2, h-2,  BCR(bg), BCG(bg), BCB(bg), BCA(bg) );
-	canvas_draw_image( c, icon, x+4, y+3 );
-	canvas_set_text_color( c, BCR(fg), BCG(fg), BCB(fg), BCA(fg) );
-	canvas_set_text_bgcolor( c, BCR(bg), BCG(bg), BCB(bg), BCA(bg) );
-	canvas_show_text( c, x+4+16+3, y+2, text, a );
+	canvas_fill_rect( OBJECT(c), x, y, w, h, BCR(bd), BCG(bd), BCB(bd), BCA(bd) );
+	canvas_fill_rect( OBJECT(c), x+1, y+1, w-2, h-2,  BCR(bg), BCG(bg), BCB(bg), BCA(bg) );
+	canvas_draw_image( OBJECT(c), icon, x+4, y+3 );
+	canvas_set_text_color( OBJECT(c), BCR(fg), BCG(fg), BCB(fg), BCA(fg) );
+	canvas_set_text_bgcolor( OBJECT(c), BCR(bg), BCG(bg), BCB(bg), BCA(bg) );
+	canvas_show_text( OBJECT(c), x+4+16+3, y+2, text, a );
 	/*c_canvas_paint_fillrect( c, bd, x, y, w, h );
 	c_canvas_paint_fillrect( c, bg, x+1, y+1, w-2, h-2 );
 	c_canvas_paint_icon( c, icon, x+4, y+3 );
@@ -175,12 +175,12 @@ event_handler( b_taskbar_mouse_move )
 	int buttons, wwth;
 	node_t *n, *cn;
 
-	int *dat;
+	//int *dat;
 	int mx;
 	int my;
 	
-	mx = event_get_arg_int( event, 0 );
-	my = event_get_arg_int( event, 1 );
+	mx = event_get_int( event, "x" );
+	my = event_get_int( event, "y" );
 	
 	// first, count the buttons
 	buttons = 0;
@@ -275,7 +275,7 @@ event_handler( b_taskbar_mouse_move )
 object_t *b_create_taskbar( object_t *parent )
 {
 	taskbar = canvas_widget_create( parent, lt_bounds(bersirc->layout,"taskbar"), 0 );
-	widget_set_notify( WIDGET(taskbar), cNotifyMouse );
+	widget_set_notify( OBJECT(taskbar), cNotifyMouse );
 	//taskbar = c_new_canvas( parent, 0, 0, 100, 25, C_BORDER_NONE );
 	
 	object_addhandler( taskbar, "redraw", b_taskbar_draw );

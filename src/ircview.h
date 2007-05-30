@@ -86,6 +86,10 @@ typedef struct
 	list_t lines;
 } ircview_t;
 
+declare_class( ircview );
+#define ircview_type ircview_get_type( )
+
+
 ircview_t *ircview_widget_create( object_t *parent, bounds_t *b );
 void ircview_add_line( ircview_t *ircview, int colour, int flags, char *text );
 int ircview_printf( ircview_t *ircview, int colour, int flags, char *fmt, ... );

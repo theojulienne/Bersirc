@@ -159,7 +159,7 @@ event_handler( b_autowin_killed )
 
 event_handler( b_autowin_close )
 {
-	widget_close( WIDGET(autowin) );
+	widget_close( OBJECT(autowin) );
 }
 
 object_t *autoeditwin = 0;
@@ -173,7 +173,7 @@ event_handler( b_autoeditwin_killed )
 
 event_handler( b_autoeditwin_close )
 {
-	widget_close( WIDGET( autoeditwin ) );
+	widget_close( OBJECT( autoeditwin ) );
 }
 
 object_t *aew_txt_server, *aew_txt_channels, *aew_cbx_enabled;
@@ -207,11 +207,11 @@ event_handler( b_autoeditwin_txtchanged )
 {
 	if ( !strcmp( textbox_get_text(object), "" ) )
 	{
-		widget_disable( WIDGET( aw_btnsave ) );
+		widget_disable( OBJECT( aw_btnsave ) );
 		return;
 	}
 	
-	widget_enable( WIDGET( aw_btnsave ) );
+	widget_enable( OBJECT( aw_btnsave ) );
 }
 
 void create_autoeditwin( list_item_t *item )
@@ -287,7 +287,7 @@ void create_autoeditwin( list_item_t *item )
 	object_addhandler( aw_btncancel, "pushed", b_autoeditwin_close );
 	
 	if ( item == 0 )
-		widget_disable( WIDGET( aw_btnsave ) );
+		widget_disable( OBJECT( aw_btnsave ) );
 	
 	window_show( autoeditwin );
 }
@@ -319,8 +319,8 @@ event_handler( b_autowin_delete )
 	
 	listview_remove_row( autowin_servlist, a );
 	
-	widget_disable( WIDGET( btndelete ) );
-	widget_disable( WIDGET( btnedit ) );
+	widget_disable( OBJECT( btndelete ) );
+	widget_disable( OBJECT( btnedit ) );
 }
 
 event_handler( b_autowin_serversel )
@@ -329,13 +329,13 @@ event_handler( b_autowin_serversel )
 	
 	if ( a == 0 )
 	{
-		widget_disable( WIDGET( btndelete ) );
-		widget_disable( WIDGET( btnedit ) );
+		widget_disable( OBJECT( btndelete ) );
+		widget_disable( OBJECT( btnedit ) );
 		return;
 	}
 	
-	widget_enable( WIDGET( btndelete ) );
-	widget_enable( WIDGET( btnedit ) );
+	widget_enable( OBJECT( btndelete ) );
+	widget_enable( OBJECT( btnedit ) );
 }
 
 void b_open_autowin( )
@@ -377,8 +377,8 @@ void b_open_autowin( )
 		btncancel = button_widget_create_with_label( autowin, lt_bounds(lt,"btncancel"), 0, lang_phrase_quick( "close" ) );
 		
 		// no edit or delete until selected
-		widget_disable( WIDGET( btndelete ) );
-		widget_disable( WIDGET( btnedit ) );
+		widget_disable( OBJECT( btndelete ) );
+		widget_disable( OBJECT( btnedit ) );
 		
 		object_addhandler( autowin_servlist, "selected", b_autowin_serversel );
 		object_addhandler( btnadd, "pushed", b_autowin_add );
@@ -392,6 +392,6 @@ void b_open_autowin( )
 	}
 	else
 	{
-		widget_focus( WIDGET( autowin ) );
+		widget_focus( OBJECT( autowin ) );
 	}
 }

@@ -210,7 +210,7 @@ void b_server_run_onconnect( BServerWindow *sw )
 		}
 		
 		if ( cw != 0 )
-			c_widget_focus( cw->input );
+			widget_focus( OBJECT(cw->input) );
 	}
 	
 	free( sw->onconnect );

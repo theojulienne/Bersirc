@@ -37,7 +37,8 @@ event_handler( b_aboutwin_close )
 
 void b_open_aboutwin( )
 {
-	object_t *txt, *img;
+	object_t *txt;
+	image_t *img;
 	
 	if ( aboutwin == 0 )
 	{

@@ -32,7 +32,7 @@ void b_joinwin_killed( )
 
 event_handler( b_joinwin_close )
 {
-	widget_close( WIDGET(joinwin) );
+	widget_close( OBJECT(joinwin) );
 }
 
 event_handler( b_joinwin_join )
@@ -76,9 +76,9 @@ event_handler( b_join_channel_txtchanged )
 	channel = textbox_get_text( join_txt_channel );
 
 	if ( strcmp( channel, "" ) )
-		widget_enable( WIDGET(btnjoin) );
+		widget_enable( OBJECT(btnjoin) );
 	else
-		widget_disable( WIDGET(btnjoin) );
+		widget_disable( OBJECT(btnjoin) );
 }
 
 event_handler( b_join_channel_enterpressed )
@@ -114,12 +114,12 @@ void b_open_joinwin( )
 		join_txt_key = textbox_widget_create( joinwin, new_bounds(95, 48, 245, -1), cTextBoxTypePassword );
 		textbox_set_text( join_txt_key, "" );
 		
-		widget_set_notify( WIDGET(join_txt_channel), cNotifyKey );
+		widget_set_notify( OBJECT(join_txt_channel), cNotifyKey );
 		object_addhandler( join_txt_channel, "key_down", b_join_channel_enterpressed );
 		object_addhandler( join_txt_channel, "changed", b_join_channel_txtchanged );
 		widget_focus( join_txt_channel );
 		
-		widget_set_notify( WIDGET(join_txt_key), cNotifyKey );
+		widget_set_notify( OBJECT(join_txt_key), cNotifyKey );
 		object_addhandler( join_txt_key, "key_down", b_join_channel_enterpressed );
 		
 		btnjoin = button_widget_create_with_label( joinwin, new_bounds( 130, 85, 100, -1 ), 0, lang_phrase_quick( "join" ) );

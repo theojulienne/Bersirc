@@ -485,7 +485,7 @@ BERS_COMMAND( b_cmd_clear )
 	else
 		btv = server->content;
 	
-	ircview_clear( btv );
+	ircview_clear( (ircview_t *)btv );
 	
 	return 0;
 }
@@ -1168,7 +1168,7 @@ BERS_COMMAND( b_cmd_go )
 	if ( pcount < 1 )
 		return -1;
 	
-	open_browser( bersirc->mainwin, params[0] );
+	open_browser( WIDGET(bersirc->mainwin), params[0] );
 	
 	return 0;
 }

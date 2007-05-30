@@ -102,7 +102,7 @@ typedef struct b_win_contextm
 	object_t *splitter;\
 	object_t *scroll;\
 	\
-	object_t *tv_item;\
+	list_item_t *tv_item;\
 	\
 	int window_flags;\
 	\
@@ -163,7 +163,7 @@ typedef struct b_sw
 	int nickcount;
 	char password[64];
 	
-	object_t *tv_channels, *tv_queries;
+	list_item_t *tv_channels, *tv_queries;
 	
 	list_t chat_windows;
 	

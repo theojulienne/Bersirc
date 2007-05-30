@@ -102,6 +102,8 @@ event_handler( b_server_content_focus )
 	widget_focus( sw->input );
 	
 	b_taskbar_redraw( );
+	
+	treeview_select_item( bersirc->treeview, sw->tv_item );
 }
 
 event_handler( b_server_win_destroy )
@@ -310,13 +312,13 @@ BServerWindow *b_new_server_window( int flags )
 	object_addhandler( server->content, "focus", b_server_content_focus );
 	
 	server->scroll = scrollbar_widget_create( server->window, lt_bounds(server->layout,"scrollbar"), cScrollbarVertical );
-	ircview_set_scrollbar( server->content, server->scroll );
+	ircview_set_scrollbar( (ircview_t *)(server->content), server->scroll );
 	
 	line = canvas_widget_create( server->window, lt_bounds(server->layout,"line"), 0 );
 	object_addhandler( line, "redraw", b_draw_line_canvas );
 	
 	server->input = textbox_widget_create( server->window, lt_bounds(server->layout,"input"), cWidgetNoBorder );
-	widget_set_notify( WIDGET(server->input), cNotifyKey );
+	widget_set_notify( OBJECT(server->input), cNotifyKey );
 	
 	object_addhandler( server->input, "key_down", b_input_key_press );
 	object_addhandler( server->input, "enter_press", b_server_enter_press );
@@ -344,7 +346,7 @@ BServerWindow *b_new_server_window( int flags )
 	
 	// add to the treeview
 	server->tv_item = treeview_append_row( bersirc->treeview, 0, b_icon("server"), "Status" );
-	server->tv_item->appdata = (void *)server;
+	OBJECT(server->tv_item)->appdata = (void *)server;
 	list_item_set_font_extra( server->tv_item, cFontWeightBold, cFontSlantNormal, cFontDecorationNormal );
 	
 	b_window_create_context_menu( server );
@@ -357,7 +359,7 @@ BServerWindow *b_new_server_window( int flags )
 	workspace_window_maximise( server->window );
 	
 	/* this could also be an option */
-	b_window_focus( server );
+	b_window_focus( OBJECT(server) );
 	
 	return server;
 }

@@ -131,7 +131,7 @@ char *b_window_autocomplete( bchannel_t *cw )
 		}
 	}
 	
-	sw = cw;
+	sw = (bserver_t *)cw;
 	
 	if ( cw->type != B_CMD_WINDOW_STATUS )
 		sw = cw->server;
@@ -223,7 +223,7 @@ event_handler( b_input_key_press )
 		
 		text = textbox_get_text( object );
 		strcpy( cpy, text );
-		text = &cpy;
+		text = (char *)&cpy;
 		tmp = "";
 		
 		for ( a = strlen( text ); a >= 0; a-- )
@@ -243,7 +243,7 @@ event_handler( b_input_key_press )
 		if ( win->last_tab_comp != 0 )
 		{
 			// again
-			res = b_window_autocomplete( win );
+			res = b_window_autocomplete( (bchannel_t *)win );
 			if ( res == 0 )
 				return;
 			strcpy( tmp, res );
@@ -258,7 +258,7 @@ event_handler( b_input_key_press )
 		win->last_tab_comp = strdup( tmp );
 		win->tab_comp_num = 0;
 		
-		res = b_window_autocomplete( win );
+		res = b_window_autocomplete( (bchannel_t *)win );
 		if ( res == 0 )
 			return;
 		strcpy( tmp, res );
@@ -375,7 +375,7 @@ event_handler( b_draw_line_canvas )
 {
 	widget_t *w = (widget_t *)object;
 	// FIXME: Colour should be configurable, same time as everything else is :)
-	canvas_fill_rect( w, 0, 0, w->size_req->w, w->size_req->h, 0.83f, 0.81f, 0.78f, 1.0f );
+	canvas_fill_rect( object, 0, 0, w->size_req->w, w->size_req->h, 0.83f, 0.81f, 0.78f, 1.0f );
 }
 
 

@@ -218,7 +218,7 @@ void b_set_option_int( XMLItem *identity, char *root, char *sub, int value )
 /*** OPTIONS WINDOW ***/
 
 
-object_t *optionswin = 0;
+object_t *optionswin = NULL;
 
 extern object_t *mainwin;
 extern XMLItem *xidentity;
@@ -241,13 +241,13 @@ object_t *b_opt_active = 0;
 
 event_handler( b_options_killed )
 {
-	optionswin = 0;
+	optionswin = NULL;
 	
 	free( boptlinks );
 	b_opt_active = 0;
 	boptnums = 0;
 	boptlinks = 0;
-	lastselected = -1;
+	lastselected = NULL;
 	c_tbl_empty( opt_cats_tbl );
 	free( opt_cats_tbl );
 	opt_cats_tbl = 0;
@@ -274,15 +274,15 @@ event_handler( b_options_save )
 
 event_handler( b_opt_cat_selected )
 {
-	int a, b;
+	int b;
 	object_t *row;
 	
-	row = listbox_get_selected( object );
+	row = OBJECT(listbox_get_selected( object ));
 	
 	if ( row == 0 || ( row == lastselected ) )
 		return;
 	
-	b = row->appdata;
+	b = (int)row->appdata;
 	lastselected = row;
 	
 	if ( b_opt_active != 0 )
@@ -298,7 +298,7 @@ void b_options_begin_page( int sub, char *langtext, object_t * (*func)( B_OPTS_P
 	char name[128];
 	char *lt = lang_phrase_quick( langtext );
 	object_t *cat;
-	object_t *li;
+	list_item_t *li;
 	
 	boptnums++;
 	boptlinks = (BOptionsPageLink *)realloc( boptlinks, sizeof( BOptionsPageLink ) * boptnums );
@@ -306,7 +306,7 @@ void b_options_begin_page( int sub, char *langtext, object_t * (*func)( B_OPTS_P
 	sprintf( name, "%s%s", (sub==0?"":"  "), lt );
 	
 	li = listbox_append_row( opt_categories, name );
-	li->appdata = (void *)(boptnums-1);
+	li->object.appdata = (void *)(boptnums-1);
 	
 	cat = (*func)( lt, optionswin, px, py, pw, ph, xidentity );
 	
@@ -321,12 +321,13 @@ B_OPTIONS_PAGE_SAVE( b_options_null_save ) { }
 B_OPTIONS_PAGE_CREATE( b_options_null_page )
 {
 	object_t *cat;
-	
+	printf( "Frame...\n" );
 	cat = frame_widget_create_with_label( parent, new_bounds(px, py, pw, ph), 0, title );
-	
-	c_new_label( cat, lang_phrase_quick( "opt_reserved_1" ), 0, 0, pw, -1, 0 );
-	c_new_label( cat, lang_phrase_quick( "opt_reserved_2" ), 0, 18, pw, -1, 0 );
-	
+	printf( "Labels...\n" );
+	label_widget_create_with_text( cat, new_bounds(0, 0, pw, -1), 0, lang_phrase_quick( "opt_reserved_1" ) );
+	printf( "Label 2...\n" );
+	label_widget_create_with_text( cat, new_bounds(0, 18, pw, -1), 0, lang_phrase_quick( "opt_reserved_2" ) );
+	printf( "Done...\n" );
 	return cat;
 }
 
@@ -359,15 +360,15 @@ void b_options_load_pages( object_t *parent, int px, int py, int pw, int ph )
 		b_options_begin_page( 1, "opt_cat_time", &b_options_time_page, &b_options_time_save, px, py, pw, ph );
 	}
 	
-	
+	printf( "****************************** D!\n" );
 	b_options_begin_page( 0, "opt_cat_visual", &b_options_null_page, &b_options_null_save, px, py, pw, ph );
-	{
+	{printf( "****************************** A!\n" );
 		/*b_options_begin_page( 1, "opt_cat_assorted", &b_options_null_page, &b_options_null_save, px, py, pw, ph );
 		*/
 		b_options_begin_page( 1, "opt_cat_taskbar", &b_options_taskbar_page, &b_options_taskbar_save, px, py, pw, ph );
 		/*
 		b_options_begin_page( 1, "opt_cat_nicklist", &b_options_null_page, &b_options_null_save, px, py, pw, ph );
-		*/
+		*/printf( "****************************** B!\n" );
 		b_options_begin_page( 1, "opt_cat_fonts", &b_options_font_page, &b_options_font_save, px, py, pw, ph );
 		/*
 		b_options_begin_page( 1, "opt_cat_colour", &b_options_null_page, &b_options_null_save, px, py, pw, ph );
@@ -377,7 +378,7 @@ void b_options_load_pages( object_t *parent, int px, int py, int pw, int ph )
 		b_options_begin_page( 1, "opt_cat_highlight", &b_options_null_page, &b_options_null_save, px, py, pw, ph );
 		*/
 	}
-	
+	printf( "****************************** C!\n" );
 	listbox_select_item( opt_categories, list_widget_get_row( opt_categories, 0, 0 ) );
 	widget_focus( opt_categories );
 }
@@ -391,7 +392,7 @@ void b_open_options( )
 	w = 640;
 	h = 460;
 	
-	if ( optionswin == 0 )
+	if ( optionswin == NULL )
 	{
 		optionswin = window_widget_create( bersirc->mainwin, new_bounds( -1, -1, w, h ), cWindowModalDialog | cWindowCenterParent );
 		window_set_icon( optionswin, b_icon( "options" ) );

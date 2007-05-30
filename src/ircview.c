@@ -21,6 +21,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "includes.h"
 
+claro_define_type_partial( ircview, canvas_widget, NULL, NULL, NULL, NULL );
+
 block_heap_t *line_heap = 0;
 
 list_t ircviews;
@@ -141,8 +143,8 @@ int mouse_endx = 0, mouse_endy = 0;
 
 event_handler( ircview_handle_rightrel )
 {
-	int x = event_get_arg_int( event, 0 );
-	int y = event_get_arg_int( event, 1 );
+	int x = event_get_int( event, "x" );
+	int y = event_get_int( event, "y" );
 	BServerWindow *sw;
 	BChatWindow *cw;
 	object_t *popup;
@@ -201,8 +203,8 @@ ircview_link_t *ircview_find_link_at( ircview_t *iv, int cx, int cy )
 
 void ircview_handle_mousedown( object_t *obj, event_t *event )
 {
-	int cx = event_get_arg_int( event, 0 );
-	int cy = event_get_arg_int( event, 1 );
+	int cx = event_get_int( event, "x" );
+	int cy = event_get_int( event, "y" );
 	ircview_link_t *link = NULL;
 	
 	if ( ( link = ircview_find_link_at( (ircview_t*)obj, cx, cy ) ) != NULL)
@@ -294,8 +296,8 @@ void ircview_handle_mouseup( object_t *obj, event_t *event )
 
 void ircview_handle_mousemove( object_t *obj, event_t *event )
 {
-	int cx = event_get_arg_int( event, 0 );
-	int cy = event_get_arg_int( event, 1 );
+	int cx = event_get_int( event, "x" );
+	int cy = event_get_int( event, "y" );
 	ircview_t *iv = (ircview_t *)obj;
 	
 	mouse_endx = cx;
@@ -996,8 +998,12 @@ ircview_t *ircview_widget_create( object_t *parent, bounds_t *b )
 		ircview_cache_colours_update( );
 	
 	/* canvas/ircview creation */
-	object_override_next_size( sizeof(ircview_t) );
-	c = canvas_widget_create( parent, b, 0 );
+	c = object_create_from_class( ircview_type, parent );
+	
+	widget_set_bounds( c, b );
+	widget_set_flags( c, 0 );
+
+	object_realize( c );
 	
 	widget_set_notify( c, cNotifyMouse );
 	

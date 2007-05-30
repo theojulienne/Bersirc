@@ -21,6 +21,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include "includes.h"
 
+void menu_setup_favorites( object_t *menu, list_item_t *fav, XMLItem *head );
+
 void do_x_click( int *wintype, char *cmd )
 {	
 	if ( cmd == 0 )
@@ -44,9 +46,9 @@ event_handler( menu_x_click )
 	widget_t *po = WIDGET(object->parent);
 	
 	// see if we can find which window the menu belongs to
-	if ( ( wintype = (int *)b_find_server_by_widget( po ) ) == NULL )
+	if ( ( wintype = (int *)b_find_server_by_widget( OBJECT(po) ) ) == NULL )
 	{
-		wintype = (int *)b_find_chat_by_widget( po );
+		wintype = (int *)b_find_chat_by_widget( OBJECT(po) );
 	}
 	
 	if ( wintype == 0 )

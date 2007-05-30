@@ -76,7 +76,6 @@ int b_mode_handle_key( B_MODE_HANDLER_PARMS )
 
 void b_mode_handle_any( B_MODE_HANDLER_PARMS )
 {
-	int a;
 	node_t *n, *nn;
 	channel_mode_t *cmode;
 	

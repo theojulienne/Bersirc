@@ -1,12 +1,12 @@
 CLARODIR=../claro
 
 CFLAGS=-I$(CLARODIR)/include -Wall -DENV_CARBON
-OBJECTS=src/berscore.o \
+OBJECTS=src/core.o \
 src/dccwin.o \
 src/dcc.o \
 src/urlwin.o \
 src/aboutwin.o \
-src/btextview.o \
+src/ircview.o \
 src/net/socket.o \
 src/irc.o \
 src/irc_cmd.o \

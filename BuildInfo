@@ -48,7 +48,32 @@ targets
 			src/options/opt_highlight.c
 			src/options/opt_misc.c
 			src/options/opt_time.c
-
+		includes
+			src/aboutwin.h
+			src/autowin.h
+			src/commands.h
+			src/configdir.h
+			src/connection.h
+			src/connectwin.h
+			src/core.h
+			src/dcc.h
+			src/dccwin.h
+			src/includes.h
+			src/irc.h
+			src/ircview.h
+			src/joinwin.h
+			src/lang.h
+			src/messages.h
+			src/modes.h
+			src/netbrowser.h
+			src/options.h
+			src/plugins.h
+			src/profile.h
+			src/server.h
+			src/taskbar.h
+			src/urlwin.h
+			src/version.h
+			src/windows.h
 
 contains
 	none
@@ -65,8 +90,6 @@ depends
 
 flags
 	platform win32
-		(cairo) cflags "-I/MinGW/include/cairo"
-		(cairo) ldflags "-L/MinGW/lib -lcairo"
 		(opengl) ldflags "-lopengl32 -lglu32"
 		ldflags "-lgdi32 -lole32  -lcomctl32 -lmsvcp60 -lwsock32"
 		define ENV_WIN32
@@ -76,11 +99,10 @@ flags
 	library "claro-base"
 	library "claro-graphics"
 	cflags "-g -Wall"
+	define NO_CAIRO
 	platform darwin
 		define _MAC
 		define ENV_CARBON
-		(cairo) cflags "-I/sw/include/cairo"
-		(cairo) ldflags "-L/sw/lib -lcairo"
 		ldflags "-framework Cocoa"
 	platform posix
 		pkg-config "gtk+-2.0 gdk-2.0"

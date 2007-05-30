@@ -24,6 +24,8 @@ char b_find_user_prefix( BUserStore *st );
 void b_server_message( BServerWindow *win, char *cmdi );
 void b_init_messages( );
 
+int b_find_table_row_position( object_t *tbl, BUserStore *st );
+
 
 
 #define BERS_MESSAGE(x) int x( BServerWindow *server, char *origcmd, char *command, char **params, int pcount, int flags, void *window )

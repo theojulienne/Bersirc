@@ -118,7 +118,7 @@ event_handler( b_favorite_clicked )
 				}
 				
 				if ( cw != 0 )
-					c_widget_focus( cw->input ); /* PORTFIX */
+					widget_focus( OBJECT(cw->input) );
 			}
 		}
 	}

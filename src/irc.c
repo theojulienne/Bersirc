@@ -133,7 +133,7 @@ void b_widget_set_font( object_t *w, char *loc )
 	b_fontd_by_loc_from_xml( &fontd, loc );
 	
 	/* FIXME: someone asked that Bold (weight) be allowed as an option */
-	widget_set_font( WIDGET(w), fontd.face, fontd.size, cFontWeightNormal, cFontSlantNormal, cFontDecorationNormal );
+	widget_set_font( OBJECT(w), fontd.face, fontd.size, cFontWeightNormal, cFontSlantNormal, cFontDecorationNormal );
 }
 
 //

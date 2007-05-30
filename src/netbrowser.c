@@ -111,7 +111,7 @@ void b_netbrowser_load( )
 
 void b_open_netbrowser( )
 {
-	int w, h;
+	//int w, h;
 #if 0 /* PORTHACK */
 	w = 500;
 	h = 450;

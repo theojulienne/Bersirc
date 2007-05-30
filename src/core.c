@@ -23,6 +23,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 bersirc_t *bersirc;
 
+claro_define_type_partial( bersirc, object, NULL, NULL, NULL, NULL );
+
+
 event_handler( bersirc_mainloop_it )
 {
 	c_socket_run( );
@@ -32,7 +35,8 @@ event_handler( bersirc_mainloop_it )
 
 void bersirc_create( )
 {
-	bersirc = (bersirc_t *)object_create( 0, sizeof(bersirc_t), "bersirc.core" );
+	bersirc = (bersirc_t *)object_create_from_class( bersirc_type, NULL );
+	object_realize( OBJECT(bersirc) );
 	
 	object_addhandler( claro, "mainloop", bersirc_mainloop_it );
 }
@@ -324,22 +328,22 @@ event_handler( profile_main_finished )
 
 event_handler( treeview_handle_context )
 {
-	object_t *item = OBJECT(event_get_arg_ptr( event, 0 ));
+	object_t *item = OBJECT(event_get_ptr( event, "row" ));
 	BServerWindow *sw = (BServerWindow *)item->appdata;
 	int dx, dy;
 	
 	if ( sw )
 	{
 		widget_screen_offset( object, &dx, &dy );
-		dx += event_get_arg_int( event, 1 );
-		dy += event_get_arg_int( event, 2 );
+		dx += event_get_int( event, "x" );
+		dy += event_get_int( event, "y" );
 		menu_popup( sw->conmenu.menu, dx, dy, cMenuPopupAtCursor );
 	}
 }
 
 event_handler( treeview_handle_selected )
 {
-	object_t *item = OBJECT(event_get_arg_ptr( event, 0 ));
+	object_t *item = OBJECT(event_get_ptr( event, "row" ));
 	BServerWindow *sw;
 	
 	if ( !item )
@@ -391,7 +395,7 @@ int main( int argc, char *argv[] )
 	// Initialise Claro
 	claro_base_init( );
 	claro_graphics_init( );
-//	log_fd_set_level( CL_DEBUG, stderr );
+	log_fd_set_level( CL_DEBUG, stderr );
 	clog( CL_INFO, "%s (%s) running using Claro!", APPTITLE, __FILE__ );
 	
 	bersirc_create( );
@@ -555,7 +559,7 @@ int main( int argc, char *argv[] )
 	
 	// Create the first status window
 	sw = b_new_server_window( 1 );
-	b_window_focus( sw );
+	b_window_focus( OBJECT(sw) );
 	
 	// Load the plugins (status window needs to be open just incase there are errors)
 	b_plugins_load( );

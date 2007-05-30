@@ -362,14 +362,15 @@ char *c_socket_hostname_to_ip( char *hostname )
 	a = (struct in_addr *)*hostEntry->h_addr_list;
 	
 	return inet_ntoa( *a );
+#else
+	return "";
 #endif
 }
 
 void c_socket_connect( CSocket *sock, char *hostname, int port )
 {
-	int a = 0;
-	
 #ifdef ENV_WIN32
+	int a = 0;
 	sock->hostEntry = gethostbyname( hostname );
 
 	c_socket_set_state( sock, C_SOCK_DISCONNECTED );

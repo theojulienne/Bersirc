@@ -31,6 +31,9 @@ typedef struct
 	list_t servers;
 } bersirc_t;
 
+declare_class( bersirc );
+#define bersirc_type bersirc_get_type( )
+
 extern bersirc_t *bersirc;
 
 #define APPTITLE "Bersirc IRC Client " BERSIRC_VERSION

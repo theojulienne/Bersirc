@@ -58,9 +58,9 @@ event_handler( b_ct_srv_txtchanged )
 	port = atoi( sport );
 	
 	if ( port == 0 || !strcasecmp( server, "" ) )
-		widget_disable( WIDGET(ct_btn_connect) );
+		widget_disable( OBJECT(ct_btn_connect) );
 	else
-		widget_enable( WIDGET(ct_btn_connect) );
+		widget_enable( OBJECT(ct_btn_connect) );
 }
 
 event_handler( b_ct_connect )
@@ -180,7 +180,7 @@ event_handler( b_ct_srv_keypressed )
 
 event_handler( b_ct_cancel )
 {
-	widget_close( WIDGET(ctwin) );
+	widget_close( OBJECT(ctwin) );
 }
 
 void b_conto_load_nets( )
@@ -260,7 +260,7 @@ event_handler( b_ct_net_selected )
 			if ( sel != 0 )
 				combo_select_item( ct_ddn_server, sel );
 			
-			widget_enable( WIDGET(ct_ddn_server) );
+			widget_enable( OBJECT(ct_ddn_server) );
 			//c_widget_disable( ct_btn_connect );
 			return;
 		}
@@ -319,7 +319,7 @@ void b_open_conto( int type )
 		{
 			ct_lbl_servername = label_widget_create_with_text( ctwin, new_bounds(10, y, mpos, -1), 0, lang_phrase_quick( "connectwin_servername" ) );
 			ct_txt_servername = textbox_widget_create( ctwin, new_bounds(mpos, y, w-mpos-10, -1), 0 );
-			c_widget_focus( ct_txt_servername );
+			widget_focus( ct_txt_servername );
 			y += 30;
 			
 			ct_lbl_password = label_widget_create_with_text( ctwin, new_bounds(10, y, mpos, -1), 0, lang_phrase_quick( "connectwin_password" ) );
@@ -331,7 +331,7 @@ void b_open_conto( int type )
 			textbox_set_text( ct_txt_port, "6667" );
 			y += 30;
 			
-			widget_set_notify( WIDGET(ct_txt_servername), cNotifyKey );
+			widget_set_notify( OBJECT(ct_txt_servername), cNotifyKey );
 			object_addhandler( ct_txt_servername, "key_down", b_ct_srv_keypressed );
 			
 			object_addhandler( ct_txt_servername, "changed", b_ct_srv_txtchanged );
@@ -358,7 +358,7 @@ void b_open_conto( int type )
 		y += 25;
 		
 		ct_btn_connect = c_new_pushbutton( ctwin, lang_phrase_quick( "connect" ), w-220, y, 100, -1, 0 );
-		widget_disable( WIDGET(ct_btn_connect) );
+		widget_disable( OBJECT(ct_btn_connect) );
 		ct_btn_cancel = c_new_pushbutton( ctwin, lang_phrase_quick( "cancel" ), w-110, y, 100, -1, 0 );
 		y += 30;
 		
@@ -374,6 +374,6 @@ void b_open_conto( int type )
 	}
 	else
 	{
-		widget_focus( WIDGET(ctwin) );
+		widget_focus( OBJECT(ctwin) );
 	}
 }

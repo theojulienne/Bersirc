@@ -69,9 +69,11 @@ event_handler( b_chat_content_focus )
 	if ( cw == 0 || cw->input == 0 )
 		return;
 	
-	widget_focus( WIDGET(cw->input) );
+	widget_focus( OBJECT(cw->input) );
 	
 	b_taskbar_redraw( );
+	
+	treeview_select_item( bersirc->treeview, cw->tv_item );
 }
 
 event_handler( b_chat_enter_press )
@@ -342,7 +344,7 @@ event_handler( userlist_doubleclick )
 	list_item_t *li = listbox_get_selected( object );
 	char tmp[128];
 	BUserStore *us;
-	BChatWindow *win = b_find_any_by_widget( object );
+	BChatWindow *win = (BChatWindow *)b_find_any_by_widget( object );
 	
 	if ( !li )
 		return;
@@ -424,7 +426,7 @@ BChatWindow *b_new_chat_window( BServerWindow *server, char *dest, int flags )
 	object_addhandler( chat->content, "focus", b_chat_content_focus );
 	
 	chat->scroll = scrollbar_widget_create( chat->container, lt_bounds(chat->ct_layout,"scrollbar"), cScrollbarVertical );
-	ircview_set_scrollbar( chat->content, chat->scroll );
+	ircview_set_scrollbar( (ircview_t *)chat->content, chat->scroll );
 	
 	if ( flags & 1 )
 	{
@@ -443,7 +445,7 @@ BChatWindow *b_new_chat_window( BServerWindow *server, char *dest, int flags )
 	object_addhandler( line, "redraw", b_draw_line_canvas );
 	
 	chat->input = textbox_widget_create( chat->window, lt_bounds(chat->layout,"input"), cWidgetNoBorder );
-	widget_set_notify( WIDGET(chat->input), cNotifyKey );
+	widget_set_notify( OBJECT(chat->input), cNotifyKey );
 	
 	object_addhandler( chat->input, "key_down", b_input_key_press );
 	object_addhandler( chat->input, "enter_press", b_chat_enter_press );
@@ -465,7 +467,7 @@ BChatWindow *b_new_chat_window( BServerWindow *server, char *dest, int flags )
 		}
 		
 		chat->tv_item = treeview_append_row( bersirc->treeview, server->tv_channels, b_icon("channel_window"), chat->dest );
-		chat->tv_item->appdata = (void *)chat;
+		OBJECT(chat->tv_item)->appdata = (void *)chat;
 		
 		if ( newf )
 		{
@@ -485,7 +487,7 @@ BChatWindow *b_new_chat_window( BServerWindow *server, char *dest, int flags )
 		}
 		
 		chat->tv_item = treeview_append_row( bersirc->treeview, server->tv_queries, b_icon("query_window"), chat->dest );
-		chat->tv_item->appdata = (void *)chat;
+		OBJECT(chat->tv_item)->appdata = (void *)chat;
 		
 		if ( newf )
 		{
@@ -506,7 +508,7 @@ BChatWindow *b_new_chat_window( BServerWindow *server, char *dest, int flags )
 	workspace_window_maximise( chat->window );
 	
 	/* this could also be an option */
-	b_window_focus( chat );
+	b_window_focus( OBJECT(chat) );
 	
 	return chat;
 }
