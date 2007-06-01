@@ -37,6 +37,7 @@ char *quitMessages[] = {
 	"The Bersirc are coming! The Bersirc are coming!" QMT,
 	"Yummy, like ircing on a cake!" QMT,
 	"\002Bersirc 2.2\002, for external use only." QMT,
+	"If you feel nobody loves you, remember, Bersirc does" QMT,
 	0,
 };
 
